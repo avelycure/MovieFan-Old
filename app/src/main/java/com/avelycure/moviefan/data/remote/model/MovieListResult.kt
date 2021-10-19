@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.data.remote.dto
+package com.avelycure.moviefan.data.remote.model
 
 import kotlinx.serialization.Serializable
 
