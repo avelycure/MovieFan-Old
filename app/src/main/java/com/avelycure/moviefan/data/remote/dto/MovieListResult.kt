@@ -1,5 +1,8 @@
 package com.avelycure.moviefan.data.remote.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class MovieListResult(
     val posterPath: String?,
     val adult: Boolean,
