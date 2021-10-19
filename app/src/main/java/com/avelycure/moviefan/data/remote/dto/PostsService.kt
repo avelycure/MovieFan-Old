@@ -1,5 +1,5 @@
 package com.avelycure.moviefan.data.remote.dto
 
 interface PostsService {
-    suspend fun getPosts(): List<PolularMoviesResponse>
+    suspend fun getPosts(): PolularMoviesResponse
 }

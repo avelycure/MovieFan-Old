@@ -9,24 +9,24 @@ class PostsServiceImpl(
     private val client: HttpClient
 ) : PostsService {
 
-    override suspend fun getPosts(): List<PolularMoviesResponse> {
+    override suspend fun getPosts(): PolularMoviesResponse {
         return try {
             client.get { url(Constants.POPULAR_MOVIES) }
         } catch (e: RedirectResponseException) {
             //3xx
             println("Error: ${e.response.status.description}")
-            emptyList()
+            PolularMoviesResponse()
         } catch (e: ClientRequestException) {
             //4xx
             println("Error: ${e.response.status.description}")
-            emptyList()
+            PolularMoviesResponse()
         } catch (e: ServerResponseException) {
             //5xx
             println("Error: ${e.response.status.description}")
-            emptyList()
+            PolularMoviesResponse()
         } catch (e: Exception) {
             println("Error: ${e.message}")
-            emptyList()
+            PolularMoviesResponse()
         }
     }
 }

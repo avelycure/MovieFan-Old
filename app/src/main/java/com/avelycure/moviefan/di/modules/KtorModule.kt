@@ -1,19 +1,24 @@
 package com.avelycure.moviefan.di.modules
 
+import com.avelycure.moviefan.data.remote.dto.PostsService
 import com.avelycure.moviefan.data.remote.dto.PostsServiceImpl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
+import javax.inject.Singleton
 
 @Module
-class KtorModule {
-
+@InstallIn(SingletonComponent::class)
+object KtorModule {
     @Provides
-    fun provideKtorInstance(): PostsServiceImpl {
+    @Singleton
+    fun provideKtorInstance(): PostsService {
         return PostsServiceImpl(
             HttpClient(Android) {
                 install(Logging) {

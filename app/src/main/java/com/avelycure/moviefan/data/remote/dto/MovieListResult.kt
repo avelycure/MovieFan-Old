@@ -4,18 +4,18 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MovieListResult(
-    val posterPath: String?,
+    val poster_path: String?,
     val adult: Boolean,
     val overview: String,
-    val releaseDate: String,
-    val genreIds: List<Int>,
+    val release_date: String,
+    val genre_ids: List<Int>,
     val id: Int,
-    val originalTitle:String,
-    val originalLanguage: String,
+    val original_title:String,
+    val original_language: String,
     val title: String,
-    val backdropPath: String?,
+    val backdrop_path: String?,
     val popularity: Float,
-    val voteCount: Int,
+    val vote_count: Int,
     val video: Boolean,
-    val voteAverage: Float
+    val vote_average: Float
 )
