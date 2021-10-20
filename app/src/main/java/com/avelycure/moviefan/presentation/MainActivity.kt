@@ -2,9 +2,11 @@ package com.avelycure.moviefan.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
@@ -27,14 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navController = = Navigation.findNavController(this, R.id.auth_nav_host_fragment)
-
-        rvPopularMovie = findViewById(R.id.rv_popular_movies)
-        adapter = PopularMovieAdapter()
-        rvPopularMovie.layoutManager = LinearLayoutManager(this)
-        rvPopularMovie.adapter = adapter
-
-        fetchPopularMovies()
+        this.navController = Navigation.findNavController(this, R.id.fragment_container)
     }
 
     private fun fetchPopularMovies() {

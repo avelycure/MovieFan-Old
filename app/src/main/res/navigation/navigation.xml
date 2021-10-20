@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/auth_navigation"
+    android:id="@+id/home_navigation"
     app:startDestination="@+id/popular_movies_fragment">
 
     <activity
@@ -14,7 +14,8 @@
     <fragment
         android:id="@+id/popular_movies_fragment"
         android:name="com.avelycure.moviefan.presentation.PopularMoviesFragment"
-        android:label="popular_movies_fragment">
+        android:label="popular_movies_fragment"
+        tools:layout="@layout/fragement_popular_movies">
     </fragment>
 
 </navigation>
