@@ -1,6 +1,6 @@
 package com.avelycure.moviefan.domain
 
-data class PopularMovieCard(
+data class PopularMovie(
     val posterPath: String?,
     val overview: String,
     val genreIds: List<Int>,
