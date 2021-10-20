@@ -1,4 +1,7 @@
 package com.avelycure.moviefan.data.remote
 
-class MoviePagingSource {
+class MoviePagingSource(
+    val postsService: PostsService
+) {
+
 }
