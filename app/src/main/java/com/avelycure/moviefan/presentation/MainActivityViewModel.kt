@@ -1,13 +1,13 @@
 package com.avelycure.moviefan.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.avelycure.moviefan.data.remote.MovieRepository
-import com.avelycure.moviefan.data.remote.PostsService
-import com.avelycure.moviefan.data.remote.dto.toPopularMovie
+import com.avelycure.moviefan.domain.PopularMovie
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,9 +16,8 @@ class MainActivityViewModel
     val repository: MovieRepository
 ) : ViewModel() {
 
-    fun getPhotos() {
-        viewModelScope.launch {
-
-        }
+    fun getPhotos(): Flow<PagingData<PopularMovie>> {
+        return repository.letMovieFlow()
+            .cachedIn(viewModelScope)
     }
 }
