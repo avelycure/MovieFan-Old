@@ -16,13 +16,11 @@ class MainActivityViewModel
 
     fun getPhotos() {
         viewModelScope.launch {
-            val request = postsService.getPosts()
-
-            request.results.map{
+            val request = postsService.getPosts().results.map{
 
             }
 
-            Log.d("mytag", request.results.get(0).original_title)
+            Log.d("mytag", "Network request: ${1}")
         }
     }
 }
