@@ -21,25 +21,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
-    private val mainActivityViewModel: MainActivityViewModel by viewModels()
-    private lateinit var adapter: PopularMovieAdapter
-    private lateinit var rvPopularMovie: RecyclerView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         this.navController = Navigation.findNavController(this, R.id.fragment_container)
-    }
-
-    private fun fetchPopularMovies() {
-        lifecycleScope.launch {
-            mainActivityViewModel
-                .getPhotos()
-                .distinctUntilChanged()
-                .collectLatest {
-                    adapter.submitData(it)
-                }
-        }
     }
 }
