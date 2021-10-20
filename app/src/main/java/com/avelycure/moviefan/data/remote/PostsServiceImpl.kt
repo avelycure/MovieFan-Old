@@ -10,9 +10,11 @@ class PostsServiceImpl(
     private val client: HttpClient
 ) : PostsService {
 
-    override suspend fun getPosts(): PolularMoviesResponse {
+    override suspend fun getPosts(nextPage: Int): PolularMoviesResponse {
         return try {
-            client.get { url(Constants.POPULAR_MOVIES) }
+            client.get {
+                url(Constants.POPULAR_MOVIES + nextPage)
+            }
         } catch (e: RedirectResponseException) {
             //3xx
             println("Error: ${e.response.status.description}")
