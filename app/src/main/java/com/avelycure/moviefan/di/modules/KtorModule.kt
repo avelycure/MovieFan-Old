@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.di.modules
 
+import com.avelycure.moviefan.data.remote.MovieRepository
 import com.avelycure.moviefan.data.remote.PostsService
 import com.avelycure.moviefan.data.remote.PostsServiceImpl
 import dagger.Module
@@ -29,5 +30,11 @@ object KtorModule {
                 }
             }
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieRepository(postsService: PostsService): MovieRepository {
+        return MovieRepository(postsService)
     }
 }
