@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        navController = = Navigation.findNavController(this, R.id.auth_nav_host_fragment)
+
         rvPopularMovie = findViewById(R.id.rv_popular_movies)
         adapter = PopularMovieAdapter()
         rvPopularMovie.layoutManager = LinearLayoutManager(this)
