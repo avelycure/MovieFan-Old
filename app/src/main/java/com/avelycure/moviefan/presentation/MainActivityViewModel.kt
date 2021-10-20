@@ -18,6 +18,10 @@ class MainActivityViewModel
         viewModelScope.launch {
             val request = postsService.getPosts()
 
+            request.results.map{
+
+            }
+
             Log.d("mytag", request.results.get(0).original_title)
         }
     }
