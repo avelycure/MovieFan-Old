@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.avelycure.moviefan.R
+import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.PopularMovie
 
 class PopularMovieAdapter :
@@ -27,11 +30,16 @@ class PopularMovieAdapter :
     class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val tvTitle = view.findViewById<TextView>(R.id.pm_item_movie_title)
         val tvOverview = view.findViewById<TextView>(R.id.pm_item_movie_overview)
+        val movieLogo = view.findViewById<AppCompatImageView>(R.id.pm_item_iv)
 
         fun bind(item: PopularMovie?){
             item?.let {
                 tvTitle.text = it.title
                 tvOverview.text = it.overview
+                movieLogo.load(Constants.IMAGE + it.posterPath){
+                    crossfade(true)
+                    placeholder(R.drawable.image_placeholder)
+                }
             }
         }
     }
