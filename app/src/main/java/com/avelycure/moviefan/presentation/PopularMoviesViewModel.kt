@@ -10,7 +10,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MainActivityViewModel
-(): ViewModel() {
+@HiltViewModel
+class PopularMoviesViewModel
+@Inject constructor(
+    val repository: MovieRepository
+): ViewModel() {
 
+    fun getPhotos(): Flow<PagingData<PopularMovie>> {
+        return repository.letMovieFlow()
+            .cachedIn(viewModelScope)
+    }
 }

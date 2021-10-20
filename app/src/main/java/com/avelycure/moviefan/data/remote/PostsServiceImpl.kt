@@ -1,6 +1,7 @@
-package com.avelycure.moviefan.data.remote.dto
+package com.avelycure.moviefan.data.remote
 
 import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.data.remote.dto.PolularMoviesResponse
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*
@@ -9,9 +10,11 @@ class PostsServiceImpl(
     private val client: HttpClient
 ) : PostsService {
 
-    override suspend fun getPosts(): PolularMoviesResponse {
+    override suspend fun getPosts(nextPage: Int): PolularMoviesResponse {
         return try {
-            client.get { url(Constants.POPULAR_MOVIES) }
+            client.get {
+                url(Constants.POPULAR_MOVIES + nextPage)
+            }
         } catch (e: RedirectResponseException) {
             //3xx
             println("Error: ${e.response.status.description}")
