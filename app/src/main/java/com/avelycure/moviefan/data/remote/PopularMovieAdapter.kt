@@ -52,7 +52,6 @@ class PopularMovieAdapter :
         )
 
         val tvTitle = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_title)
-        val tvOverview = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_overview)
         val movieLogo = view.findViewById<AppCompatImageView>(R.id.pm_item_iv)
         val tvReviews = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_reviews)
         val ratingBar = view.findViewById<AppCompatRatingBar>(R.id.pm_item_rating_bar)
@@ -63,7 +62,6 @@ class PopularMovieAdapter :
             item?.let {
                         popularMovie ->
                 tvTitle.text = popularMovie.title
-                tvOverview.text = popularMovie.overview
                 tvReviews.text = popularMovie.popularity.toString()
                 ratingBar.rating = popularMovie.voteAverage / 2F
                 tvOriginalTitle.text = "${popularMovie.originalTitle}, ${popularMovie.releaseDate.substring(0,4)}"

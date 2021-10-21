@@ -70,13 +70,4 @@
         app:layout_constraintStart_toStartOf="@id/pm_item_movie_title"
         app:layout_constraintTop_toBottomOf="@id/pm_item_tv_reviews" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/pm_item_movie_overview"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pm_item_iv" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
