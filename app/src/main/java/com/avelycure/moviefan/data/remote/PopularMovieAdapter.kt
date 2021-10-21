@@ -57,6 +57,7 @@ class PopularMovieAdapter :
         val tvReviews = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_reviews)
         val ratingBar = view.findViewById<AppCompatRatingBar>(R.id.pm_item_rating_bar)
         val tvGenres = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_genres)
+        val tvOriginalTitle = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_original_title)
 
         fun bind(item: PopularMovie?) {
             item?.let {
@@ -65,6 +66,7 @@ class PopularMovieAdapter :
                 tvOverview.text = popularMovie.overview
                 tvReviews.text = popularMovie.popularity.toString()
                 ratingBar.rating = popularMovie.voteAverage / 2F
+                tvOriginalTitle.text = popularMovie.originalTitle
                 tvGenres.text = buildString {
                     for(genreId in popularMovie.genreIds)
                         append(movieGenre[genreId] + " ")
