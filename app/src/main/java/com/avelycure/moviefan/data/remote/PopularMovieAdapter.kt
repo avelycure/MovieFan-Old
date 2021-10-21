@@ -3,6 +3,7 @@ package com.avelycure.moviefan.data.remote
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.paging.PagingDataAdapter
@@ -31,11 +32,15 @@ class PopularMovieAdapter :
         val tvTitle = view.findViewById<TextView>(R.id.pm_item_movie_title)
         val tvOverview = view.findViewById<TextView>(R.id.pm_item_movie_overview)
         val movieLogo = view.findViewById<AppCompatImageView>(R.id.pm_item_iv)
+        val tvReviews = view.findViewById<TextView>(R.id.pm_item_tv_reviews)
+        val ratingBar = view.findViewById<RatingBar>(R.id.pm_item_rating_bar)
 
         fun bind(item: PopularMovie?){
             item?.let {
                 tvTitle.text = it.title
                 tvOverview.text = it.overview
+                tvReviews.text = it.popularity.toString()
+                ratingBar.rating = (it.popularity.toInt()/2000F)
                 movieLogo.load(Constants.IMAGE + it.posterPath){
                     crossfade(true)
                     placeholder(R.drawable.image_placeholder)
