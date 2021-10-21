@@ -38,6 +38,7 @@ class PopularMoviesFragment : Fragment() {
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
         movieAdapter = PopularMovieAdapter()
+
         movieAdapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading){
                 loadingProgressBar.visibility = View.VISIBLE
@@ -56,13 +57,9 @@ class PopularMoviesFragment : Fragment() {
             }
         }
 
-        val loadStateAdapter = movieAdapter.withLoadStateFooter(
+        rvPopularMovie.adapter = movieAdapter.withLoadStateFooter(
             footer = MovieLoadStateAdapter { movieAdapter.retry() }
         )
-
-        rvPopularMovie.adapter = loadStateAdapter
-
-
         return view
     }
 
