@@ -29,6 +29,7 @@ fun MovieListResult.toPopularMovie(): PopularMovie{
         overview = overview,
         genreIds = genre_ids,
         popularity = popularity,
-        voteAverage = vote_average
+        voteAverage = vote_average,
+        releaseDate = release_date
     )
 }

@@ -7,5 +7,6 @@ data class PopularMovie(
     val overview: String,
     val genreIds: List<Int>,
     val popularity: Float,
-    val voteAverage: Float
+    val voteAverage: Float,
+    val releaseDate: String
 )

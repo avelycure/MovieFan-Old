@@ -66,7 +66,7 @@ class PopularMovieAdapter :
                 tvOverview.text = popularMovie.overview
                 tvReviews.text = popularMovie.popularity.toString()
                 ratingBar.rating = popularMovie.voteAverage / 2F
-                tvOriginalTitle.text = popularMovie.originalTitle
+                tvOriginalTitle.text = "${popularMovie.originalTitle}, ${popularMovie.releaseDate.substring(0,4)}"
                 tvGenres.text = buildString {
                     for(genreId in popularMovie.genreIds)
                         append(movieGenre[genreId] + " ")
