@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PopularMoviesFragment : Fragment() {
-    private lateinit var adapter: PopularMovieAdapter
+    private lateinit var movieAdapter: PopularMovieAdapter
     private lateinit var rvPopularMovie: RecyclerView
     private val popularMoviesViewModel: PopularMoviesViewModel by viewModels()
 
@@ -28,10 +28,18 @@ class PopularMoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragement_popular_movies, container, false)
+
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
-        adapter = PopularMovieAdapter()
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
-        rvPopularMovie.adapter = adapter
+        movieAdapter = PopularMovieAdapter()
+
+        val loadStateAdapter = movieAdapter.withLoadStateFooter(
+            footer = MovieLoadStateAdapter { movieAdapter.retry() }
+        )
+
+        rvPopularMovie.adapter = loadStateAdapter
+
+
         return view
     }
 
@@ -44,9 +52,8 @@ class PopularMoviesFragment : Fragment() {
         lifecycleScope.launch {
             popularMoviesViewModel
                 .getPhotos()
-                .distinctUntilChanged()
                 .collectLatest {
-                    adapter.submitData(it)
+                    movieAdapter.submitData(it)
                 }
         }
     }
