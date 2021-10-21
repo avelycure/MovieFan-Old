@@ -5,6 +5,8 @@ import com.avelycure.moviefan.data.remote.dto.PolularMoviesResponse
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*
+import io.ktor.utils.io.errors.*
+import kotlinx.coroutines.delay
 
 class PostsServiceImpl(
     private val client: HttpClient
@@ -16,20 +18,13 @@ class PostsServiceImpl(
                 url(Constants.POPULAR_MOVIES + nextPage)
             }
         } catch (e: RedirectResponseException) {
-            //3xx
-            println("Error: ${e.response.status.description}")
-            PolularMoviesResponse()
+            throw Exception("Further action needs to be taken in order to complete the request")
         } catch (e: ClientRequestException) {
-            //4xx
-            println("Error: ${e.response.status.description}")
-            PolularMoviesResponse()
+            throw Exception("The request contains bad syntax or cannot be fulfilled")
         } catch (e: ServerResponseException) {
-            //5xx
-            println("Error: ${e.response.status.description}")
-            PolularMoviesResponse()
-        } catch (e: Exception) {
-            println("Error: ${e.message}")
-            PolularMoviesResponse()
+            throw Exception("The server failed to fulfil an apparently valid request")
+        } catch (e: IOException) {
+            throw Exception("No internet connection")
         }
     }
 }

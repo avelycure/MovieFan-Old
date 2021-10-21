@@ -17,7 +17,8 @@ class PopularMoviesViewModel
 ): ViewModel() {
 
     fun getPhotos(): Flow<PagingData<PopularMovie>> {
-        return repository.letMovieFlow()
+        return repository
+            .letMovieFlow()
             .cachedIn(viewModelScope)
     }
 }

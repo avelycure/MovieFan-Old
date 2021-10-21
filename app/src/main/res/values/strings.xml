@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MovieFan</string>
+    <string name="pm_retry_button">Retry</string>
 </resources>
