@@ -28,20 +28,48 @@ class PopularMovieAdapter :
         )
     }
 
-    class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val movieGenre = mapOf(
+            28 to "Action",
+            12 to "Adventure",
+            16 to "Animation",
+            35 to "Comedy",
+            80 to "Crime",
+            99 to "Documentary",
+            18 to "Drama",
+            10751 to "Family",
+            14 to "Fantasy",
+            36 to "History",
+            27 to "Horror",
+            10402 to "Music",
+            9648 to "Mystery",
+            10749 to "Romance",
+            878 to "Science Fiction",
+            10770 to "TV Movie",
+            53 to "Thriller",
+            10752 to "War",
+            37 to "Western"
+        )
+
         val tvTitle = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_title)
         val tvOverview = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_overview)
         val movieLogo = view.findViewById<AppCompatImageView>(R.id.pm_item_iv)
         val tvReviews = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_reviews)
         val ratingBar = view.findViewById<AppCompatRatingBar>(R.id.pm_item_rating_bar)
+        val tvGenres = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_genres)
 
-        fun bind(item: PopularMovie?){
+        fun bind(item: PopularMovie?) {
             item?.let {
-                tvTitle.text = it.title
-                tvOverview.text = it.overview
-                tvReviews.text = it.popularity.toString()
-                ratingBar.rating = (it.popularity.toInt()/2000F)
-                movieLogo.load(Constants.IMAGE + it.posterPath){
+                        popularMovie ->
+                tvTitle.text = popularMovie.title
+                tvOverview.text = popularMovie.overview
+                tvReviews.text = popularMovie.popularity.toString()
+                ratingBar.rating = popularMovie.voteAverage / 2F
+                tvGenres.text = buildString {
+                    for(genreId in popularMovie.genreIds)
+                        append(movieGenre[genreId] + " ")
+                }
+                movieLogo.load(Constants.IMAGE + popularMovie.posterPath) {
                     crossfade(true)
                     placeholder(R.drawable.image_placeholder)
                 }
