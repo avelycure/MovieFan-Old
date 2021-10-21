@@ -1,10 +1,11 @@
 package com.avelycure.moviefan.domain
 
 data class PopularMovie(
-    val posterPath: String?,
-    val overview: String,
-    val genreIds: List<Int>,
     val title: String,
-    val backdropPath: String?,
+    val originalTitle: String,
+    val posterPath: String?,
+    val genreIds: List<Int>,
     val popularity: Float,
+    val voteAverage: Float,
+    val releaseDate: String
 )

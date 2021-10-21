@@ -23,11 +23,12 @@ data class MovieListResult(
 
 fun MovieListResult.toPopularMovie(): PopularMovie{
     return PopularMovie(
-        posterPath = poster_path,
-        overview = overview,
-        genreIds = genre_ids,
         title = title,
-        backdropPath = backdrop_path,
-        popularity = popularity
+        originalTitle = original_title,
+        posterPath = poster_path,
+        genreIds = genre_ids,
+        popularity = popularity,
+        voteAverage = vote_average,
+        releaseDate = release_date
     )
 }
