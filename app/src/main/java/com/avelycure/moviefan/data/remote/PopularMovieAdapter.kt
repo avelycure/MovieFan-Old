@@ -3,9 +3,9 @@ package com.avelycure.moviefan.data.remote
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RatingBar
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatRatingBar
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -29,11 +29,11 @@ class PopularMovieAdapter :
     }
 
     class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val tvTitle = view.findViewById<TextView>(R.id.pm_item_movie_title)
-        val tvOverview = view.findViewById<TextView>(R.id.pm_item_movie_overview)
+        val tvTitle = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_title)
+        val tvOverview = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_overview)
         val movieLogo = view.findViewById<AppCompatImageView>(R.id.pm_item_iv)
-        val tvReviews = view.findViewById<TextView>(R.id.pm_item_tv_reviews)
-        val ratingBar = view.findViewById<RatingBar>(R.id.pm_item_rating_bar)
+        val tvReviews = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_reviews)
+        val ratingBar = view.findViewById<AppCompatRatingBar>(R.id.pm_item_rating_bar)
 
         fun bind(item: PopularMovie?){
             item?.let {
