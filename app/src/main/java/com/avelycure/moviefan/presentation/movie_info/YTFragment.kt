@@ -20,6 +20,7 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
         provider: YouTubePlayer.Provider?,
         youTubeInitializationResult: YouTubeInitializationResult?
     ) {
+        Log.d("mytag", "" + youTubeInitializationResult?.name)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

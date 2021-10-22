@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +36,10 @@ class PopularMoviesFragment : Fragment() {
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
-        movieAdapter = PopularMovieAdapter()
+        movieAdapter = PopularMovieAdapter{
+            val bundle = bundleOf("movie" to it.title)
+            findNavController().navigate(R.id.movie_info_fragment, bundle)
+        }
 
         movieAdapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading){

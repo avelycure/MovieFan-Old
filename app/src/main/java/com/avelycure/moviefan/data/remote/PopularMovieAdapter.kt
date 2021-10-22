@@ -14,11 +14,13 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.PopularMovie
 
-class PopularMovieAdapter :
+class PopularMovieAdapter(
+    val onClickedItem: (PopularMovie) -> Unit
+) :
     PagingDataAdapter<PopularMovie, PopularMovieAdapter.MovieViewHolder>(MovieComparator) {
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(item = getItem(position))
+        holder.bind(item = getItem(position), onClicked = onClickedItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -56,23 +58,28 @@ class PopularMovieAdapter :
         val tvReviews = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_reviews)
         val ratingBar = view.findViewById<AppCompatRatingBar>(R.id.pm_item_rating_bar)
         val tvGenres = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_genres)
-        val tvOriginalTitle = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_original_title)
+        val tvOriginalTitle =
+            view.findViewById<AppCompatTextView>(R.id.pm_item_movie_original_title)
 
-        fun bind(item: PopularMovie?) {
-            item?.let {
-                        popularMovie ->
+        fun bind(item: PopularMovie?, onClicked: (PopularMovie) -> Unit) {
+            item?.let { popularMovie ->
                 tvTitle.text = popularMovie.title
                 tvReviews.text = popularMovie.popularity.toString()
                 ratingBar.rating = popularMovie.voteAverage / 2F
-                tvOriginalTitle.text = "${popularMovie.originalTitle}, ${popularMovie.releaseDate.substring(0,4)}"
+                tvOriginalTitle.text =
+                    "${popularMovie.originalTitle}, ${popularMovie.releaseDate.substring(0, 4)}"
                 tvGenres.text = buildString {
-                    for(genreId in popularMovie.genreIds)
+                    for (genreId in popularMovie.genreIds)
                         append(movieGenre[genreId] + " ")
                 }
                 movieLogo.load(Constants.IMAGE + popularMovie.posterPath) {
                     crossfade(true)
                     placeholder(R.drawable.image_placeholder)
                 }
+            }
+
+            itemView.setOnClickListener {
+                onClicked(item!!)
             }
         }
     }
