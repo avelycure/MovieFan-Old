@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_navigation"
-    app:startDestination="@+id/popular_movies_fragment">
+    app:startDestination="@+id/movie_info_fragment">
 
     <activity
         android:id="@+id/main_activity"
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/movie_info_fragment"
-        android:name="com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment"
+        android:name="com.avelycure.moviefan.presentation.movie_info.YTFragment"
         android:label="popular_movies_fragment"
         tools:layout="@layout/fragment_movie_info">
     </fragment>
