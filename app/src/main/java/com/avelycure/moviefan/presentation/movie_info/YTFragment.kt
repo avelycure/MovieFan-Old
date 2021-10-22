@@ -14,14 +14,12 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
     ) {
         youTubePlayer?.cueVideo("W4hTJybfU7s");
         youTubePlayer?.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
-        Log.d("mytag", "success init")
     }
 
     override fun onInitializationFailure(
         provider: YouTubePlayer.Provider?,
         youTubeInitializationResult: YouTubeInitializationResult?
     ) {
-        Log.d("mytag", "failed init" + youTubeInitializationResult?.name )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
