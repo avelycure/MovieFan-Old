@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.presentation
+package com.avelycure.moviefan.presentation.popular_movie
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

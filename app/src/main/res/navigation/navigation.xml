@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/popular_movies_fragment"
-        android:name="com.avelycure.moviefan.presentation.PopularMoviesFragment"
+        android:name="com.avelycure.moviefan.presentation.popular_movie.PopularMoviesFragment"
         android:label="popular_movies_fragment"
         tools:layout="@layout/fragement_popular_movies">
         <action
