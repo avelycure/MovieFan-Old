@@ -16,6 +16,16 @@
         android:name="com.avelycure.moviefan.presentation.PopularMoviesFragment"
         android:label="popular_movies_fragment"
         tools:layout="@layout/fragement_popular_movies">
+        <action
+            android:id="@+id/action_popular_movies_fragment_to_movie_info_fragment"
+            app:destination="@id/movie_info_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movie_info_fragment"
+        android:name="com.avelycure.moviefan.presentation.MovieInfoFragment"
+        android:label="popular_movies_fragment"
+        tools:layout="@layout/fragment_movie_info">
     </fragment>
 
 </navigation>
