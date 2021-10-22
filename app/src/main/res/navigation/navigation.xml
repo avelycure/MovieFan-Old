@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/movie_info_fragment"
-        android:name="com.avelycure.moviefan.presentation.MovieInfoFragment"
+        android:name="com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment"
         android:label="popular_movies_fragment"
         tools:layout="@layout/fragment_movie_info">
     </fragment>
