@@ -1,6 +1,7 @@
 package com.avelycure.moviefan.data.remote
 
 import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.popular.PolularMoviesResponse
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import io.ktor.client.*
@@ -32,6 +33,22 @@ class PostsServiceImpl(
         return try {
             client.get {
                 url("${Constants.BASE_URL}/$id/videos?api_key=${Constants.API_KEY}")
+            }
+        } catch (e: RedirectResponseException) {
+            throw Exception("Further action needs to be taken in order to complete the request")
+        } catch (e: ClientRequestException) {
+            throw Exception("The request contains bad syntax or cannot be fulfilled")
+        } catch (e: ServerResponseException) {
+            throw Exception("The server failed to fulfil an apparently valid request")
+        } catch (e: IOException) {
+            throw Exception("No internet connection")
+        }
+    }
+
+    override suspend fun getMovieDetail(id: Int): DetailResponse {
+        return try {
+            client.get {
+                url("${Constants.BASE_URL}/$id?api_key=${Constants.API_KEY}")
             }
         } catch (e: RedirectResponseException) {
             throw Exception("Further action needs to be taken in order to complete the request")
