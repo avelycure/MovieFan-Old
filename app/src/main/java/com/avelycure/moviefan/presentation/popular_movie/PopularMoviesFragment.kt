@@ -36,16 +36,15 @@ class PopularMoviesFragment : Fragment() {
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
-        movieAdapter = PopularMovieAdapter{
-            val bundle = bundleOf("movie" to it.title)
-            findNavController().navigate(R.id.movie_info_fragment, bundle)
+
+        movieAdapter = PopularMovieAdapter {
+            findNavController().navigate(R.id.movie_info_fragment, bundleOf("movie" to it.title))
         }
 
         movieAdapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading){
+            if (loadState.refresh is LoadState.Loading) {
                 loadingProgressBar.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 loadingProgressBar.visibility = View.GONE
                 val errorState = when {
                     loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
