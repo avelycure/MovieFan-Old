@@ -1,13 +1,12 @@
 package com.avelycure.moviefan.data.remote
 
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.data.remote.dto.PolularMoviesResponse
+import com.avelycure.moviefan.data.remote.dto.popular.PolularMoviesResponse
 import com.avelycure.moviefan.data.remote.dto.VideosResponse
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*
 import io.ktor.utils.io.errors.*
-import kotlinx.coroutines.delay
 
 class PostsServiceImpl(
     private val client: HttpClient

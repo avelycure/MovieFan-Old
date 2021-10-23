@@ -1,6 +1,6 @@
 package com.avelycure.moviefan.data.remote
 
-import com.avelycure.moviefan.data.remote.dto.PolularMoviesResponse
+import com.avelycure.moviefan.data.remote.dto.popular.PolularMoviesResponse
 import com.avelycure.moviefan.data.remote.dto.VideosResponse
 
 interface PostsService {
