@@ -19,6 +19,7 @@ data class DetailResponse(
     val genres: List<MovieGenre>,
     val production_companies: List<ProductionCompanies>,
     val production_countries: List<ProductionCountries>,
+    val spoken_languages: List<SpokenLanguages>,
     val status: String,
     val tagline: String?,
     val title: String,
