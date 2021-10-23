@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.presentation
+package com.avelycure.moviefan.presentation.popular_movie
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.core.widget.ContentLoadingProgressBar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
+import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.PopularMovieAdapter
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -37,13 +37,18 @@ class PopularMoviesFragment : Fragment() {
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
-        movieAdapter = PopularMovieAdapter()
+
+        movieAdapter = PopularMovieAdapter {
+            findNavController().navigate(
+                R.id.movie_info_fragment,
+                bundleOf(Constants.ID_KEY to it.movieId)
+            )
+        }
 
         movieAdapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading){
+            if (loadState.refresh is LoadState.Loading) {
                 loadingProgressBar.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 loadingProgressBar.visibility = View.GONE
                 val errorState = when {
                     loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error

@@ -1,7 +1,7 @@
 package com.avelycure.moviefan.data.remote
 
 import androidx.paging.PagingSource
-import com.avelycure.moviefan.data.remote.dto.toPopularMovie
+import com.avelycure.moviefan.data.remote.dto.popular.toPopularMovie
 import com.avelycure.moviefan.domain.PopularMovie
 
 class MoviePagingSource(

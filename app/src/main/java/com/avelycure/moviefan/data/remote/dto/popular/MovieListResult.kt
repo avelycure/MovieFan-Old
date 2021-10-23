@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.data.remote.dto
+package com.avelycure.moviefan.data.remote.dto.popular
 
 import com.avelycure.moviefan.domain.PopularMovie
 import kotlinx.serialization.Serializable
@@ -29,6 +29,7 @@ fun MovieListResult.toPopularMovie(): PopularMovie{
         genreIds = genre_ids,
         popularity = popularity,
         voteAverage = vote_average,
-        releaseDate = release_date
+        releaseDate = release_date,
+        movieId = id
     )
 }
