@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.domain.MovieInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,6 +28,8 @@ class MovieInfoFragment : Fragment() {
     private lateinit var ratingBar: AppCompatRatingBar
     private lateinit var tvGenres: AppCompatTextView
     private lateinit var tvCountries: AppCompatTextView
+    private lateinit var tvBudget: AppCompatTextView
+    private lateinit var tvRevenue: AppCompatTextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,25 +42,31 @@ class MovieInfoFragment : Fragment() {
         lifecycleScope.launch {
             movieInfoViewModel
                 .getDetails(movieId)
-                .collectLatest {
-                    tvTitle.text = it.title
-                    tvOverview.text = it.overview
-                    tvTagline.text = it.tagline
-                    tvReviews.text = it.voteCount.toString()
-                    ratingBar.rating = it.voteAverage / 2F
-                    tvGenres.text = buildString {
-                        append("Genres: ")
-                        for (element in it.genres)
-                            append(Constants.movieGenre[element.id] + " ")
-                    }
-                    tvCountries.text = buildString {
-                        append("Countries: ")
-                        for (element in it.productionCountries)
-                            append(element.name + " ")
-                    }
+                .collectLatest { movieInfo ->
+                    setUi(movieInfo)
                 }
         }
         return view
+    }
+
+    private fun setUi(movieInfo: MovieInfo) {
+        tvTitle.text = movieInfo.title
+        tvOverview.text = movieInfo.overview
+        tvTagline.text = movieInfo.tagline
+        tvReviews.text = movieInfo.voteCount.toString()
+        ratingBar.rating = movieInfo.voteAverage / 2F
+        tvGenres.text = buildString {
+            append("Genres: ")
+            for (element in movieInfo.genres)
+                append(Constants.movieGenre[element.id] + " ")
+        }
+        tvCountries.text = buildString {
+            append("Countries: ")
+            for (element in movieInfo.productionCountries)
+                append(element.name + " ")
+        }
+        tvBudget.text = "Budget: ${movieInfo.budget}$"
+        tvRevenue.text = "Revenue: ${movieInfo.revenue}$"
     }
 
     private fun initViewElements(view: View) {
@@ -68,6 +77,8 @@ class MovieInfoFragment : Fragment() {
         tvGenres = view.findViewById(R.id.mi_genres)
         ratingBar = view.findViewById(R.id.mi_ratingbar)
         tvCountries = view.findViewById(R.id.mi_countries)
+        tvBudget = view.findViewById(R.id.mi_budget)
+        tvRevenue = view.findViewById(R.id.mi_revenue)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

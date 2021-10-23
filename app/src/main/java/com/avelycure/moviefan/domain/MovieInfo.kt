@@ -16,6 +16,7 @@ data class MovieInfo(
     val releaseDate: String,
     val spokenLanguages: List<SpokenLanguages>,
     val status: String,
+    val revenue: Int,
     val tagline: String?,
     val title: String,
     val voteAverage: Float,

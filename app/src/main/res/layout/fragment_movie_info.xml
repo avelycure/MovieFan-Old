@@ -76,6 +76,26 @@
             app:layout_constraintTop_toBottomOf="@id/mi_genres" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mi_budget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
+            app:layout_constraintTop_toBottomOf="@id/mi_countries" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mi_revenue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
+            app:layout_constraintTop_toBottomOf="@id/mi_budget" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mi_overview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -84,7 +104,7 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mi_countries" />
+            app:layout_constraintTop_toBottomOf="@id/mi_revenue" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
