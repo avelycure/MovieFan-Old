@@ -2,6 +2,7 @@ package com.avelycure.moviefan.data.remote
 
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.PolularMoviesResponse
+import com.avelycure.moviefan.data.remote.dto.VideosResponse
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*
@@ -28,7 +29,7 @@ class PostsServiceImpl(
         }
     }
 
-    override suspend fun getVideos(id: Int): List<String> {
+    override suspend fun getVideos(id: Int): VideosResponse {
         return try {
             client.get {
                 url("${Constants.BASE_URL}/$id/videos?api_key=${Constants.API_KEY}")
