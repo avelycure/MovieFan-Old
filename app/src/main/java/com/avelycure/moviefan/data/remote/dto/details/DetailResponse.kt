@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.data.remote.dto.details
 
+import com.avelycure.moviefan.domain.MovieInfo
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -27,3 +28,23 @@ data class DetailResponse(
     val vote_average: Float,
     val vote_count: Int
 )
+
+fun DetailResponse.toMovieInfo(): MovieInfo {
+    return MovieInfo(
+        adult = adult,
+        budget = budget,
+        imdbId = imdb_id,
+        originalLanguage = original_language,
+        originalTitle = original_title,
+        overview = overview,
+        popularity = popularity,
+        genres = genres,
+        productionCompanies = production_companies,
+        productionCountries = production_countries,
+        spokenLanguages = spoken_languages,
+        status = status,
+        tagline = tagline,
+        voteAverage = vote_average,
+        title = title
+    )
+}
