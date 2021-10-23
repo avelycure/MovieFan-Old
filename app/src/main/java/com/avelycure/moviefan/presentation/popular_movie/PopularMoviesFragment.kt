@@ -38,7 +38,7 @@ class PopularMoviesFragment : Fragment() {
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
 
         movieAdapter = PopularMovieAdapter {
-            findNavController().navigate(R.id.movie_info_fragment, bundleOf("movie" to it.title))
+            findNavController().navigate(R.id.movie_info_fragment, bundleOf("movie" to it.movieId))
         }
 
         movieAdapter.addLoadStateListener { loadState ->
