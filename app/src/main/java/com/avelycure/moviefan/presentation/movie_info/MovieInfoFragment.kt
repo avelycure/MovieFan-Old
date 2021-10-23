@@ -39,12 +39,6 @@ class MovieInfoFragment : Fragment() {
     private lateinit var tvCompanies: AppCompatTextView
     private lateinit var ivPoster: AppCompatImageView
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title =
-            arguments?.getString(Constants.MOVIE_TITLE) ?: "Movie info"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -96,8 +90,12 @@ class MovieInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.title =
+            arguments?.getString(Constants.MOVIE_TITLE) ?: "Movie info"
+
         lifecycleScope.launch {
             movieInfoViewModel
                 .getVideos(movieId)

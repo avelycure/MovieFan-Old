@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         this.navController = Navigation.findNavController(this, R.id.fragment_container)
-
-        setSupportActionBar(findViewById(R.id.toolbar))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

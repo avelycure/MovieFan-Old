@@ -29,11 +29,6 @@ class PopularMoviesFragment : Fragment() {
     private val popularMoviesViewModel: PopularMoviesViewModel by viewModels()
     private lateinit var loadingProgressBar: ProgressBar
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = "Popular movies"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,6 +72,8 @@ class PopularMoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
+        (activity as AppCompatActivity).supportActionBar?.title = "Popular movies"
         fetchPopularMovies()
     }
 
