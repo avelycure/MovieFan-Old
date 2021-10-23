@@ -8,5 +8,6 @@ data class PopularMovie(
     val popularity: Float,
     val voteAverage: Float,
     val releaseDate: String,
-    val movieId: Int
+    val movieId: Int,
+    val voteCount: Int
 )

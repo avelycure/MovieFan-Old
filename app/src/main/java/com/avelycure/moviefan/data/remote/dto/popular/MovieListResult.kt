@@ -11,7 +11,7 @@ data class MovieListResult(
     val release_date: String,
     val genre_ids: List<Int>,
     val id: Int,
-    val original_title:String,
+    val original_title: String,
     val original_language: String,
     val title: String,
     val backdrop_path: String?,
@@ -21,7 +21,7 @@ data class MovieListResult(
     val vote_average: Float
 )
 
-fun MovieListResult.toPopularMovie(): PopularMovie{
+fun MovieListResult.toPopularMovie(): PopularMovie {
     return PopularMovie(
         title = title,
         originalTitle = original_title,
@@ -30,6 +30,7 @@ fun MovieListResult.toPopularMovie(): PopularMovie{
         popularity = popularity,
         voteAverage = vote_average,
         releaseDate = release_date,
-        movieId = id
+        movieId = id,
+        voteCount = vote_count
     )
 }

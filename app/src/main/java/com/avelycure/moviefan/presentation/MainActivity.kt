@@ -2,19 +2,12 @@ package com.avelycure.moviefan.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
+import android.view.MenuItem
+import android.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.data.remote.PopularMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -26,5 +19,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         this.navController = Navigation.findNavController(this, R.id.fragment_container)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == android.R.id.home) {
+            val backStackSize = supportFragmentManager.findFragmentById(R.id.fragment_container)
+                ?.childFragmentManager
+                ?.backStackEntryCount
+            if (backStackSize != null) {
+                if (backStackSize > 0)
+                    navController.popBackStack()
+            }
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 }

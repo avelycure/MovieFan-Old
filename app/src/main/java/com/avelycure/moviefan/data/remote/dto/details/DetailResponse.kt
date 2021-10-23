@@ -47,8 +47,11 @@ fun DetailResponse.toMovieInfo(): MovieInfo {
         releaseDate = release_date,
         spokenLanguages = spoken_languages,
         status = status,
+        revenue = revenue,
         tagline = tagline,
-        voteAverage = vote_average,
-        title = title
+        voteAverage = vote_average / 2F,
+        title = title,
+        voteCount = vote_count,
+        posterPath = poster_path
     )
 }
