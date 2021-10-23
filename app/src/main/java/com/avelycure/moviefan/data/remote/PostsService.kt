@@ -4,4 +4,5 @@ import com.avelycure.moviefan.data.remote.dto.PolularMoviesResponse
 
 interface PostsService {
     suspend fun getPosts(nextPage: Int): PolularMoviesResponse
+    suspend fun getVideos(id: Int): List<String>
 }
