@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
@@ -34,6 +35,12 @@ class MovieInfoFragment : Fragment() {
     private lateinit var tvBudget: AppCompatTextView
     private lateinit var tvRevenue: AppCompatTextView
     private lateinit var tvCompanies: AppCompatTextView
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.title =
+            arguments?.getString(Constants.MOVIE_TITLE) ?: "Movie info"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,6 +88,8 @@ class MovieInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         lifecycleScope.launch {
             movieInfoViewModel
                 .getVideos(movieId)

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,6 +29,11 @@ class PopularMoviesFragment : Fragment() {
     private val popularMoviesViewModel: PopularMoviesViewModel by viewModels()
     private lateinit var loadingProgressBar: ProgressBar
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.title = "Popular movies"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,7 +47,8 @@ class PopularMoviesFragment : Fragment() {
         movieAdapter = PopularMovieAdapter {
             findNavController().navigate(
                 R.id.movie_info_fragment,
-                bundleOf(Constants.ID_KEY to it.movieId)
+                bundleOf(Constants.ID_KEY to it.movieId,
+                                Constants.MOVIE_TITLE to it.title)
             )
         }
 

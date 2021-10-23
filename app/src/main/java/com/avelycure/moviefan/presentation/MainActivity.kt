@@ -3,6 +3,7 @@ package com.avelycure.moviefan.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -26,5 +27,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         this.navController = Navigation.findNavController(this, R.id.fragment_container)
+
+        setSupportActionBar(findViewById(R.id.toolbar))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == android.R.id.home) {
+            val backStackSize = supportFragmentManager.findFragmentById(R.id.fragment_container)
+                ?.childFragmentManager
+                ?.backStackEntryCount
+            if (backStackSize != null) {
+                if (backStackSize > 0)
+                    navController.popBackStack()
+            }
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 }
