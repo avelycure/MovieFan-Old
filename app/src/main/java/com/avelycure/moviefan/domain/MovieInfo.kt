@@ -21,7 +21,8 @@ data class MovieInfo(
     val tagline: String?,
     val title: String,
     val voteAverage: Float,
-    val voteCount: Int
+    val voteCount: Int,
+    val posterPath: String?
 )
 
 fun MovieInfo.getCompanies(): String {

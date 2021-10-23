@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import coil.load
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.MovieInfo
@@ -35,12 +37,12 @@ class MovieInfoFragment : Fragment() {
     private lateinit var tvBudget: AppCompatTextView
     private lateinit var tvRevenue: AppCompatTextView
     private lateinit var tvCompanies: AppCompatTextView
+    private lateinit var ivPoster: AppCompatImageView
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title =
             arguments?.getString(Constants.MOVIE_TITLE) ?: "Movie info"
-        (activity as AppCompatActivity).supportActionBar?.hide()
     }
 
     override fun onCreateView(
@@ -62,6 +64,10 @@ class MovieInfoFragment : Fragment() {
     }
 
     private fun setUi(movieInfo: MovieInfo) {
+        ivPoster.load(Constants.IMAGE + movieInfo.posterPath) {
+            crossfade(true)
+            placeholder(R.drawable.image_placeholder)
+        }
         tvTitle.text = movieInfo.title
         tvTagline.text = movieInfo.tagline
         ratingBar.rating = movieInfo.voteAverage
@@ -85,6 +91,7 @@ class MovieInfoFragment : Fragment() {
         tvBudget = view.findViewById(R.id.mi_budget)
         tvRevenue = view.findViewById(R.id.mi_revenue)
         tvCompanies = view.findViewById(R.id.mi_companies)
+        ivPoster = view.findViewById(R.id.mi_poster)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

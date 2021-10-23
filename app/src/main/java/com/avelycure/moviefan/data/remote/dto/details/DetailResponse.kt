@@ -51,6 +51,7 @@ fun DetailResponse.toMovieInfo(): MovieInfo {
         tagline = tagline,
         voteAverage = vote_average / 2F,
         title = title,
-        voteCount = vote_count
+        voteCount = vote_count,
+        posterPath = poster_path
     )
 }

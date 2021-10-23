@@ -15,7 +15,7 @@ import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.PopularMovie
 
 class PopularMovieAdapter(
-    val onClickedItem: (PopularMovie) -> Unit
+    private val onClickedItem: (PopularMovie) -> Unit
 ) :
     PagingDataAdapter<PopularMovie, PopularMovieAdapter.MovieViewHolder>(MovieComparator) {
 
@@ -31,12 +31,12 @@ class PopularMovieAdapter(
     }
 
     class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvTitle = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_title)
-        val movieLogo = view.findViewById<AppCompatImageView>(R.id.pm_item_iv)
-        val tvReviews = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_reviews)
-        val ratingBar = view.findViewById<AppCompatRatingBar>(R.id.pm_item_rating_bar)
-        val tvGenres = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_genres)
-        val tvOriginalTitle =
+        private val tvTitle = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_title)
+        private val movieLogo = view.findViewById<AppCompatImageView>(R.id.pm_item_iv)
+        private val tvReviews = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_reviews)
+        private val ratingBar = view.findViewById<AppCompatRatingBar>(R.id.pm_item_rating_bar)
+        private val tvGenres = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_genres)
+        private val tvOriginalTitle =
             view.findViewById<AppCompatTextView>(R.id.pm_item_movie_original_title)
 
         fun bind(item: PopularMovie?, onClicked: (PopularMovie) -> Unit) {
