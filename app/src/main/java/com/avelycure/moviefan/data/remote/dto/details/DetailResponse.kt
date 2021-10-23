@@ -18,6 +18,7 @@ data class DetailResponse(
     val poster_path: String?,
     val genres: List<MovieGenre>,
     val production_companies: List<ProductionCompanies>,
+    val production_countries: List<ProductionCountries>,
     val status: String,
     val tagline: String?,
     val title: String,
