@@ -2,7 +2,7 @@ package com.avelycure.moviefan.data.remote
 
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.popular.PolularMoviesResponse
-import com.avelycure.moviefan.data.remote.dto.VideosResponse
+import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*

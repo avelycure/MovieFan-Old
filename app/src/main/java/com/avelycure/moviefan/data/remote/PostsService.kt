@@ -1,7 +1,7 @@
 package com.avelycure.moviefan.data.remote
 
 import com.avelycure.moviefan.data.remote.dto.popular.PolularMoviesResponse
-import com.avelycure.moviefan.data.remote.dto.VideosResponse
+import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 
 interface PostsService {
     suspend fun getPosts(nextPage: Int): PolularMoviesResponse
