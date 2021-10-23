@@ -7,4 +7,5 @@ object Constants {
     const val IMAGE = "https://image.tmdb.org/t/p/w500"
 
     const val YOUTUBE_API_KEY = "AIzaSyBPAAvMt6j3YtG1FsK7wmUso0L4wYhk-Zk"
+    const val VIDEO_PATH_KEY = "video_path"
 }

@@ -15,14 +15,14 @@ class MovieInfoFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_movie_info, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val transaction = childFragmentManager.beginTransaction()
-        transaction.add(R.id.youtube_container, YTFragment())
+        transaction.add(R.id.youtube_container, YTFragment.getInstance("W4hTJybfU7s"))
         transaction.commit()
 
         val item: String = arguments?.getString("movie") ?: "no film"
-        Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
-        return view
     }
 }
