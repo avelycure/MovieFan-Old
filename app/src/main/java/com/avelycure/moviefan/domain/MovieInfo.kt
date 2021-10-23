@@ -13,6 +13,7 @@ data class MovieInfo(
     val genres: List<MovieGenre>,
     val productionCompanies: List<ProductionCompanies>,
     val productionCountries: List<ProductionCountries>,
+    val releaseDate: String,
     val spokenLanguages: List<SpokenLanguages>,
     val status: String,
     val tagline: String?,

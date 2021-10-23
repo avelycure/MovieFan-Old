@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.avelycure.moviefan.data.remote.dto.details.toMovieInfo
 import com.avelycure.moviefan.data.remote.dto.video.toVideoInfo
+import com.avelycure.moviefan.domain.MovieInfo
 import com.avelycure.moviefan.domain.PopularMovie
 import kotlinx.coroutines.flow.Flow
 
@@ -28,5 +29,7 @@ class MovieRepository(
 
     suspend fun getVideos(id: Int) = postsService.getVideos(id).results[0].toVideoInfo()
 
-    suspend fun getDetails(id: Int) = postsService.getMovieDetail(id).toMovieInfo()
+    suspend fun getDetails(id: Int): MovieInfo {
+        return postsService.getMovieDetail(id).toMovieInfo()
+    }
 }

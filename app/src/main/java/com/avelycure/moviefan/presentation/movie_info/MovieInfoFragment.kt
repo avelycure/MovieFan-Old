@@ -19,15 +19,24 @@ class MovieInfoFragment : Fragment() {
     private val movieInfoViewModel: MovieInfoViewModel by viewModels()
     private lateinit var tvTitle: AppCompatTextView
     private lateinit var tvOverview: AppCompatTextView
+    private var movieId = Constants.DEFAULT_VIDEO_ID
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?{
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
+        movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.DEFAULT_VIDEO_ID
         initViewElements(view)
-
+        lifecycleScope.launch {
+            movieInfoViewModel
+                .getDetails(movieId)
+                .collectLatest {
+                    tvTitle.text = it.title
+                    tvOverview.text = it.overview
+                }
+        }
         return view
     }
 
@@ -40,7 +49,7 @@ class MovieInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             movieInfoViewModel
-                .getVideos(arguments?.getInt(Constants.ID_KEY) ?: Constants.DEFAULT_VIDEO_ID)
+                .getVideos(movieId)
                 .collectLatest {
                     val transaction = childFragmentManager.beginTransaction()
                     transaction.add(

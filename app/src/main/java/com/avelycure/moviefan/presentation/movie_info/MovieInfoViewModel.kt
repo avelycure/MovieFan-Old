@@ -14,9 +14,12 @@ class MovieInfoViewModel
 @Inject constructor(
     val repository: MovieRepository
 ) : ViewModel() {
+
     fun getVideos(id: Int): Flow<VideoInfo> = flow {
         emit(repository.getVideos(id))
     }
 
-
+    fun getDetails(id: Int): Flow<MovieInfo> = flow {
+        emit(repository.getDetails(id))
+    }
 }
