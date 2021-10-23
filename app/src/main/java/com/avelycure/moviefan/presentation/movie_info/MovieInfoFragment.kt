@@ -40,6 +40,7 @@ class MovieInfoFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title =
             arguments?.getString(Constants.MOVIE_TITLE) ?: "Movie info"
+        (activity as AppCompatActivity).supportActionBar?.hide()
     }
 
     override fun onCreateView(

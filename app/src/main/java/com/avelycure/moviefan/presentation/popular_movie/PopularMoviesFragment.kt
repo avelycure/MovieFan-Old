@@ -34,6 +34,11 @@ class PopularMoviesFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = "Popular movies"
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.show()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
