@@ -24,7 +24,6 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
         arguments?.getString(Constants.VIDEO_PATH_KEY)?.let {
             videoPath = it
         }
-        Toast.makeText(context, videoPath, Toast.LENGTH_SHORT).show()
     }
 
     override fun onInitializationSuccess(

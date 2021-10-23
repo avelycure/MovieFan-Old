@@ -1,4 +1,20 @@
 package com.avelycure.moviefan.presentation.movie_info
 
-class MovieInfoViewModel {
+import androidx.lifecycle.ViewModel
+import com.avelycure.moviefan.data.remote.MovieRepository
+import com.avelycure.moviefan.domain.VideoInfo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
+
+@HiltViewModel
+class MovieInfoViewModel
+@Inject constructor(
+    val repository: MovieRepository
+) : ViewModel() {
+    fun getVideos(id: Int): Flow<VideoInfo> = flow {
+        emit(VideoInfo(repository.getVideos(id).key))
+    }
+
 }

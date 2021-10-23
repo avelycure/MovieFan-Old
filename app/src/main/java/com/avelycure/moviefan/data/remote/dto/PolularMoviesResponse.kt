@@ -8,4 +8,4 @@ data class PolularMoviesResponse(
     val results: List<MovieListResult> = emptyList(),
     val total_results: Int = 0,
     val total_pages: Int = 0
-    )
+)

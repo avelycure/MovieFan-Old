@@ -15,6 +15,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
+import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.PopularMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -38,7 +39,10 @@ class PopularMoviesFragment : Fragment() {
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
 
         movieAdapter = PopularMovieAdapter {
-            findNavController().navigate(R.id.movie_info_fragment, bundleOf("movie" to it.movieId))
+            findNavController().navigate(
+                R.id.movie_info_fragment,
+                bundleOf(Constants.ID_KEY to it.movieId)
+            )
         }
 
         movieAdapter.addLoadStateListener { loadState ->

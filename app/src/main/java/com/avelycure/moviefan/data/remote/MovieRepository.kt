@@ -3,7 +3,9 @@ package com.avelycure.moviefan.data.remote
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.avelycure.moviefan.data.remote.dto.toVideoInfo
 import com.avelycure.moviefan.domain.PopularMovie
+import com.avelycure.moviefan.domain.VideoInfo
 import kotlinx.coroutines.flow.Flow
 
 class MovieRepository(
@@ -23,4 +25,6 @@ class MovieRepository(
     fun getDefaultPageConfig(): PagingConfig {
         return PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
     }
+
+    suspend fun getVideos(id: Int) = postsService.getVideos(id).results[0].toVideoInfo()
 }
