@@ -31,28 +31,6 @@ class PopularMovieAdapter(
     }
 
     class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val movieGenre = mapOf(
-            28 to "Action",
-            12 to "Adventure",
-            16 to "Animation",
-            35 to "Comedy",
-            80 to "Crime",
-            99 to "Documentary",
-            18 to "Drama",
-            10751 to "Family",
-            14 to "Fantasy",
-            36 to "History",
-            27 to "Horror",
-            10402 to "Music",
-            9648 to "Mystery",
-            10749 to "Romance",
-            878 to "Science Fiction",
-            10770 to "TV Movie",
-            53 to "Thriller",
-            10752 to "War",
-            37 to "Western"
-        )
-
         val tvTitle = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_title)
         val movieLogo = view.findViewById<AppCompatImageView>(R.id.pm_item_iv)
         val tvReviews = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_reviews)
@@ -64,13 +42,13 @@ class PopularMovieAdapter(
         fun bind(item: PopularMovie?, onClicked: (PopularMovie) -> Unit) {
             item?.let { popularMovie ->
                 tvTitle.text = popularMovie.title
-                tvReviews.text = popularMovie.popularity.toString()
+                tvReviews.text = popularMovie.voteCount.toString()
                 ratingBar.rating = popularMovie.voteAverage / 2F
                 tvOriginalTitle.text =
                     "${popularMovie.originalTitle}, ${popularMovie.releaseDate.substring(0, 4)}"
                 tvGenres.text = buildString {
                     for (genreId in popularMovie.genreIds)
-                        append(movieGenre[genreId] + " ")
+                        append(Constants.movieGenre[genreId] + " ")
                 }
                 movieLogo.load(Constants.IMAGE + popularMovie.posterPath) {
                     crossfade(true)

@@ -49,6 +49,7 @@ fun DetailResponse.toMovieInfo(): MovieInfo {
         status = status,
         tagline = tagline,
         voteAverage = vote_average,
-        title = title
+        title = title,
+        voteCount = vote_count
     )
 }

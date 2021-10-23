@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,9 +18,15 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MovieInfoFragment : Fragment() {
     private val movieInfoViewModel: MovieInfoViewModel by viewModels()
+    private var movieId = Constants.DEFAULT_VIDEO_ID
+
     private lateinit var tvTitle: AppCompatTextView
     private lateinit var tvOverview: AppCompatTextView
-    private var movieId = Constants.DEFAULT_VIDEO_ID
+    private lateinit var tvTagline: AppCompatTextView
+    private lateinit var tvReviews: AppCompatTextView
+    private lateinit var ratingBar: AppCompatRatingBar
+    private lateinit var tvGenres: AppCompatTextView
+    private lateinit var tvCountries: AppCompatTextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +42,19 @@ class MovieInfoFragment : Fragment() {
                 .collectLatest {
                     tvTitle.text = it.title
                     tvOverview.text = it.overview
+                    tvTagline.text = it.tagline
+                    tvReviews.text = it.voteCount.toString()
+                    ratingBar.rating = it.voteAverage / 2F
+                    tvGenres.text = buildString {
+                        append("Genres: ")
+                        for (element in it.genres)
+                            append(Constants.movieGenre[element.id] + " ")
+                    }
+                    tvCountries.text = buildString {
+                        append("Countries: ")
+                        for (element in it.productionCountries)
+                            append(element.name + " ")
+                    }
                 }
         }
         return view
@@ -43,6 +63,11 @@ class MovieInfoFragment : Fragment() {
     private fun initViewElements(view: View) {
         tvTitle = view.findViewById(R.id.mi_title)
         tvOverview = view.findViewById(R.id.mi_overview)
+        tvTagline = view.findViewById(R.id.mi_tagline)
+        tvReviews = view.findViewById(R.id.mi_reviews)
+        tvGenres = view.findViewById(R.id.mi_genres)
+        ratingBar = view.findViewById(R.id.mi_ratingbar)
+        tvCountries = view.findViewById(R.id.mi_countries)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

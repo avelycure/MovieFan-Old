@@ -18,5 +18,6 @@ data class MovieInfo(
     val status: String,
     val tagline: String?,
     val title: String,
-    val voteAverage: Float
+    val voteAverage: Float,
+    val voteCount: Int
 )
