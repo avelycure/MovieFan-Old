@@ -27,4 +27,20 @@ class PostsServiceImpl(
             throw Exception("No internet connection")
         }
     }
+
+    override suspend fun getVideos(id: Int): List<String> {
+        return try {
+            client.get {
+                url("${Constants.BASE_URL}/$id/videos?api_key=${Constants.API_KEY}")
+            }
+        } catch (e: RedirectResponseException) {
+            throw Exception("Further action needs to be taken in order to complete the request")
+        } catch (e: ClientRequestException) {
+            throw Exception("The request contains bad syntax or cannot be fulfilled")
+        } catch (e: ServerResponseException) {
+            throw Exception("The server failed to fulfil an apparently valid request")
+        } catch (e: IOException) {
+            throw Exception("No internet connection")
+        }
+    }
 }
