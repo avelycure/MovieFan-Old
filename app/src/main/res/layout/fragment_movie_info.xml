@@ -76,7 +76,7 @@
             app:layout_constraintTop_toBottomOf="@id/mi_genres" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/mi_budget"
+            android:id="@+id/mi_companies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="14sp"
@@ -84,6 +84,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
             app:layout_constraintTop_toBottomOf="@id/mi_countries" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mi_budget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
+            app:layout_constraintTop_toBottomOf="@id/mi_companies" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/mi_revenue"

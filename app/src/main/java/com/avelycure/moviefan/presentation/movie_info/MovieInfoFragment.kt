@@ -12,6 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.MovieInfo
+import com.avelycure.moviefan.domain.getCompanies
+import com.avelycure.moviefan.domain.getCountries
+import com.avelycure.moviefan.domain.getGenres
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,6 +33,7 @@ class MovieInfoFragment : Fragment() {
     private lateinit var tvCountries: AppCompatTextView
     private lateinit var tvBudget: AppCompatTextView
     private lateinit var tvRevenue: AppCompatTextView
+    private lateinit var tvCompanies: AppCompatTextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,22 +55,15 @@ class MovieInfoFragment : Fragment() {
 
     private fun setUi(movieInfo: MovieInfo) {
         tvTitle.text = movieInfo.title
-        tvOverview.text = movieInfo.overview
         tvTagline.text = movieInfo.tagline
+        ratingBar.rating = movieInfo.voteAverage
         tvReviews.text = movieInfo.voteCount.toString()
-        ratingBar.rating = movieInfo.voteAverage / 2F
-        tvGenres.text = buildString {
-            append("Genres: ")
-            for (element in movieInfo.genres)
-                append(Constants.movieGenre[element.id] + " ")
-        }
-        tvCountries.text = buildString {
-            append("Countries: ")
-            for (element in movieInfo.productionCountries)
-                append(element.name + " ")
-        }
+        tvGenres.text = movieInfo.getGenres()
+        tvCountries.text = movieInfo.getCountries()
+        tvCompanies.text = movieInfo.getCompanies()
         tvBudget.text = "Budget: ${movieInfo.budget}$"
         tvRevenue.text = "Revenue: ${movieInfo.revenue}$"
+        tvOverview.text = movieInfo.overview
     }
 
     private fun initViewElements(view: View) {
@@ -79,6 +76,7 @@ class MovieInfoFragment : Fragment() {
         tvCountries = view.findViewById(R.id.mi_countries)
         tvBudget = view.findViewById(R.id.mi_budget)
         tvRevenue = view.findViewById(R.id.mi_revenue)
+        tvCompanies = view.findViewById(R.id.mi_companies)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

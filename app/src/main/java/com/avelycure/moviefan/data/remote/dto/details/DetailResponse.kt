@@ -49,7 +49,7 @@ fun DetailResponse.toMovieInfo(): MovieInfo {
         status = status,
         revenue = revenue,
         tagline = tagline,
-        voteAverage = vote_average,
+        voteAverage = vote_average / 2F,
         title = title,
         voteCount = vote_count
     )
