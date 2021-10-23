@@ -17,6 +17,7 @@ data class DetailResponse(
     val popularity: Float,
     val poster_path: String?,
     val genres: List<MovieGenre>,
+    val production_companies: List<ProductionCompanies>,
     val status: String,
     val tagline: String?,
     val title: String,
