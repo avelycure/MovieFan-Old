@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MovieInfoFragment : Fragment() {
     private val movieInfoViewModel: MovieInfoViewModel by viewModels()
-    private var movieId = Constants.DEFAULT_VIDEO_ID
+    private var movieId = Constants.NO_TRAILER_CODE
 
     private lateinit var tvTitle: AppCompatTextView
     private lateinit var tvOverview: AppCompatTextView
@@ -43,7 +43,7 @@ class MovieInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
-        movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.DEFAULT_VIDEO_ID
+        movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
         initViewElements(view)
         lifecycleScope.launch {
             movieInfoViewModel
@@ -100,12 +100,13 @@ class MovieInfoFragment : Fragment() {
             movieInfoViewModel
                 .getVideos(movieId)
                 .collectLatest {
-                    val transaction = childFragmentManager.beginTransaction()
-                    transaction.add(
-                        R.id.youtube_container,
-                        YTFragment.getInstance(it.key)
-                    )
-                    transaction.commit()
+                    childFragmentManager
+                        .beginTransaction()
+                        .add(
+                            R.id.youtube_container,
+                            YTFragment.getInstance(it.key)
+                        )
+                        .commit()
                 }
         }
     }

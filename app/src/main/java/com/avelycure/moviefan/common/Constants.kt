@@ -14,7 +14,7 @@ object Constants {
     const val VIDEO_PATH_KEY = "video_path"
 
     //todo change
-    const val DEFAULT_VIDEO_ID = 401
+    const val NO_TRAILER_CODE = -1
 
     const val ID_KEY = "movie"
 
