@@ -1,11 +1,15 @@
 package com.avelycure.moviefan.presentation.movie_info
 
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.youtube.player.*
@@ -38,12 +42,15 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
         } else {
             youTubePlayer?.release()
             this.parentFragment?.view?.let {
-                Snackbar.make(
+                val sb = Snackbar.make(
                     requireContext(),
                     it,
                     "No trailer available for this movie",
                     Snackbar.LENGTH_SHORT
-                ).show()
+                )
+                (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text).setTextColor(Color.WHITE)
+                (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.light_blue))
+                sb.show()
             }
         }
     }
