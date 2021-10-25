@@ -67,8 +67,8 @@ class MovieInfoFragment : Fragment() {
         tvGenres.text = movieInfo.getGenres()
         tvCountries.text = movieInfo.getCountries()
         tvCompanies.text = movieInfo.getCompanies()
-        tvBudget.text = "Budget: ${movieInfo.budget}$"
-        tvRevenue.text = "Revenue: ${movieInfo.revenue}$"
+        tvBudget.text = movieInfo.budget.toString()
+        tvRevenue.text = movieInfo.revenue.toString()
         tvOverview.text = movieInfo.overview
         tvCast.text = movieInfo.getCast()
     }

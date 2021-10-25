@@ -28,7 +28,6 @@ data class MovieInfo(
 
 fun MovieInfo.getCompanies(): String {
     val companies = buildString {
-        append("Companies: ")
         for (element in productionCompanies) {
             append(element.name + ", ")
         }
@@ -38,7 +37,6 @@ fun MovieInfo.getCompanies(): String {
 
 fun MovieInfo.getCountries(): String {
     val countries = buildString {
-        append("Countries: ")
         for (element in productionCountries)
             append(element.name + ", ")
     }
@@ -47,7 +45,6 @@ fun MovieInfo.getCountries(): String {
 
 fun MovieInfo.getGenres(): String {
     val genres = buildString {
-        append("Genres: ")
         for (element in genres)
             append(Constants.movieGenre[element.id] + ", ")
     }
@@ -56,7 +53,6 @@ fun MovieInfo.getGenres(): String {
 
 fun MovieInfo.getCast(): String {
     val cast = buildString {
-        append("Cast: ")
         for (element in cast.take(5))
             append("$element, ")
     }
