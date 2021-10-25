@@ -1,5 +1,8 @@
 package com.avelycure.moviefan.data.remote.dto.details
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Cast(
     val adult: Boolean,
     val gender: Int?,

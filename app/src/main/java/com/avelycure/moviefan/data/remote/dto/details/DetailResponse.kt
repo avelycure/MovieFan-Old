@@ -29,7 +29,8 @@ data class DetailResponse(
     val title: String,
     val video: Boolean,
     val vote_average: Float,
-    val vote_count: Int
+    val vote_count: Int,
+    val credits: Credit
 )
 
 fun DetailResponse.toMovieInfo(): MovieInfo {
@@ -52,6 +53,9 @@ fun DetailResponse.toMovieInfo(): MovieInfo {
         voteAverage = vote_average / 2F,
         title = title,
         voteCount = vote_count,
-        posterPath = poster_path
+        posterPath = poster_path,
+        cast = credits.cast.map {
+            it.name
+        }
     )
 }

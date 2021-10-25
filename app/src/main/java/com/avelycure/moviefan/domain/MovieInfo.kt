@@ -22,7 +22,8 @@ data class MovieInfo(
     val title: String,
     val voteAverage: Float,
     val voteCount: Int,
-    val posterPath: String?
+    val posterPath: String?,
+    val cast: List<String>
 )
 
 fun MovieInfo.getCompanies(): String {
