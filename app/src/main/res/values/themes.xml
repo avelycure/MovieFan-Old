@@ -2,7 +2,7 @@
     <style name="Theme.MovieFan" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorSurface">@color/ochre</item>
         <item name="colorPrimary">@color/indigo</item>
-        <item name="colorSecondary">@color/sapphire</item>
+        <item name="colorSecondary">@color/light_blue</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
     </style>
 </resources>

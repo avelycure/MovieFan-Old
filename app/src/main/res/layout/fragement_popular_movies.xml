@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/indigo">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar_layout"
@@ -27,8 +28,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_popular_movies"
-        android:layout_below="@+id/toolbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_layout"/>
 </RelativeLayout>
