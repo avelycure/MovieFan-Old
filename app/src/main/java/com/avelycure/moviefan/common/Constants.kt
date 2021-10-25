@@ -13,9 +13,12 @@ object Constants {
     const val YOUTUBE_API_KEY = "AIzaSyBPAAvMt6j3YtG1FsK7wmUso0L4wYhk-Zk"
     const val VIDEO_PATH_KEY = "video_path"
 
+    //todo change
     const val DEFAULT_VIDEO_ID = 401
 
     const val ID_KEY = "movie"
+
+    const val CREDITS = "&append_to_response=credits"
 
     val movieGenre = mapOf(
         28 to "Action",
