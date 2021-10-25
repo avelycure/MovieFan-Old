@@ -102,7 +102,7 @@
                 app:layout_constraintTop_toBottomOf="@id/mi_ratingbar" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/mi_countries"
+                android:id="@+id/mi_cast"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/light_purpure2"
@@ -110,6 +110,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
                 app:layout_constraintTop_toBottomOf="@id/mi_genres" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/mi_countries"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_purpure2"
+                android:textSize="@dimen/mi_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
+                app:layout_constraintTop_toBottomOf="@id/mi_cast" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_companies"

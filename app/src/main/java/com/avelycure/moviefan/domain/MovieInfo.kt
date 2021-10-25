@@ -53,3 +53,12 @@ fun MovieInfo.getGenres(): String {
     }
     return genres.substring(0, genres.length - 2)
 }
+
+fun MovieInfo.getCast(): String {
+    val cast = buildString {
+        append("Cast: ")
+        for (element in cast.take(5))
+            append("$element, ")
+    }
+    return cast.substring(0, cast.length - 2)
+}

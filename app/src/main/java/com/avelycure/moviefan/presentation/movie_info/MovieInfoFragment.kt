@@ -14,10 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.domain.MovieInfo
-import com.avelycure.moviefan.domain.getCompanies
-import com.avelycure.moviefan.domain.getCountries
-import com.avelycure.moviefan.domain.getGenres
+import com.avelycure.moviefan.domain.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -38,6 +35,7 @@ class MovieInfoFragment : Fragment() {
     private lateinit var tvRevenue: AppCompatTextView
     private lateinit var tvCompanies: AppCompatTextView
     private lateinit var ivPoster: AppCompatImageView
+    private lateinit var tvCast: AppCompatTextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,6 +70,7 @@ class MovieInfoFragment : Fragment() {
         tvBudget.text = "Budget: ${movieInfo.budget}$"
         tvRevenue.text = "Revenue: ${movieInfo.revenue}$"
         tvOverview.text = movieInfo.overview
+        tvCast.text = movieInfo.getCast()
     }
 
     private fun initViewElements(view: View) {
@@ -86,6 +85,7 @@ class MovieInfoFragment : Fragment() {
         tvRevenue = view.findViewById(R.id.mi_revenue)
         tvCompanies = view.findViewById(R.id.mi_companies)
         ivPoster = view.findViewById(R.id.mi_poster)
+        tvCast = view.findViewById(R.id.mi_cast)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
