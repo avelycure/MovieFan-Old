@@ -22,7 +22,8 @@ data class MovieInfo(
     val title: String,
     val voteAverage: Float,
     val voteCount: Int,
-    val posterPath: String?
+    val posterPath: String?,
+    val cast: List<String>
 )
 
 fun MovieInfo.getCompanies(): String {
@@ -51,4 +52,13 @@ fun MovieInfo.getGenres(): String {
             append(Constants.movieGenre[element.id] + ", ")
     }
     return genres.substring(0, genres.length - 2)
+}
+
+fun MovieInfo.getCast(): String {
+    val cast = buildString {
+        append("Cast: ")
+        for (element in cast.take(5))
+            append("$element, ")
+    }
+    return cast.substring(0, cast.length - 2)
 }
