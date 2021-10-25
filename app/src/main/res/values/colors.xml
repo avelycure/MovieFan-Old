@@ -7,5 +7,10 @@
     <color name="dark_blue">#004F97</color>
     <color name="indigo">#1b007a</color>
     <color name="light_blue">#01b4e4</color>
-    <color name="ochre">#594674</color>
+    <color name="purple">#594674</color>
+    <color name="magnolia">#FBEAFF</color>
+    <color name="light_purpure">#B0A8B9</color>
+    <color name="light_purpure2">#C7C1CD</color>
+
+    <color name="lavanda">#D2E9F2</color>
 </resources>
