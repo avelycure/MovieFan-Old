@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.avelycure.moviefan.common.Constants
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.youtube.player.*
 
 //todo check if user has actual version of youtube service https://developers.google.com/youtube/android/player/reference/com/google/android/youtube/player/YouTubeInitializationResult?hl=pt-br
@@ -31,8 +32,20 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
         youTubePlayer: YouTubePlayer?,
         b: Boolean
     ) {
-        youTubePlayer?.cueVideo(videoPath);
-        youTubePlayer?.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
+        if (Integer.parseInt(videoPath) != -1) {
+            youTubePlayer?.cueVideo(videoPath);
+            youTubePlayer?.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
+        } else {
+            youTubePlayer?.release()
+            this.parentFragment?.view?.let {
+                Snackbar.make(
+                    requireContext(),
+                    it,
+                    "No trailer available for this movie",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     override fun onInitializationFailure(
