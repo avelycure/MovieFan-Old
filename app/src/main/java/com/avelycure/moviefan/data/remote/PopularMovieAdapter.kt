@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.data.remote
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,17 +12,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.load
+import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.PopularMovie
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 class PopularMovieAdapter
-    @AssistedInject constructor(
-        @Assisted val onClickedItem: (PopularMovie) -> Unit,
-        val imageLoader: ImageLoader
-    ) :
+@AssistedInject constructor(
+    @Assisted val onClickedItem: (PopularMovie) -> Unit,
+    val imageLoader: ImageLoader,
+    @ApplicationContext val context: Context
+) :
     PagingDataAdapter<PopularMovie, PopularMovieAdapter.MovieViewHolder>(MovieComparator) {
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -55,10 +59,12 @@ class PopularMovieAdapter
                     for (genreId in popularMovie.genreIds)
                         append(Constants.movieGenre[genreId] + " ")
                 }
-                movieLogo.load(Constants.IMAGE + popularMovie.posterPath) {
-                    crossfade(true)
-                    placeholder(R.drawable.image_placeholder)
-                }
+                imageLoader.enqueue(
+                    ImageRequest.Builder(context)
+                        .data(Constants.IMAGE + popularMovie.posterPath)
+                        .target(movieLogo)
+                        .build()
+                )
             }
 
             itemView.setOnClickListener {

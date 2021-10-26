@@ -29,8 +29,9 @@ class PopularMoviesFragment : Fragment() {
     @Inject
     lateinit var movieAdapterFactory: PopularMovieAdapterFactory
     lateinit var movieAdapter: PopularMovieAdapter
-    private lateinit var rvPopularMovie: RecyclerView
     private val popularMoviesViewModel: PopularMoviesViewModel by viewModels()
+
+    private lateinit var rvPopularMovie: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
 
     override fun onCreateView(
