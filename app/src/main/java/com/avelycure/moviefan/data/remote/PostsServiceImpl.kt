@@ -2,7 +2,7 @@ package com.avelycure.moviefan.data.remote
 
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
-import com.avelycure.moviefan.data.remote.dto.popular.PolularMoviesResponse
+import com.avelycure.moviefan.data.remote.dto.popular.PopularMoviesResponse
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import io.ktor.client.*
 import io.ktor.client.features.*
@@ -13,7 +13,7 @@ class PostsServiceImpl(
     private val client: HttpClient
 ) : IPostsService {
 
-    override suspend fun getPosts(nextPage: Int): PolularMoviesResponse {
+    override suspend fun getPosts(nextPage: Int): PopularMoviesResponse {
         return try {
             client.get {
                 url(Constants.POPULAR_MOVIES + nextPage)
