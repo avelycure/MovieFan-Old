@@ -11,7 +11,7 @@ import io.ktor.utils.io.errors.*
 
 class PostsServiceImpl(
     private val client: HttpClient
-) : PostsService {
+) : IPostsService {
 
     override suspend fun getPosts(nextPage: Int): PolularMoviesResponse {
         return try {

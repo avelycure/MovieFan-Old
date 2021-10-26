@@ -1,7 +1,7 @@
 package com.avelycure.moviefan.di.modules
 
 import com.avelycure.moviefan.data.remote.MovieRepository
-import com.avelycure.moviefan.data.remote.PostsService
+import com.avelycure.moviefan.data.remote.IPostsService
 import com.avelycure.moviefan.data.remote.PostsServiceImpl
 import dagger.Module
 import dagger.Provides
@@ -19,7 +19,7 @@ import javax.inject.Singleton
 object KtorModule {
     @Provides
     @Singleton
-    fun provideKtorInstance(): PostsService {
+    fun provideKtorInstance(): IPostsService {
         return PostsServiceImpl(
             HttpClient(Android) {
                 install(Logging) {
@@ -34,7 +34,7 @@ object KtorModule {
 
     @Provides
     @Singleton
-    fun provideMovieRepository(postsService: PostsService): MovieRepository {
+    fun provideMovieRepository(postsService: IPostsService): MovieRepository {
         return MovieRepository(postsService)
     }
 }

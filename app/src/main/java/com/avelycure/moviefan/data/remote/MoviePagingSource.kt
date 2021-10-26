@@ -5,7 +5,7 @@ import com.avelycure.moviefan.data.remote.dto.popular.toPopularMovie
 import com.avelycure.moviefan.domain.PopularMovie
 
 class MoviePagingSource(
-    val postsService: PostsService
+    val postsService: IPostsService
 ) : PagingSource<Int, PopularMovie>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PopularMovie> {

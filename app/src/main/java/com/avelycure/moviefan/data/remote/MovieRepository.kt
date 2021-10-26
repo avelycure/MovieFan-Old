@@ -12,7 +12,7 @@ import com.avelycure.moviefan.domain.VideoInfo
 import kotlinx.coroutines.flow.Flow
 
 class MovieRepository(
-    val postsService: PostsService
+    val postsService: IPostsService
 ) {
     companion object {
         const val DEFAULT_PAGE_SIZE = 20

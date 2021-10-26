@@ -1,13 +1,11 @@
 package com.avelycure.moviefan.presentation.movie_info
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
