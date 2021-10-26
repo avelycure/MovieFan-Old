@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.di
+package com.avelycure.moviefan
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
