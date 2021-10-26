@@ -16,9 +16,3 @@ data class VideoListResult(
     val published_at: String,
     val id: String
 )
-
-fun VideoListResult.toVideoInfo(): VideoInfo{
-    return VideoInfo(
-        key = key
-    )
-}

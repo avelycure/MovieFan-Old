@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.mappers.toMovieInfo
-import com.avelycure.moviefan.data.remote.dto.video.toVideoInfo
+import com.avelycure.moviefan.data.remote.dto.video.mappers.toVideoInfo
 import com.avelycure.moviefan.domain.MovieInfo
 import com.avelycure.moviefan.domain.PopularMovie
 import com.avelycure.moviefan.domain.VideoInfo
