@@ -11,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +18,7 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.PopularMovieAdapter
 import com.avelycure.moviefan.di.modules.PopularMovieAdapterFactory
+import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -45,13 +45,16 @@ class PopularMoviesFragment : Fragment() {
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
 
         movieAdapter = movieAdapterFactory.create {
-            findNavController().navigate(
-                R.id.movie_info_fragment,
-                bundleOf(
-                    Constants.ID_KEY to it.movieId,
-                    Constants.MOVIE_TITLE to it.title
-                )
+            val fragmentInfo = MovieInfoFragment()
+            fragmentInfo.arguments = bundleOf(
+                Constants.ID_KEY to it.movieId,
+                Constants.MOVIE_TITLE to it.title
             )
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.addToBackStack("popular_movie")
+                ?.add(R.id.fragment_container, fragmentInfo)
+                ?.commit()
         }
 
         movieAdapter.addLoadStateListener { loadState ->
