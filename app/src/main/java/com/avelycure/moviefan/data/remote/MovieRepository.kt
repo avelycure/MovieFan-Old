@@ -4,15 +4,15 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.data.remote.dto.details.toMovieInfo
-import com.avelycure.moviefan.data.remote.dto.video.toVideoInfo
+import com.avelycure.moviefan.data.remote.dto.details.mappers.toMovieInfo
+import com.avelycure.moviefan.data.remote.dto.video.mappers.toVideoInfo
 import com.avelycure.moviefan.domain.MovieInfo
 import com.avelycure.moviefan.domain.PopularMovie
 import com.avelycure.moviefan.domain.VideoInfo
 import kotlinx.coroutines.flow.Flow
 
 class MovieRepository(
-    val postsService: PostsService
+    private val postsService: IPostsService
 ) {
     companion object {
         const val DEFAULT_PAGE_SIZE = 20
@@ -25,7 +25,7 @@ class MovieRepository(
         ).flow
     }
 
-    fun getDefaultPageConfig(): PagingConfig {
+    private fun getDefaultPageConfig(): PagingConfig {
         return PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
     }
 

@@ -1,6 +1,5 @@
 package com.avelycure.moviefan.data.remote.dto.video
 
-import com.avelycure.moviefan.domain.VideoInfo
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,9 +15,3 @@ data class VideoListResult(
     val published_at: String,
     val id: String
 )
-
-fun VideoListResult.toVideoInfo(): VideoInfo{
-    return VideoInfo(
-        key = key
-    )
-}
