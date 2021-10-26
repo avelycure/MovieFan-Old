@@ -9,14 +9,19 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
 import coil.load
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.PopularMovie
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 
-class PopularMovieAdapter(
-    private val onClickedItem: (PopularMovie) -> Unit
-) :
+class PopularMovieAdapter
+    @AssistedInject constructor(
+        @Assisted val onClickedItem: (PopularMovie) -> Unit,
+        val imageLoader: ImageLoader
+    ) :
     PagingDataAdapter<PopularMovie, PopularMovieAdapter.MovieViewHolder>(MovieComparator) {
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -30,7 +35,7 @@ class PopularMovieAdapter(
         )
     }
 
-    class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val tvTitle = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_title)
         private val movieLogo = view.findViewById<AppCompatImageView>(R.id.pm_item_iv)
         private val tvReviews = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_reviews)

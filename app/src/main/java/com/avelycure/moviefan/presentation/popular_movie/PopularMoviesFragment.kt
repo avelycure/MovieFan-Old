@@ -18,13 +18,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.PopularMovieAdapter
+import com.avelycure.moviefan.di.modules.PopularMovieAdapterFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PopularMoviesFragment : Fragment() {
-    private lateinit var movieAdapter: PopularMovieAdapter
+    @Inject
+    lateinit var movieAdapterFactory: PopularMovieAdapterFactory
+    lateinit var movieAdapter: PopularMovieAdapter
     private lateinit var rvPopularMovie: RecyclerView
     private val popularMoviesViewModel: PopularMoviesViewModel by viewModels()
     private lateinit var loadingProgressBar: ProgressBar
@@ -39,11 +43,13 @@ class PopularMoviesFragment : Fragment() {
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
 
-        movieAdapter = PopularMovieAdapter {
+        movieAdapter = movieAdapterFactory.create {
             findNavController().navigate(
                 R.id.movie_info_fragment,
-                bundleOf(Constants.ID_KEY to it.movieId,
-                                Constants.MOVIE_TITLE to it.title)
+                bundleOf(
+                    Constants.ID_KEY to it.movieId,
+                    Constants.MOVIE_TITLE to it.title
+                )
             )
         }
 
