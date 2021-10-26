@@ -11,7 +11,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
-import coil.load
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants

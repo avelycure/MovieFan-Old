@@ -11,16 +11,21 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import coil.load
+import coil.ImageLoader
+import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieInfoFragment : Fragment() {
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     private val movieInfoViewModel: MovieInfoViewModel by viewModels()
     private var movieId = Constants.NO_TRAILER_CODE
 
@@ -56,10 +61,10 @@ class MovieInfoFragment : Fragment() {
     }
 
     private fun setUi(movieInfo: MovieInfo) {
-        ivPoster.load(Constants.IMAGE + movieInfo.posterPath) {
-            crossfade(true)
-            placeholder(R.drawable.image_placeholder)
-        }
+        imageLoader.enqueue(ImageRequest.Builder(requireContext())
+            .data(Constants.IMAGE + movieInfo.posterPath)
+            .target(ivPoster)
+            .build())
         tvTitle.text = movieInfo.title
         tvTagline.text = movieInfo.tagline
         ratingBar.rating = movieInfo.voteAverage
