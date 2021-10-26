@@ -9,7 +9,7 @@ import io.ktor.client.features.*
 import io.ktor.client.request.*
 import io.ktor.utils.io.errors.*
 
-class PostsServiceImpl(
+class PostsService(
     private val client: HttpClient
 ) : IPostsService {
 

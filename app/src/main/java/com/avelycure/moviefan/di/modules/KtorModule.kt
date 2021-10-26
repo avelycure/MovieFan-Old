@@ -2,7 +2,7 @@ package com.avelycure.moviefan.di.modules
 
 import com.avelycure.moviefan.data.remote.MovieRepository
 import com.avelycure.moviefan.data.remote.IPostsService
-import com.avelycure.moviefan.data.remote.PostsServiceImpl
+import com.avelycure.moviefan.data.remote.PostsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +20,7 @@ object KtorModule {
     @Provides
     @Singleton
     fun provideKtorInstance(): IPostsService {
-        return PostsServiceImpl(
+        return PostsService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
