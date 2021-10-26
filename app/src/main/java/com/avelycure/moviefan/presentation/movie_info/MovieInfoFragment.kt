@@ -1,6 +1,5 @@
 package com.avelycure.moviefan.presentation.movie_info
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,7 +54,6 @@ class MovieInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
-        initViewElements(view)
         movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
         lifecycleScope.launch {
             movieInfoViewModel
@@ -64,6 +62,25 @@ class MovieInfoFragment : Fragment() {
                     setUi(movieInfo)
                 }
         }
+        lifecycleScope.launch {
+            movieInfoViewModel
+                .getVideos(movieId)
+                .collectLatest {
+                    childFragmentManager
+                        .beginTransaction()
+                        .add(
+                            R.id.youtube_container,
+                            YTFragment.getInstance(it.key)
+                        )
+                        .commit()
+                }
+        }
+        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.title =
+            arguments?.getString(Constants.MOVIE_TITLE) ?: "Movie info"
+        initViewElements(view)
         return view
     }
 
@@ -110,28 +127,5 @@ class MovieInfoFragment : Fragment() {
         ivPoster = view.findViewById(R.id.mi_poster)
         tvCast = view.findViewById(R.id.mi_cast)
         tvCastTitle = view.findViewById(R.id.mi_cast_title)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar?.title =
-            arguments?.getString(Constants.MOVIE_TITLE) ?: "Movie info"
-
-        lifecycleScope.launch {
-            movieInfoViewModel
-                .getVideos(movieId)
-                .collectLatest {
-                    childFragmentManager
-                        .beginTransaction()
-                        .add(
-                            R.id.youtube_container,
-                            YTFragment.getInstance(it.key)
-                        )
-                        .commit()
-                }
-        }
     }
 }
