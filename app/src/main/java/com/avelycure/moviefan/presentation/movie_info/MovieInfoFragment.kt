@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.presentation.movie_info
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,17 +31,23 @@ class MovieInfoFragment : Fragment() {
     private var movieId = Constants.NO_TRAILER_CODE
 
     private lateinit var tvTitle: AppCompatTextView
-    private lateinit var tvOverview: AppCompatTextView
     private lateinit var tvTagline: AppCompatTextView
-    private lateinit var tvReviews: AppCompatTextView
     private lateinit var ratingBar: AppCompatRatingBar
+    private lateinit var tvReviews: AppCompatTextView
+    private lateinit var tvCastTitle: AppCompatTextView
+    private lateinit var tvCast: AppCompatTextView
+    private lateinit var tvGenresTitle: AppCompatTextView
     private lateinit var tvGenres: AppCompatTextView
+    private lateinit var tvCountriesTitle: AppCompatTextView
     private lateinit var tvCountries: AppCompatTextView
     private lateinit var tvBudget: AppCompatTextView
+    private lateinit var tvBudgetTitle: AppCompatTextView
     private lateinit var tvRevenue: AppCompatTextView
+    private lateinit var tvRevenueTitle: AppCompatTextView
+    private lateinit var tvCompaniesTitle: AppCompatTextView
     private lateinit var tvCompanies: AppCompatTextView
     private lateinit var ivPoster: AppCompatImageView
-    private lateinit var tvCast: AppCompatTextView
+    private lateinit var tvOverview: AppCompatTextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,8 +55,8 @@ class MovieInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
-        movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
         initViewElements(view)
+        movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
         lifecycleScope.launch {
             movieInfoViewModel
                 .getDetails(movieId)
@@ -70,11 +77,17 @@ class MovieInfoFragment : Fragment() {
         ratingBar.rating = movieInfo.voteAverage
         tvReviews.text = movieInfo.voteCount.toString()
         tvGenres.text = movieInfo.getGenres()
+        tvGenresTitle.text = "Genres: "
+        tvCountriesTitle.text = "Countries: "
         tvCountries.text = movieInfo.getCountries()
+        tvCompaniesTitle.text = "Companies: "
         tvCompanies.text = movieInfo.getCompanies()
+        tvBudgetTitle.text = "Budget: "
         tvBudget.text = movieInfo.budget.toString()
         tvRevenue.text = movieInfo.revenue.toString()
+        tvRevenueTitle.text = "Revenue"
         tvOverview.text = movieInfo.overview
+        tvCastTitle.text = "Cast: "
         tvCast.text = movieInfo.getCast()
     }
 
@@ -83,14 +96,20 @@ class MovieInfoFragment : Fragment() {
         tvOverview = view.findViewById(R.id.mi_overview)
         tvTagline = view.findViewById(R.id.mi_tagline)
         tvReviews = view.findViewById(R.id.mi_reviews)
+        tvGenresTitle = view.findViewById(R.id.mi_genres_title)
         tvGenres = view.findViewById(R.id.mi_genres)
         ratingBar = view.findViewById(R.id.mi_ratingbar)
+        tvCountriesTitle = view.findViewById(R.id.mi_countries_title)
         tvCountries = view.findViewById(R.id.mi_countries)
         tvBudget = view.findViewById(R.id.mi_budget)
+        tvBudgetTitle = view.findViewById(R.id.mi_budget_title)
+        tvRevenueTitle = view.findViewById(R.id.mi_revenue_title)
         tvRevenue = view.findViewById(R.id.mi_revenue)
+        tvCompaniesTitle = view.findViewById(R.id.mi_companies_title)
         tvCompanies = view.findViewById(R.id.mi_companies)
         ivPoster = view.findViewById(R.id.mi_poster)
         tvCast = view.findViewById(R.id.mi_cast)
+        tvCastTitle = view.findViewById(R.id.mi_cast_title)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
