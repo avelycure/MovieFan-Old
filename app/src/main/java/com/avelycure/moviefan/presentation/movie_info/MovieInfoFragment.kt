@@ -2,6 +2,7 @@ package com.avelycure.moviefan.presentation.movie_info
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -75,6 +76,7 @@ class MovieInfoFragment : Fragment() {
                         .commit()
                 }
         }
+        setHasOptionsMenu(true)
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -127,5 +129,14 @@ class MovieInfoFragment : Fragment() {
         ivPoster = view.findViewById(R.id.mi_poster)
         tvCast = view.findViewById(R.id.mi_cast)
         tvCastTitle = view.findViewById(R.id.mi_cast_title)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == android.R.id.home) {
+            activity?.supportFragmentManager?.popBackStack()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
     }
 }
