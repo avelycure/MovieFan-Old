@@ -59,6 +59,8 @@ class PopularMoviesFragment : Fragment() {
         }
 
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
+
+        setHasOptionsMenu(true)
         return view
     }
 
@@ -147,6 +149,6 @@ class PopularMoviesFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar_menu, menu)
     }
 }
