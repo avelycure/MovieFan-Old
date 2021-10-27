@@ -22,6 +22,7 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.PopularMovieAdapter
 import com.avelycure.moviefan.di.modules.PopularMovieAdapterFactory
+import com.avelycure.moviefan.presentation.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -151,4 +152,18 @@ class PopularMoviesFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.toolbar_menu, menu)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.action_info) {
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.addToBackStack("popular_movie")
+                ?.add(R.id.fragment_container, AppInfo())
+                ?.commit()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
 }
