@@ -28,13 +28,4 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.fragment_container, PopularMoviesFragment())
             .commit()
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == android.R.id.home) {
-            supportFragmentManager.popBackStack()
-            true
-        } else {
-            super.onOptionsItemSelected(item)
-        }
-    }
 }
