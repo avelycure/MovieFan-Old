@@ -12,7 +12,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -40,6 +40,7 @@ class PopularMoviesFragment : Fragment() {
 
     private lateinit var rvPopularMovie: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
+    private lateinit var btnRetry: AppCompatButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,44 +50,17 @@ class PopularMoviesFragment : Fragment() {
 
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
-        rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
-
-        movieAdapter = movieAdapterFactory.create {
+        btnRetry = view.findViewById(R.id.main_btn_restart)
+        btnRetry.setOnClickListener {
             if (isOnline()) {
-                val fragmentInfo = MovieInfoFragment()
-                fragmentInfo.arguments = bundleOf(
-                    Constants.ID_KEY to it.movieId,
-                    Constants.MOVIE_TITLE to it.title
-                )
-                activity?.supportFragmentManager
-                    ?.beginTransaction()
-                    ?.addToBackStack("popular_movie")
-                    ?.add(R.id.fragment_container, fragmentInfo)
-                    ?.commit()
+                btnRetry.visibility = View.INVISIBLE
+                initAdapter(view)
+                fetchPopularMovies()
             } else
                 showNoInternetConnectionError(view)
         }
 
-        movieAdapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading) {
-                loadingProgressBar.visibility = View.VISIBLE
-            } else {
-                loadingProgressBar.visibility = View.GONE
-                val errorState = when {
-                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                    else -> null
-                }
-                errorState?.let {
-                    Toast.makeText(view.context, it.error.message, Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-
-        rvPopularMovie.adapter = movieAdapter.withLoadStateFooter(
-            footer = MovieLoadStateAdapter { movieAdapter.retry() }
-        )
+        rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
         return view
     }
 
@@ -94,7 +68,14 @@ class PopularMoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
         (activity as AppCompatActivity).supportActionBar?.title = "Popular movies"
-        fetchPopularMovies()
+        if (isOnline()) {
+            initAdapter(btnRetry)
+            fetchPopularMovies()
+        } else {
+            btnRetry.visibility = View.VISIBLE
+            loadingProgressBar.visibility = View.GONE
+            showNoInternetConnectionError(btnRetry)
+        }
     }
 
     private fun fetchPopularMovies() {
@@ -124,5 +105,46 @@ class PopularMoviesFragment : Fragment() {
             .setTextColor(Color.WHITE)
         (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.light_blue))
         sb.show()
+    }
+
+    private fun initAdapter(view: View) {
+        movieAdapter = movieAdapterFactory.create {
+            if (isOnline()) {
+                val fragmentInfo = MovieInfoFragment()
+                fragmentInfo.arguments = bundleOf(
+                    Constants.ID_KEY to it.movieId,
+                    Constants.MOVIE_TITLE to it.title
+                )
+                activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.addToBackStack("popular_movie")
+                    ?.add(R.id.fragment_container, fragmentInfo)
+                    ?.commit()
+            } else
+                showNoInternetConnectionError(view)
+        }
+
+        movieAdapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Loading) {
+                loadingProgressBar.visibility = View.VISIBLE
+            } else {
+                loadingProgressBar.visibility = View.GONE
+                val errorState = when {
+                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                    else -> null
+                }
+                errorState?.let {
+                    btnRetry.visibility = View.VISIBLE
+                    loadingProgressBar.visibility = View.GONE
+                    showNoInternetConnectionError(btnRetry)
+                }
+            }
+        }
+
+        rvPopularMovie.adapter = movieAdapter.withLoadStateFooter(
+            footer = MovieLoadStateAdapter { movieAdapter.retry() }
+        )
     }
 }
