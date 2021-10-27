@@ -5,9 +5,7 @@ import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -146,5 +144,9 @@ class PopularMoviesFragment : Fragment() {
         rvPopularMovie.adapter = movieAdapter.withLoadStateFooter(
             footer = MovieLoadStateAdapter { movieAdapter.retry() }
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }
