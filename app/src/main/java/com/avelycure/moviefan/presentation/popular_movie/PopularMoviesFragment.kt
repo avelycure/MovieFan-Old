@@ -46,14 +46,15 @@ class PopularMoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragement_popular_movies, container, false)
-
+        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
+        (activity as AppCompatActivity).supportActionBar?.title = "Popular movies"
+        
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
         btnRetry = view.findViewById(R.id.main_btn_restart)
         btnRetry.setOnClickListener {
             if (isOnline()) {
                 btnRetry.visibility = View.INVISIBLE
-                initAdapter(view)
                 fetchPopularMovies()
             } else
                 showNoInternetConnectionError(view)
@@ -67,16 +68,8 @@ class PopularMoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
-        (activity as AppCompatActivity).supportActionBar?.title = "Popular movies"
-        if (isOnline()) {
-            initAdapter(btnRetry)
-            fetchPopularMovies()
-        } else {
-            btnRetry.visibility = View.VISIBLE
-            loadingProgressBar.visibility = View.GONE
-            showNoInternetConnectionError(btnRetry)
-        }
+        initAdapter(btnRetry)
+        fetchPopularMovies()
     }
 
     private fun fetchPopularMovies() {
