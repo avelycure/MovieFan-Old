@@ -14,7 +14,7 @@ class AppInfo: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragement_popular_movies, container, false)
+        val view = inflater.inflate(R.layout.fragment_app_info, container, false)
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
