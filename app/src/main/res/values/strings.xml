@@ -3,4 +3,5 @@
     <string name="pm_retry_button">Retry</string>
     <string name="movie_db">This product uses the TMDB API but is not endorsed or certified by TMDB.</string>
     <string name="btn_retry">Retry</string>
+    <string name="info">Info</string>
 </resources>

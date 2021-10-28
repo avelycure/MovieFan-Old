@@ -9,5 +9,6 @@
         <item name="android:textColorHighlight">@color/light_blue</item>
         <item name="titleTextColor">@color/lavanda</item>
         <item name="colorError">@color/alazar_red</item>
+        <item name="colorControlNormal">@color/light_purpure2</item>
     </style>
 </resources>
