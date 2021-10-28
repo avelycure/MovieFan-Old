@@ -39,7 +39,7 @@ class PopularMoviesFragment : Fragment() {
 
     private lateinit var rvPopularMovie: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
-    private lateinit var btnRetry: AppCompatButton
+    private lateinit var btnRetry: com.google.android.material.button.MaterialButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

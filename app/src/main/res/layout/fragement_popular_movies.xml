@@ -27,12 +27,12 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/main_btn_restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/dark_blue"
         android:text="@string/btn_retry"
+        app:cornerRadius="10dp"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
 
