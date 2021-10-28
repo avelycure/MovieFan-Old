@@ -3,6 +3,7 @@
         <item name="colorSurface">@color/purple</item>
         <item name="colorPrimary">@color/indigo</item>
         <item name="colorSecondary">@color/light_blue</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/indigo</item>
+        <item name="subtitleTextColor">@color/gold</item>
     </style>
 </resources>

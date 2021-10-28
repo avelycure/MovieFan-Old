@@ -93,10 +93,10 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_genres_title"
+                style="@style/MovieInfoTextHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gold"
-                android:textSize="@dimen/mi_text_size"
+                android:textColor="?attr/subtitleTextColor"
                 app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
                 app:layout_constraintTop_toBottomOf="@id/mi_ratingbar" />
 
