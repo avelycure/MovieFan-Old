@@ -5,5 +5,8 @@
         <item name="colorSecondary">@color/light_blue</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/indigo</item>
         <item name="subtitleTextColor">@color/gold</item>
+        <item name="android:textColor">@color/light_purpure2</item>
+        <item name="android:textColorHighlight">@color/light_blue</item>
+        <item name="colorError">@color/alazar_red</item>
     </style>
 </resources>
