@@ -46,7 +46,7 @@ class PopularMoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragement_popular_movies, container, false)
-        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
+        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.pm_toolbar))
         (activity as AppCompatActivity).supportActionBar?.title = "Popular movies"
 
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
@@ -144,7 +144,8 @@ class PopularMoviesFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar_menu, menu)
+        if((activity as AppCompatActivity).supportActionBar?.title == "Popular movies")
+            inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
