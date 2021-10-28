@@ -46,8 +46,9 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
                     "No trailer available for this movie",
                     Snackbar.LENGTH_SHORT
                 )
-                (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text).setTextColor(Color.WHITE)
-                (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.light_blue))
+                (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text)
+                    .setTextColor(Color.WHITE)
+                (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.alazar_red))
                 sb.show()
             }
         }

@@ -32,7 +32,10 @@ fun MovieInfo.getCompanies(): String {
             append(element.name + ", ")
         }
     }
-    return companies.substring(0, companies.length - 2)
+    return if (companies.isNotBlank() && companies.isNotEmpty())
+        return companies.substring(0, companies.length - 2)
+    else
+        ""
 }
 
 fun MovieInfo.getCountries(): String {
@@ -40,7 +43,10 @@ fun MovieInfo.getCountries(): String {
         for (element in productionCountries)
             append(element.name + ", ")
     }
-    return countries.substring(0, countries.length - 2)
+    return if (countries.isNotBlank() && countries.isNotEmpty())
+        countries.substring(0, countries.length - 2)
+    else
+        ""
 }
 
 fun MovieInfo.getGenres(): String {
@@ -48,7 +54,10 @@ fun MovieInfo.getGenres(): String {
         for (element in genres)
             append(Constants.movieGenre[element.id] + ", ")
     }
-    return genres.substring(0, genres.length - 2)
+    return if (genres.isNotBlank() && genres.isNotEmpty())
+        return genres.substring(0, genres.length - 2)
+    else
+        ""
 }
 
 fun MovieInfo.getCast(): String {
@@ -56,5 +65,8 @@ fun MovieInfo.getCast(): String {
         for (element in cast.take(5))
             append("$element, ")
     }
-    return cast.substring(0, cast.length - 2)
+    return if (cast.isNotBlank() && cast.isNotEmpty())
+        return cast.substring(0, cast.length - 2)
+    else
+        ""
 }
