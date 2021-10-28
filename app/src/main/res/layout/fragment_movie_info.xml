@@ -93,10 +93,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_genres_title"
-                style="@style/MovieInfoTextHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="?attr/subtitleTextColor"
+                style="@style/MovieInfoTextSubtitle"
                 app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
                 app:layout_constraintTop_toBottomOf="@id/mi_ratingbar" />
 
@@ -112,10 +109,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_cast_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gold"
-                android:textSize="@dimen/mi_text_size"
+                style="@style/MovieInfoTextSubtitle"
                 app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
                 app:layout_constraintTop_toBottomOf="@id/mi_genres" />
 
@@ -131,10 +125,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_countries_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gold"
-                android:textSize="@dimen/mi_text_size"
+                style="@style/MovieInfoTextSubtitle"
                 app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
                 app:layout_constraintTop_toBottomOf="@id/mi_cast" />
 
@@ -150,10 +141,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_companies_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gold"
-                android:textSize="@dimen/mi_text_size"
+                style="@style/MovieInfoTextSubtitle"
                 app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
                 app:layout_constraintTop_toBottomOf="@id/mi_countries" />
 
@@ -169,10 +157,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_budget_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gold"
-                android:textSize="@dimen/mi_text_size"
+                style="@style/MovieInfoTextSubtitle"
                 app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
                 app:layout_constraintTop_toBottomOf="@id/mi_companies" />
 
@@ -188,10 +173,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_revenue_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gold"
-                android:textSize="@dimen/mi_text_size"
+                style="@style/MovieInfoTextSubtitle"
                 app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
                 app:layout_constraintTop_toBottomOf="@id/mi_budget" />
 

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MovieInfoTextHeader" parent="android:Theme">
+    <style name="MovieInfoTextSubtitle" parent="android:Theme">
         <item name="android:textSize">@dimen/mi_text_size</item>
+        <item name="android:textColor">?attr/subtitleTextColor</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>
