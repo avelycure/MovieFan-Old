@@ -4,18 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/indigo">
+    android:background="?attr/colorPrimary"
+    android:theme="@style/Theme.MovieFan">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_alignParentTop="true">
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            app:popupTheme="@style/Theme.MovieFan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:titleTextColor="?attr/titleTextColor"
             app:layout_scrollFlags="scroll|enterAlways" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -26,11 +28,12 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/main_btn_restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Retry"
+        android:text="@string/btn_retry"
+        app:cornerRadius="10dp"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
 
