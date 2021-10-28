@@ -48,7 +48,7 @@ class PopularMoviesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragement_popular_movies, container, false)
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
         (activity as AppCompatActivity).supportActionBar?.title = "Popular movies"
-        
+
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
         btnRetry = view.findViewById(R.id.main_btn_restart)
@@ -130,7 +130,8 @@ class PopularMoviesFragment : Fragment() {
                     else -> null
                 }
                 errorState?.let {
-                    btnRetry.visibility = View.VISIBLE
+                    if (movieAdapter.itemCount == 0)
+                        btnRetry.visibility = View.VISIBLE
                     loadingProgressBar.visibility = View.GONE
                     showNoInternetConnectionError(btnRetry)
                 }
