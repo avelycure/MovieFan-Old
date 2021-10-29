@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/Theme.MovieFan"
-    android:background="?attr/colorSurface">
+    android:background="?attr/colorOnSurface">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/load_state_error_message"
@@ -26,13 +26,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/load_state_retry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="@string/pm_retry_button"
         app:cornerRadius="10dp"
+        android:backgroundTint="?attr/colorSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

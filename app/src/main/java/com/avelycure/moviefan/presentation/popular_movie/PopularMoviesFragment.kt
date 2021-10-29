@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -39,7 +40,7 @@ class PopularMoviesFragment : Fragment() {
 
     private lateinit var rvPopularMovie: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
-    private lateinit var btnRetry: com.google.android.material.button.MaterialButton
+    private lateinit var btnRetry: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

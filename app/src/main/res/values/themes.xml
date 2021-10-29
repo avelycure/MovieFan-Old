@@ -1,15 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.MovieFan" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorSurface">@color/purple</item>
-        <item name="colorPrimary">@color/indigo</item>
-        <item name="colorSecondary">@color/light_blue</item>
-        <item name="android:statusBarColor" tools:targetApi="l">@color/indigo</item>
+
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/light_purpure2</item>
+        <item name="colorPrimary">@color/light_blue</item>
+        <item name="colorSecondary">@color/indigo</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">@color/light_blue</item>
+
+        <item name="titleTextColor">@color/cadet</item>
         <item name="subtitleTextColor">@color/gold</item>
-        <item name="android:textColor">@color/light_purpure2</item>
-        <item name="android:textColorHighlight">@color/light_blue</item>
-        <item name="titleTextColor">@color/magnolia</item>
+        <item name="android:textColor">@color/cadet</item>
+
         <item name="colorError">@color/karmin</item>
         <item name="colorOnError">@color/alazar_red</item>
+
         <item name="colorControlNormal">@color/light_purpure2</item>
     </style>
 </resources>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.MovieFan"
-    android:background="?attr/colorPrimary">
+    android:background="?attr/colorSurface">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -70,7 +70,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textStyle="italic"
-                android:textColor="@color/light_purpure"
                 app:layout_constraintStart_toStartOf="@+id/mi_title"
                 app:layout_constraintTop_toBottomOf="@+id/mi_title" />
 
@@ -87,7 +86,6 @@
                 android:id="@+id/mi_reviews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/light_purpure"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                 app:layout_constraintStart_toEndOf="@+id/mi_ratingbar"
                 app:layout_constraintTop_toTopOf="@+id/mi_ratingbar" />

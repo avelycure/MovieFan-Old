@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorSurface"
+        android:background="?attr/colorOnSurface"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -47,7 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            android:textColor="@color/light_purpure"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/pm_item_iv"
@@ -71,7 +70,6 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            android:textColor="@color/light_purpure"
             app:layout_constraintStart_toEndOf="@+id/pm_item_rating_bar"
             app:layout_constraintTop_toTopOf="@+id/pm_item_rating_bar" />
 

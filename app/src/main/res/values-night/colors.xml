@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="black">#FF000000</color>
+<resources>    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="sapphire">#0A2576</color>
     <color name="dark_blue">#004F97</color>
@@ -14,7 +13,4 @@
     <color name="alazar_red">#E32636</color>
     <color name="karmin">#960018</color>
     <color name="lavanda">#D2E9F2</color>
-    <color name="white_aluminium">#A5A5A5</color>
-    <color name="tumbleweeds">#DEAA88</color>
-    <color name="cadet">#525973</color>
 </resources>

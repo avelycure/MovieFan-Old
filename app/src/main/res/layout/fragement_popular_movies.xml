@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?attr/colorPrimary"
+    android:background="?attr/colorSurface"
     android:theme="@style/Theme.MovieFan">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -17,6 +17,7 @@
             app:popupTheme="@style/Theme.MovieFan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
             app:titleTextColor="?attr/titleTextColor"
             app:layout_scrollFlags="scroll|enterAlways" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -28,12 +29,13 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/main_btn_restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_retry"
         app:cornerRadius="10dp"
+        android:backgroundTint="?attr/colorSecondary"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
 
