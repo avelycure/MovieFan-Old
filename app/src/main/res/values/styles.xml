@@ -10,7 +10,6 @@
 
     <!-- Style for movie info in MovieInfoFragment -->
     <style name="MovieInfoText" parent="android:Theme">
-        <item name="android:textColor">@color/light_purpure2</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
