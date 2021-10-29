@@ -17,6 +17,7 @@
             app:popupTheme="@style/Theme.MovieFan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
             app:titleTextColor="?attr/titleTextColor"
             app:layout_scrollFlags="scroll|enterAlways" />
     </com.google.android.material.appbar.AppBarLayout>
