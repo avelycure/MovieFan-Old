@@ -79,14 +79,25 @@ class MovieInfoFragment : Fragment() {
         lifecycleScope.launch {
             movieInfoViewModel
                 .getVideos(movieId)
-                .collectLatest {
-                    childFragmentManager
-                        .beginTransaction()
-                        .add(
-                            R.id.youtube_container,
-                            YTFragment.getInstance(it.key)
-                        )
-                        .commit()
+                .collectLatest { videoInfo ->
+                    when(videoInfo){
+                        is DataState.Data -> {
+                            val key = videoInfo.data?.key ?: Constants.NO_TRAILER_CODE.toString()
+                            childFragmentManager
+                                .beginTransaction()
+                                .add(
+                                    R.id.youtube_container,
+                                    YTFragment.getInstance(key)
+                                )
+                                .commit()
+                        }
+                        is DataState.Loading -> {
+
+                        }
+                        is DataState.Response -> {
+
+                        }
+                    }
                 }
         }
         setHasOptionsMenu(true)

@@ -34,7 +34,7 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
         youTubePlayer: YouTubePlayer?,
         b: Boolean
     ) {
-        if (videoPath != "-1") {
+        if (videoPath != Constants.NO_TRAILER_CODE.toString()) {
             youTubePlayer?.cueVideo(videoPath);
             youTubePlayer?.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
         } else {
