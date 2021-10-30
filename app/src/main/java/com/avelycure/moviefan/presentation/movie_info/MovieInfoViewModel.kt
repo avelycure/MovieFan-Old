@@ -36,13 +36,8 @@ class MovieInfoViewModel
                                 state.value?.copy(videoInfo = dataState.data ?: VideoInfo())
                             videoIsLoaded = true
                         }
-                        is DataState.Loading -> {
-                            state.value =
-                                state.value?.copy(progressBarState = dataState.progressBarState)
-                        }
-                        is DataState.Response -> {
-
-                        }
+                        is DataState.Loading -> {}
+                        is DataState.Response -> {}
                     }
                 }
         }

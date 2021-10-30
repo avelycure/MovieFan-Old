@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
@@ -35,6 +36,7 @@ class MovieInfoFragment : Fragment() {
     private val movieInfoViewModel: MovieInfoViewModel by viewModels()
     private var movieId = Constants.NO_TRAILER_CODE
 
+    private lateinit var pb: ProgressBar
     private lateinit var tvTitle: AppCompatTextView
     private lateinit var tvTagline: AppCompatTextView
     private lateinit var ratingBar: AppCompatRatingBar
@@ -66,6 +68,11 @@ class MovieInfoFragment : Fragment() {
         movieInfoViewModel.getVideos(movieId)
 
         movieInfoViewModel.state.observe(viewLifecycleOwner, Observer { state ->
+            if(state.progressBarState == ProgressBarState.Loading)
+                pb.visibility = View.VISIBLE
+            else
+                pb.visibility = View.GONE
+
             if (state.progressBarState != ProgressBarState.Loading) {
                 setUi(state.movieInfo)
 
@@ -120,6 +127,7 @@ class MovieInfoFragment : Fragment() {
     }
 
     private fun initViewElements(view: View) {
+        pb = view.findViewById(R.id.mi_pb)
         tvTitle = view.findViewById(R.id.mi_title)
         tvOverview = view.findViewById(R.id.mi_overview)
         tvTagline = view.findViewById(R.id.mi_tagline)
