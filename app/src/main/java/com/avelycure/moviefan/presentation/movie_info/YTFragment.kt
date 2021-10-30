@@ -34,7 +34,7 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
         youTubePlayer: YouTubePlayer?,
         b: Boolean
     ) {
-        if (videoPath != "-1") {
+        if (videoPath != Constants.NO_TRAILER_CODE.toString()) {
             youTubePlayer?.cueVideo(videoPath);
             youTubePlayer?.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
         } else {
@@ -43,7 +43,7 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
                 val sb = Snackbar.make(
                     requireContext(),
                     it,
-                    "No trailer available for this movie",
+                    Constants.NO_TRAILER_AVAILABLE,
                     Snackbar.LENGTH_SHORT
                 )
                 (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text)

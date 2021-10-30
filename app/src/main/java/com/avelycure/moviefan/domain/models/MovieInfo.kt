@@ -1,29 +1,29 @@
-package com.avelycure.moviefan.domain
+package com.avelycure.moviefan.domain.models
 
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.*
 
 data class MovieInfo(
-    val adult: Boolean,
-    val budget: Int,
-    val imdbId: String?,
-    val originalLanguage: String,
-    val originalTitle: String,
-    val overview: String,
-    val popularity: Float,
-    val genres: List<MovieGenre>,
-    val productionCompanies: List<ProductionCompanies>,
-    val productionCountries: List<ProductionCountries>,
-    val releaseDate: String,
-    val spokenLanguages: List<SpokenLanguages>,
-    val status: String,
-    val revenue: Int,
-    val tagline: String?,
-    val title: String,
-    val voteAverage: Float,
-    val voteCount: Int,
-    val posterPath: String?,
-    val cast: List<String>
+    val adult: Boolean = false,
+    val budget: Int = 0,
+    val imdbId: String? = "",
+    val originalLanguage: String = "",
+    val originalTitle: String = "",
+    val overview: String = "",
+    val popularity: Float = 0F,
+    val genres: List<MovieGenre> = emptyList(),
+    val productionCompanies: List<ProductionCompanies> = emptyList(),
+    val productionCountries: List<ProductionCountries> = emptyList(),
+    val releaseDate: String = "",
+    val spokenLanguages: List<SpokenLanguages> = emptyList(),
+    val status: String = "",
+    val revenue: Int = 0,
+    val tagline: String? = "",
+    val title: String = "",
+    val voteAverage: Float = 0F,
+    val voteCount: Int = 0,
+    val posterPath: String? = "",
+    val cast: List<String> = emptyList()
 )
 
 fun MovieInfo.getCompanies(): String {

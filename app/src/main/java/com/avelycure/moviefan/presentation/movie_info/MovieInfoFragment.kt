@@ -1,22 +1,28 @@
 package com.avelycure.moviefan.presentation.movie_info
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.*
+import com.avelycure.moviefan.domain.models.*
+import com.avelycure.moviefan.domain.state.DataState
+import com.avelycure.moviefan.domain.state.ProgressBarState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,6 +36,7 @@ class MovieInfoFragment : Fragment() {
     private val movieInfoViewModel: MovieInfoViewModel by viewModels()
     private var movieId = Constants.NO_TRAILER_CODE
 
+    private lateinit var pb: ProgressBar
     private lateinit var tvTitle: AppCompatTextView
     private lateinit var tvTagline: AppCompatTextView
     private lateinit var ratingBar: AppCompatRatingBar
@@ -56,41 +63,48 @@ class MovieInfoFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
         movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
-        lifecycleScope.launch {
-            movieInfoViewModel
-                .getDetails(movieId)
-                .collectLatest { movieInfo ->
-                    setUi(movieInfo)
-                }
-        }
-        lifecycleScope.launch {
-            movieInfoViewModel
-                .getVideos(movieId)
-                .collectLatest {
+
+        movieInfoViewModel.getDetails(movieId)
+        movieInfoViewModel.getVideos(movieId)
+
+        movieInfoViewModel.state.observe(viewLifecycleOwner, Observer { state ->
+            if(state.progressBarState == ProgressBarState.Loading)
+                pb.visibility = View.VISIBLE
+            else
+                pb.visibility = View.GONE
+
+            if (state.progressBarState != ProgressBarState.Loading) {
+                setUi(state.movieInfo)
+
+                if(movieInfoViewModel.videoIsLoaded)
                     childFragmentManager
                         .beginTransaction()
                         .add(
                             R.id.youtube_container,
-                            YTFragment.getInstance(it.key)
+                            YTFragment.getInstance(state.videoInfo.key)
                         )
                         .commit()
-                }
-        }
+            }
+
+        })
+
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.mi_toolbar))
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.title =
-            arguments?.getString(Constants.MOVIE_TITLE) ?: "Movie info"
+            arguments?.getString(Constants.MOVIE_TITLE) ?: Constants.MOVIE_INFO_TITLE_DEFAULT
         initViewElements(view)
         return view
     }
 
     private fun setUi(movieInfo: MovieInfo) {
-        imageLoader.enqueue(ImageRequest.Builder(requireContext())
-            .data(Constants.IMAGE + movieInfo.posterPath)
-            .target(ivPoster)
-            .build())
+        imageLoader.enqueue(
+            ImageRequest.Builder(requireContext())
+                .data(Constants.IMAGE + movieInfo.posterPath)
+                .target(ivPoster)
+                .build()
+        )
         tvTitle.text = movieInfo.title
         tvTagline.text = movieInfo.tagline
         ratingBar.rating = movieInfo.voteAverage
@@ -102,15 +116,18 @@ class MovieInfoFragment : Fragment() {
         tvCompaniesTitle.text = "Companies: "
         tvCompanies.text = movieInfo.getCompanies()
         tvBudgetTitle.text = "Budget: "
-        tvBudget.text = "${((movieInfo.budget.toFloat() / 1000000F).toInt()).toString()} million USD"
+        tvBudget.text =
+            "${((movieInfo.budget.toFloat() / 1000000F).toInt()).toString()} million USD"
         tvRevenueTitle.text = "Revenue"
-        tvRevenue.text = "${((movieInfo.revenue.toFloat() / 1000000F).toInt()).toString()} million USD"
+        tvRevenue.text =
+            "${((movieInfo.revenue.toFloat() / 1000000F).toInt()).toString()} million USD"
         tvOverview.text = movieInfo.overview
         tvCastTitle.text = "Cast: "
         tvCast.text = movieInfo.getCast()
     }
 
     private fun initViewElements(view: View) {
+        pb = view.findViewById(R.id.mi_pb)
         tvTitle = view.findViewById(R.id.mi_title)
         tvOverview = view.findViewById(R.id.mi_overview)
         tvTagline = view.findViewById(R.id.mi_tagline)

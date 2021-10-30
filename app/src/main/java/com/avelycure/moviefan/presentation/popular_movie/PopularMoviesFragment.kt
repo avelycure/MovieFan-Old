@@ -9,9 +9,7 @@ import android.view.*
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -48,7 +46,7 @@ class PopularMoviesFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragement_popular_movies, container, false)
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.pm_toolbar))
-        (activity as AppCompatActivity).supportActionBar?.title = "Popular movies"
+        (activity as AppCompatActivity).supportActionBar?.title = Constants.POPULAR_MOVIE_TITLE_DEFAULT
 
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
@@ -69,37 +67,10 @@ class PopularMoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initAdapter(btnRetry)
+
         fetchPopularMovies()
-    }
-
-    private fun fetchPopularMovies() {
-        lifecycleScope.launch {
-            popularMoviesViewModel
-                .getPhotos()
-                .collectLatest {
-                    movieAdapter.submitData(it)
-                }
-        }
-    }
-
-    private fun isOnline(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        (activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetwork != null
-    } else {
-        true
-    }
-
-    private fun showNoInternetConnectionError(view: View) {
-        val sb = Snackbar.make(
-            requireContext(),
-            view,
-            "No internet connection",
-            Snackbar.LENGTH_SHORT
-        )
-        (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text)
-            .setTextColor(Color.WHITE)
-        (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.alazar_red))
-        sb.show()
     }
 
     private fun initAdapter(view: View) {
@@ -112,7 +83,7 @@ class PopularMoviesFragment : Fragment() {
                 )
                 activity?.supportFragmentManager
                     ?.beginTransaction()
-                    ?.addToBackStack("popular_movie")
+                    ?.addToBackStack(Constants.POPULAR_MOVIE_TAG)
                     ?.add(R.id.fragment_container, fragmentInfo)
                     ?.commit()
             } else
@@ -145,7 +116,7 @@ class PopularMoviesFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        if((activity as AppCompatActivity).supportActionBar?.title == "Popular movies")
+        if((activity as AppCompatActivity).supportActionBar?.title == Constants.POPULAR_MOVIE_TITLE_DEFAULT)
             inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
@@ -153,7 +124,7 @@ class PopularMoviesFragment : Fragment() {
         return if (item.itemId == R.id.action_info) {
             activity?.supportFragmentManager
                 ?.beginTransaction()
-                ?.addToBackStack("popular_movie")
+                ?.addToBackStack(Constants.POPULAR_MOVIE_TAG)
                 ?.add(R.id.fragment_container, AppInfo())
                 ?.commit()
             true
@@ -162,4 +133,32 @@ class PopularMoviesFragment : Fragment() {
         }
     }
 
+    private fun fetchPopularMovies() {
+        lifecycleScope.launch {
+            popularMoviesViewModel
+                .getPopularMovies()
+                .collectLatest {
+                    movieAdapter.submitData(it)
+                }
+        }
+    }
+
+    private fun isOnline(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        (activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetwork != null
+    } else {
+        true
+    }
+
+    private fun showNoInternetConnectionError(view: View) {
+        val sb = Snackbar.make(
+            requireContext(),
+            view,
+            Constants.NO_INTERNET_CONNECTION,
+            Snackbar.LENGTH_SHORT
+        )
+        (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text)
+            .setTextColor(Color.WHITE)
+        (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.alazar_red))
+        sb.show()
+    }
 }

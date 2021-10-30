@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.domain
+package com.avelycure.moviefan.domain.models
 
 data class PopularMovie(
     val title: String,

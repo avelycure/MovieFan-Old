@@ -14,8 +14,7 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.domain.MovieInfo
-import com.avelycure.moviefan.domain.PopularMovie
+import com.avelycure.moviefan.domain.models.PopularMovie
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.qualifiers.ApplicationContext
