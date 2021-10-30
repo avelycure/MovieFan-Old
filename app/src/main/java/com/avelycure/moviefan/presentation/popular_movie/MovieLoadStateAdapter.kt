@@ -1,6 +1,5 @@
 package com.avelycure.moviefan.presentation.popular_movie
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,14 +28,13 @@ class MovieLoadStateAdapter(
     }
 
     class LoadStateViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val progress = view.findViewById<ProgressBar>(R.id.load_state_progress)
-        val btnRetry = view.findViewById<Button>(R.id.load_state_retry)
-        val tvErrorMessage = view.findViewById<AppCompatTextView>(R.id.load_state_error_message)
+        private val progress = view.findViewById<ProgressBar>(R.id.load_state_progress)
+        private val btnRetry = view.findViewById<Button>(R.id.load_state_retry)
+        private val tvErrorMessage = view.findViewById<AppCompatTextView>(R.id.load_state_error_message)
 
         fun bind(loadState: LoadState, retry: () -> Unit) {
 
             btnRetry.isVisible = loadState !is LoadState.Loading
-            Log.d("mytag", "progress: ${LoadState.Loading}")
             tvErrorMessage.isVisible = loadState !is LoadState.Loading
             progress.isVisible = loadState is LoadState.Loading
 

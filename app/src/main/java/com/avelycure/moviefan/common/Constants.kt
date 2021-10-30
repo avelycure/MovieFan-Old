@@ -1,6 +1,11 @@
 package com.avelycure.moviefan.common
 
 object Constants {
+    const val MOVIE_INFO_TITLE_DEFAULT = "Movie info"
+    const val NO_TRAILER_AVAILABLE = "No trailer available for this movie"
+    const val POPULAR_MOVIE_TAG = "popular_movie"
+    const val POPULAR_MOVIE_TITLE_DEFAULT = "Popular movies"
+    const val NO_INTERNET_CONNECTION = "No internet connection"
     const val MOVIE_TITLE = "movie_title"
     const val ID_KEY = "movie"
 

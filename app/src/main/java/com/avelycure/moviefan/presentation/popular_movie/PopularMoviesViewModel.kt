@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PopularMoviesViewModel
 @Inject constructor(
-    val repository: MovieRepository
+    private val repository: MovieRepository
 ): ViewModel() {
 
     fun getPhotos(): Flow<PagingData<PopularMovie>> {

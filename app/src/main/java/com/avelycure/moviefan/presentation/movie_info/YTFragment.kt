@@ -43,7 +43,7 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
                 val sb = Snackbar.make(
                     requireContext(),
                     it,
-                    "No trailer available for this movie",
+                    Constants.NO_TRAILER_AVAILABLE,
                     Snackbar.LENGTH_SHORT
                 )
                 (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text)

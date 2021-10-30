@@ -18,20 +18,18 @@ class MovieRepository(
         const val DEFAULT_PAGE_SIZE = 20
     }
 
-    fun letMovieFlow(pagingConfig: PagingConfig = getDefaultPageConfig()): Flow<PagingData<PopularMovie>> {
-        return Pager(
+    fun letMovieFlow(pagingConfig: PagingConfig = getDefaultPageConfig()): Flow<PagingData<PopularMovie>> =
+        Pager(
             config = pagingConfig,
             pagingSourceFactory = { MoviePagingSource(postsService = postsService) }
         ).flow
-    }
 
-    private fun getDefaultPageConfig(): PagingConfig {
-        return PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
-    }
+    private fun getDefaultPageConfig() = PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
+
 
     suspend fun getVideos(id: Int): VideoInfo {
         val result = postsService.getVideos(id)
-        return if(result.results.isNotEmpty())
+        return if (result.results.isNotEmpty())
             result.results[0].toVideoInfo()
         else
             VideoInfo(Constants.NO_TRAILER_CODE.toString())
