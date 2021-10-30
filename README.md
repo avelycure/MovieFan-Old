@@ -24,6 +24,9 @@ The application follows the rules of attribution of The Movie Database, informat
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/info.jpg" width="320" />
 </p>
 
+## Difficulties / resolved issues
+While working with Ktor, I discovered an interesting fact. If the server sends a response in which there is no field, then I get an error <i>kotlinx.serialization.MissingFieldException</i>. Moreover, if you specify this field as nullable in the data class of the response, then the error will not disappear. Therefore, in order to solve this problem, I leave the field not-nullable and assign it a default value - an empty string.
+
 ## Technologies
 * Kotlin
 * Ktor
