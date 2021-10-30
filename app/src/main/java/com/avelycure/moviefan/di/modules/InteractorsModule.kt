@@ -1,6 +1,7 @@
 package com.avelycure.moviefan.di.modules
 
 import com.avelycure.moviefan.data.remote.MovieRepository
+import com.avelycure.moviefan.domain.interactors.GetDetails
 import com.avelycure.moviefan.domain.interactors.GetPopularMovies
 import dagger.Module
 import dagger.Provides
@@ -14,5 +15,10 @@ object InteractorsModule {
     @Provides
     fun provideGetPopularMovies(repository: MovieRepository):GetPopularMovies{
         return GetPopularMovies(repository)
+    }
+
+    @Provides
+    fun provideGetDetails(repository: MovieRepository):GetDetails{
+        return GetDetails(repository)
     }
 }

@@ -67,37 +67,10 @@ class PopularMoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initAdapter(btnRetry)
+
         fetchPopularMovies()
-    }
-
-    private fun fetchPopularMovies() {
-        lifecycleScope.launch {
-            popularMoviesViewModel
-                .getPopularMovies()
-                .collectLatest {
-                    movieAdapter.submitData(it)
-                }
-        }
-    }
-
-    private fun isOnline(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        (activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetwork != null
-    } else {
-        true
-    }
-
-    private fun showNoInternetConnectionError(view: View) {
-        val sb = Snackbar.make(
-            requireContext(),
-            view,
-            Constants.NO_INTERNET_CONNECTION,
-            Snackbar.LENGTH_SHORT
-        )
-        (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text)
-            .setTextColor(Color.WHITE)
-        (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.alazar_red))
-        sb.show()
     }
 
     private fun initAdapter(view: View) {
@@ -160,4 +133,32 @@ class PopularMoviesFragment : Fragment() {
         }
     }
 
+    private fun fetchPopularMovies() {
+        lifecycleScope.launch {
+            popularMoviesViewModel
+                .getPopularMovies()
+                .collectLatest {
+                    movieAdapter.submitData(it)
+                }
+        }
+    }
+
+    private fun isOnline(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        (activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetwork != null
+    } else {
+        true
+    }
+
+    private fun showNoInternetConnectionError(view: View) {
+        val sb = Snackbar.make(
+            requireContext(),
+            view,
+            Constants.NO_INTERNET_CONNECTION,
+            Snackbar.LENGTH_SHORT
+        )
+        (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text)
+            .setTextColor(Color.WHITE)
+        (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.alazar_red))
+        sb.show()
+    }
 }

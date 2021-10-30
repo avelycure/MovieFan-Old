@@ -1,6 +1,7 @@
 package com.avelycure.moviefan.presentation.movie_info
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -18,6 +19,7 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.*
 import com.avelycure.moviefan.domain.models.*
+import com.avelycure.moviefan.domain.state.DataState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -61,7 +63,17 @@ class MovieInfoFragment : Fragment() {
             movieInfoViewModel
                 .getDetails(movieId)
                 .collectLatest { movieInfo ->
-                    setUi(movieInfo)
+                    when(movieInfo){
+                        is DataState.Data -> {
+                            movieInfo.data?.let { setUi(it) }
+                        }
+                        is DataState.Response -> {
+                            Log.d("mytag", "Got error")
+                        }
+                        is DataState.Loading -> {
+                            Log.d("mytag", "Loading")
+                        }
+                    }
                 }
         }
         lifecycleScope.launch {
