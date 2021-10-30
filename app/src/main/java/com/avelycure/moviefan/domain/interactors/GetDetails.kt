@@ -1,9 +1,7 @@
 package com.avelycure.moviefan.domain.interactors
 
-import androidx.paging.PagingData
 import com.avelycure.moviefan.data.remote.MovieRepository
 import com.avelycure.moviefan.domain.models.MovieInfo
-import com.avelycure.moviefan.domain.models.PopularMovie
 import com.avelycure.moviefan.domain.state.DataState
 import com.avelycure.moviefan.domain.state.ProgressBarState
 import com.avelycure.moviefan.domain.state.UIComponent
