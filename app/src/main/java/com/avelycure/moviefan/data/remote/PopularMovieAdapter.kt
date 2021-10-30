@@ -14,6 +14,7 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.domain.MovieInfo
 import com.avelycure.moviefan.domain.PopularMovie
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -52,8 +53,7 @@ class PopularMovieAdapter
                 tvTitle.text = popularMovie.title
                 tvReviews.text = popularMovie.voteCount.toString()
                 ratingBar.rating = popularMovie.voteAverage / 2F
-                tvOriginalTitle.text =
-                    "${popularMovie.originalTitle}, ${popularMovie.releaseDate.substring(0, 4)}"
+                tvOriginalTitle.text = popularMovie.getOriginalTitleAndReleaseDate()
                 tvGenres.text = buildString {
                     for (genreId in popularMovie.genreIds)
                         append(Constants.movieGenre[genreId] + " ")
@@ -81,4 +81,10 @@ class PopularMovieAdapter
             return oldItem == newItem
         }
     }
+
+    fun PopularMovie.getOriginalTitleAndReleaseDate(): String =
+        if (this.releaseDate.isNotEmpty())
+            originalTitle + this.releaseDate.substring(0, 4)
+        else
+            originalTitle
 }
