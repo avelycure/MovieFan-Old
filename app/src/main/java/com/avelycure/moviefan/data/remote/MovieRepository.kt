@@ -2,14 +2,11 @@ package com.avelycure.moviefan.data.remote
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.mappers.toMovieInfo
 import com.avelycure.moviefan.data.remote.dto.video.mappers.toVideoInfo
 import com.avelycure.moviefan.domain.models.MovieInfo
-import com.avelycure.moviefan.domain.models.PopularMovie
 import com.avelycure.moviefan.domain.models.VideoInfo
-import kotlinx.coroutines.flow.Flow
 
 class MovieRepository(
     private val postsService: IPostsService
@@ -18,13 +15,14 @@ class MovieRepository(
         const val DEFAULT_PAGE_SIZE = 20
     }
 
-    fun letMovieFlow(pagingConfig: PagingConfig = getDefaultPageConfig()): Flow<PagingData<PopularMovie>> =
+    fun getPager(pagingConfig: PagingConfig = getDefaultPageConfig()) =
         Pager(
             config = pagingConfig,
             pagingSourceFactory = { MoviePagingSource(postsService = postsService) }
-        ).flow
+        )
 
-    private fun getDefaultPageConfig() = PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
+    private fun getDefaultPageConfig() =
+        PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
 
 
     suspend fun getVideos(id: Int): VideoInfo {

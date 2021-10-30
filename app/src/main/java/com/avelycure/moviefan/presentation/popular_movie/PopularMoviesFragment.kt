@@ -74,7 +74,7 @@ class PopularMoviesFragment : Fragment() {
     private fun fetchPopularMovies() {
         lifecycleScope.launch {
             popularMoviesViewModel
-                .getPhotos()
+                .getPopularMovies()
                 .collectLatest {
                     movieAdapter.submitData(it)
                 }

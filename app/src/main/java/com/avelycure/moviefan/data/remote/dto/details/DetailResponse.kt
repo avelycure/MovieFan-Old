@@ -1,6 +1,6 @@
 package com.avelycure.moviefan.data.remote.dto.details
 
-import com.avelycure.moviefan.domain.MovieInfo
+import com.avelycure.moviefan.domain.models.MovieInfo
 import kotlinx.serialization.Serializable
 
 @Serializable

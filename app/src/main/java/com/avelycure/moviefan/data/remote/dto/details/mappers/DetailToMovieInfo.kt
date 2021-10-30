@@ -1,7 +1,7 @@
 package com.avelycure.moviefan.data.remote.dto.details.mappers
 
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
-import com.avelycure.moviefan.domain.MovieInfo
+import com.avelycure.moviefan.domain.models.MovieInfo
 
 fun DetailResponse.toMovieInfo(): MovieInfo {
     return MovieInfo(

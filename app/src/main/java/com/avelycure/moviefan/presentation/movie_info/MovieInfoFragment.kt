@@ -17,6 +17,7 @@ import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.*
+import com.avelycure.moviefan.domain.models.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
