@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.avelycure.moviefan.data.remote.MovieRepository
-import com.avelycure.moviefan.domain.PopularMovie
+import com.avelycure.moviefan.domain.models.PopularMovie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

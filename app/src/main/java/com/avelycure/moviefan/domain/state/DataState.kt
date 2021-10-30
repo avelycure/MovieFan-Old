@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.domain
+package com.avelycure.moviefan.domain.state
 
 sealed class DataState<T> {
     data class Response<T>(

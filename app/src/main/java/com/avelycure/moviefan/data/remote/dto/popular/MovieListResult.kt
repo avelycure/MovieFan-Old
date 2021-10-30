@@ -1,6 +1,5 @@
 package com.avelycure.moviefan.data.remote.dto.popular
 
-import com.avelycure.moviefan.domain.PopularMovie
 import kotlinx.serialization.Serializable
 
 @Serializable

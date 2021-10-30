@@ -1,7 +1,7 @@
 package com.avelycure.moviefan.data.remote.dto.popular.mappers
 
 import com.avelycure.moviefan.data.remote.dto.popular.MovieListResult
-import com.avelycure.moviefan.domain.PopularMovie
+import com.avelycure.moviefan.domain.models.PopularMovie
 
 
 fun MovieListResult.toPopularMovie(): PopularMovie {

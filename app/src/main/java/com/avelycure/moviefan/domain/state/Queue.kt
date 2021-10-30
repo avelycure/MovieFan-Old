@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.domain
+package com.avelycure.moviefan.domain.state
 
 class Queue<T>(list: MutableList<T>) {
 

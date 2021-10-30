@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.domain
+package com.avelycure.moviefan.domain.models
 
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.*

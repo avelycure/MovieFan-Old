@@ -6,9 +6,9 @@ import androidx.paging.PagingData
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.mappers.toMovieInfo
 import com.avelycure.moviefan.data.remote.dto.video.mappers.toVideoInfo
-import com.avelycure.moviefan.domain.MovieInfo
-import com.avelycure.moviefan.domain.PopularMovie
-import com.avelycure.moviefan.domain.VideoInfo
+import com.avelycure.moviefan.domain.models.MovieInfo
+import com.avelycure.moviefan.domain.models.PopularMovie
+import com.avelycure.moviefan.domain.models.VideoInfo
 import kotlinx.coroutines.flow.Flow
 
 class MovieRepository(
