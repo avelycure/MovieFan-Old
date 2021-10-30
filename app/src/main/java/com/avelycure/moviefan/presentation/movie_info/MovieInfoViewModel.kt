@@ -9,7 +9,6 @@ import com.avelycure.moviefan.domain.models.MovieInfo
 import com.avelycure.moviefan.domain.models.VideoInfo
 import com.avelycure.moviefan.domain.state.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,11 +20,33 @@ class MovieInfoViewModel
     val getVideos: GetVideos
 ) : ViewModel() {
     val state = MutableLiveData<MovieInfoState>()
+    var videoIsLoaded = false
     init {
         state.value = MovieInfoState()
     }
 
-    fun getVideos(id: Int): Flow<DataState<VideoInfo>> = getVideos.execute(id)
+    fun getVideos(id: Int) {
+        viewModelScope.launch {
+            getVideos
+                .execute(id)
+                .collectLatest { dataState ->
+                    when(dataState){
+                        is DataState.Data -> {
+                            state.value =
+                                state.value?.copy(videoInfo = dataState.data ?: VideoInfo())
+                            videoIsLoaded = true
+                        }
+                        is DataState.Loading -> {
+                            state.value =
+                                state.value?.copy(progressBarState = dataState.progressBarState)
+                        }
+                        is DataState.Response -> {
+
+                        }
+                    }
+                }
+        }
+    }
 
     fun getDetails(id: Int) {
         viewModelScope.launch {

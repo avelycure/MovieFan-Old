@@ -61,36 +61,26 @@ class MovieInfoFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
         movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
-        movieInfoViewModel.state.observe(viewLifecycleOwner, Observer{
-            if(it.progressBarState!=ProgressBarState.Loading)
-            setUi(it.movieInfo)
+
+        movieInfoViewModel.getDetails(movieId)
+        movieInfoViewModel.getVideos(movieId)
+
+        movieInfoViewModel.state.observe(viewLifecycleOwner, Observer { state ->
+            if (state.progressBarState != ProgressBarState.Loading) {
+                setUi(state.movieInfo)
+
+                if(movieInfoViewModel.videoIsLoaded)
+                    childFragmentManager
+                        .beginTransaction()
+                        .add(
+                            R.id.youtube_container,
+                            YTFragment.getInstance(state.videoInfo.key)
+                        )
+                        .commit()
+            }
+
         })
-            movieInfoViewModel
-                .getDetails(movieId)
-        lifecycleScope.launch {
-            movieInfoViewModel
-                .getVideos(movieId)
-                .collectLatest { videoInfo ->
-                    when(videoInfo){
-                        is DataState.Data -> {
-                            val key = videoInfo.data?.key ?: Constants.NO_TRAILER_CODE.toString()
-                            childFragmentManager
-                                .beginTransaction()
-                                .add(
-                                    R.id.youtube_container,
-                                    YTFragment.getInstance(key)
-                                )
-                                .commit()
-                        }
-                        is DataState.Loading -> {
 
-                        }
-                        is DataState.Response -> {
-
-                        }
-                    }
-                }
-        }
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.mi_toolbar))
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -102,10 +92,12 @@ class MovieInfoFragment : Fragment() {
     }
 
     private fun setUi(movieInfo: MovieInfo) {
-        imageLoader.enqueue(ImageRequest.Builder(requireContext())
-            .data(Constants.IMAGE + movieInfo.posterPath)
-            .target(ivPoster)
-            .build())
+        imageLoader.enqueue(
+            ImageRequest.Builder(requireContext())
+                .data(Constants.IMAGE + movieInfo.posterPath)
+                .target(ivPoster)
+                .build()
+        )
         tvTitle.text = movieInfo.title
         tvTagline.text = movieInfo.tagline
         ratingBar.rating = movieInfo.voteAverage
@@ -117,9 +109,11 @@ class MovieInfoFragment : Fragment() {
         tvCompaniesTitle.text = "Companies: "
         tvCompanies.text = movieInfo.getCompanies()
         tvBudgetTitle.text = "Budget: "
-        tvBudget.text = "${((movieInfo.budget.toFloat() / 1000000F).toInt()).toString()} million USD"
+        tvBudget.text =
+            "${((movieInfo.budget.toFloat() / 1000000F).toInt()).toString()} million USD"
         tvRevenueTitle.text = "Revenue"
-        tvRevenue.text = "${((movieInfo.revenue.toFloat() / 1000000F).toInt()).toString()} million USD"
+        tvRevenue.text =
+            "${((movieInfo.revenue.toFloat() / 1000000F).toInt()).toString()} million USD"
         tvOverview.text = movieInfo.overview
         tvCastTitle.text = "Cast: "
         tvCast.text = movieInfo.getCast()
