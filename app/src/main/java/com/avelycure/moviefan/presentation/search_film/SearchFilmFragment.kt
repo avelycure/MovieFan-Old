@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.presentation.search_film
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -22,10 +23,10 @@ class SearchFilmFragment: Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        if((activity as AppCompatActivity).supportActionBar?.title == Constants.POPULAR_MOVIE_TITLE_DEFAULT)
-            inflater.inflate(R.menu.toolbar_menu, menu)
-
-        if((activity as AppCompatActivity).supportActionBar?.title == Constants.SEARCH_MOVIE_TITLE_DEFAULT)
+        super.onCreateOptionsMenu(menu, inflater)
+        if((activity as AppCompatActivity).supportActionBar?.title == Constants.SEARCH_MOVIE_TITLE_DEFAULT){
+            menu.clear()
             inflater.inflate(R.menu.search_film_menu, menu)
+        }
     }
 }

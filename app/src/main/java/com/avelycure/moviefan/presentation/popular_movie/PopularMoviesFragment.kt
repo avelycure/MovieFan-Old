@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.presentation.popular_movie
 
+import android.app.SearchManager
 import android.content.Context
 import android.graphics.Color
 import android.net.ConnectivityManager
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -116,11 +118,11 @@ class PopularMoviesFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        if((activity as AppCompatActivity).supportActionBar?.title == Constants.POPULAR_MOVIE_TITLE_DEFAULT)
+        super.onCreateOptionsMenu(menu, inflater)
+        if((activity as AppCompatActivity).supportActionBar?.title == Constants.POPULAR_MOVIE_TITLE_DEFAULT){
+            menu.clear()
             inflater.inflate(R.menu.toolbar_menu, menu)
-
-        if((activity as AppCompatActivity).supportActionBar?.title == Constants.SEARCH_MOVIE_TITLE_DEFAULT)
-            inflater.inflate(R.menu.search_film_menu, menu)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

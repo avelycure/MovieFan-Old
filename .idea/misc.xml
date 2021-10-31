@@ -14,9 +14,12 @@
         <entry key="app/src/main/res/layout/load_state_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/popular_movie_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.12681159420289856" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.13958333333333334" />
+        <entry key="app/src/main/res/menu/empty_menu.xml" value="0.19538461538461538" />
         <entry key="app/src/main/res/menu/toolbar_menu.xml" value="0.1984375" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/logo_background.xml" value="0.17239583333333333" />
+        <entry key="app/src/main/res/xml/searchable.xml" value="0.35855263157894735" />
       </map>
     </option>
   </component>
