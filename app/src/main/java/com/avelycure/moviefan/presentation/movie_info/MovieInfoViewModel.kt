@@ -20,7 +20,6 @@ class MovieInfoViewModel
     val getVideos: GetVideos
 ) : ViewModel() {
     val state = MutableLiveData<MovieInfoState>()
-    var videoIsLoaded = false
     init {
         state.value = MovieInfoState()
     }
@@ -33,10 +32,12 @@ class MovieInfoViewModel
                     when(dataState){
                         is DataState.Data -> {
                             state.value =
-                                state.value?.copy(videoInfo = dataState.data ?: VideoInfo())
-                            videoIsLoaded = true
+                                state.value?.copy(videoInfo = dataState.data ?: VideoInfo(), videoIsLoading = false)
                         }
-                        is DataState.Loading -> {}
+                        is DataState.Loading -> {
+                            state.value =
+                                state.value?.copy(videoIsLoading = true)
+                        }
                         is DataState.Response -> {}
                     }
                 }
@@ -55,7 +56,7 @@ class MovieInfoViewModel
                         }
                         is DataState.Loading -> {
                             state.value =
-                                state.value?.copy(progressBarState = dataState.progressBarState)
+                                state.value?.copy(detailsLoadingState = dataState.progressBarState)
                         }
                         is DataState.Response -> {
 

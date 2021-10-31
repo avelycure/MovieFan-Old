@@ -83,7 +83,7 @@ class MovieAdapter
 
     fun Movie.getOriginalTitleAndReleaseDate(): String =
         if (this.releaseDate.isNotEmpty())
-            originalTitle + this.releaseDate.substring(0, 4)
+            originalTitle + ", " + this.releaseDate.substring(0, 4)
         else
             originalTitle
 }

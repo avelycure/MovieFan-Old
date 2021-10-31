@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
@@ -68,24 +69,21 @@ class MovieInfoFragment : Fragment() {
         movieInfoViewModel.getVideos(movieId)
 
         movieInfoViewModel.state.observe(viewLifecycleOwner, Observer { state ->
-            if(state.progressBarState == ProgressBarState.Loading)
+            if(state.detailsLoadingState == ProgressBarState.Loading)
                 pb.visibility = View.VISIBLE
-            else
+            else{
                 pb.visibility = View.GONE
-
-            if (state.progressBarState != ProgressBarState.Loading) {
                 setUi(state.movieInfo)
-
-                if(movieInfoViewModel.videoIsLoaded)
-                    childFragmentManager
-                        .beginTransaction()
-                        .add(
-                            R.id.youtube_container,
-                            YTFragment.getInstance(state.videoInfo.key)
-                        )
-                        .commit()
             }
 
+            if(!state.videoIsLoading)
+                childFragmentManager
+                    .beginTransaction()
+                    .add(
+                        R.id.youtube_container,
+                        YTFragment.getInstance(state.videoInfo.key)
+                    )
+                    .commit()
         })
 
         setHasOptionsMenu(true)

@@ -7,8 +7,9 @@ import com.avelycure.moviefan.domain.state.Queue
 import com.avelycure.moviefan.domain.state.UIComponent
 
 data class MovieInfoState(
-    val progressBarState: ProgressBarState = ProgressBarState.Idle,
+    val detailsLoadingState: ProgressBarState = ProgressBarState.Idle,
     val errorQueue: Queue<UIComponent> = Queue(mutableListOf()),
     val movieInfo: MovieInfo = MovieInfo(),
+    val videoIsLoading: Boolean = false,
     val videoInfo: VideoInfo = VideoInfo()
 )
