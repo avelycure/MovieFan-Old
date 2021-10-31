@@ -1,6 +1,6 @@
 package com.avelycure.moviefan.domain.interactors
 
-import com.avelycure.moviefan.data.remote.MovieRepository
+import com.avelycure.moviefan.data.remote.repository.MovieRepository
 import com.avelycure.moviefan.domain.models.MovieInfo
 import com.avelycure.moviefan.domain.state.DataState
 import com.avelycure.moviefan.domain.state.ProgressBarState
@@ -9,7 +9,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class GetDetails(
-    private val repository: MovieRepository) {
+    private val repository: MovieRepository
+) {
 
     fun execute(id: Int): Flow<DataState<MovieInfo>> = flow{
         try {

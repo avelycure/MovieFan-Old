@@ -3,7 +3,7 @@ package com.avelycure.moviefan.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.presentation.popular_movie.PopularMoviesFragment
+import com.avelycure.moviefan.presentation.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private fun showPopularMovies() {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.fragment_container, PopularMoviesFragment())
+            .add(R.id.fragment_container, HomeFragment())
             .commit()
     }
 }

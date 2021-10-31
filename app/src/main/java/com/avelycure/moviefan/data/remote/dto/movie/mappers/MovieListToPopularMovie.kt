@@ -1,11 +1,11 @@
-package com.avelycure.moviefan.data.remote.dto.popular.mappers
+package com.avelycure.moviefan.data.remote.dto.movie.mappers
 
-import com.avelycure.moviefan.data.remote.dto.popular.MovieListResult
-import com.avelycure.moviefan.domain.models.PopularMovie
+import com.avelycure.moviefan.data.remote.dto.movie.MovieListResult
+import com.avelycure.moviefan.domain.models.Movie
 
 
-fun MovieListResult.toPopularMovie(): PopularMovie {
-    return PopularMovie(
+fun MovieListResult.toMovie(): Movie {
+    return Movie(
         title = title,
         originalTitle = original_title,
         posterPath = poster_path,

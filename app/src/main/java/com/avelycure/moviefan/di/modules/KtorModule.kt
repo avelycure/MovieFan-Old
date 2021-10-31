@@ -1,8 +1,8 @@
 package com.avelycure.moviefan.di.modules
 
-import com.avelycure.moviefan.data.remote.MovieRepository
-import com.avelycure.moviefan.data.remote.IPostsService
-import com.avelycure.moviefan.data.remote.PostsService
+import com.avelycure.moviefan.data.remote.repository.MovieRepository
+import com.avelycure.moviefan.data.remote.service.IPostsService
+import com.avelycure.moviefan.data.remote.service.PostsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

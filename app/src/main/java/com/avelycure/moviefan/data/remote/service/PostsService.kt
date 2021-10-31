@@ -1,8 +1,8 @@
-package com.avelycure.moviefan.data.remote
+package com.avelycure.moviefan.data.remote.service
 
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
-import com.avelycure.moviefan.data.remote.dto.popular.PopularMoviesResponse
+import com.avelycure.moviefan.data.remote.dto.movie.MoviesResponse
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import io.ktor.client.*
 import io.ktor.client.features.*
@@ -13,7 +13,7 @@ class PostsService(
     private val client: HttpClient
 ) : IPostsService {
 
-    override suspend fun getPosts(nextPage: Int): PopularMoviesResponse {
+    override suspend fun getPosts(nextPage: Int): MoviesResponse {
         return try {
             client.get {
                 url("${Constants.BASE_URL}/${Constants.POPULAR_MOVIES}${Constants.API_KEY}&page=$nextPage")
@@ -61,7 +61,7 @@ class PostsService(
         }
     }
 
-    override suspend fun searchMovies(query: String, page: Int): PopularMoviesResponse {
+    override suspend fun searchMovies(query: String, page: Int): MoviesResponse {
         return try {
             client.get {
                 url("${Constants.BASE_URL}/search/movie${Constants.API_KEY}&query=$query&page=$page")

@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
@@ -24,6 +25,7 @@ import com.avelycure.moviefan.domain.models.*
 import com.avelycure.moviefan.domain.state.DataState
 import com.avelycure.moviefan.domain.state.ProgressBarState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -66,17 +68,18 @@ class MovieInfoFragment : Fragment() {
 
         movieInfoViewModel.getDetails(movieId)
         movieInfoViewModel.getVideos(movieId)
+        initViewElements(view)
 
-        movieInfoViewModel.state.observe(viewLifecycleOwner, Observer { state ->
-            if(state.progressBarState == ProgressBarState.Loading)
-                pb.visibility = View.VISIBLE
-            else
-                pb.visibility = View.GONE
+        lifecycleScope.launch {
+            movieInfoViewModel.state.collect { state ->
+                if (state.detailsLoadingState == ProgressBarState.Loading)
+                    pb.visibility = View.VISIBLE
+                else {
+                    pb.visibility = View.GONE
+                    setUi(state.movieInfo)
+                }
 
-            if (state.progressBarState != ProgressBarState.Loading) {
-                setUi(state.movieInfo)
-
-                if(movieInfoViewModel.videoIsLoaded)
+                if (state.videoLoadingState != ProgressBarState.Loading)
                     childFragmentManager
                         .beginTransaction()
                         .add(
@@ -85,16 +88,7 @@ class MovieInfoFragment : Fragment() {
                         )
                         .commit()
             }
-
-        })
-
-        setHasOptionsMenu(true)
-        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.mi_toolbar))
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar?.title =
-            arguments?.getString(Constants.MOVIE_TITLE) ?: Constants.MOVIE_INFO_TITLE_DEFAULT
-        initViewElements(view)
+        }
         return view
     }
 
@@ -127,6 +121,13 @@ class MovieInfoFragment : Fragment() {
     }
 
     private fun initViewElements(view: View) {
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.mi_toolbar))
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.title =
+            arguments?.getString(Constants.MOVIE_TITLE) ?: Constants.MOVIE_INFO_TITLE_DEFAULT
+
         pb = view.findViewById(R.id.mi_pb)
         tvTitle = view.findViewById(R.id.mi_title)
         tvOverview = view.findViewById(R.id.mi_overview)

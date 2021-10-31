@@ -1,6 +1,6 @@
 package com.avelycure.moviefan.domain.models
 
-data class PopularMovie(
+data class Movie(
     val title: String,
     val originalTitle: String,
     val posterPath: String?,

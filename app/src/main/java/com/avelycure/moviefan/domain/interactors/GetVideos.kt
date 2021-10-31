@@ -1,7 +1,6 @@
 package com.avelycure.moviefan.domain.interactors
 
-import com.avelycure.moviefan.data.remote.MovieRepository
-import com.avelycure.moviefan.domain.models.MovieInfo
+import com.avelycure.moviefan.data.remote.repository.MovieRepository
 import com.avelycure.moviefan.domain.models.VideoInfo
 import com.avelycure.moviefan.domain.state.DataState
 import com.avelycure.moviefan.domain.state.ProgressBarState
