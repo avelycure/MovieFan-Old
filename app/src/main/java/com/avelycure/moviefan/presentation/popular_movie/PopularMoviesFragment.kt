@@ -25,6 +25,7 @@ import com.avelycure.moviefan.data.remote.PopularMovieAdapter
 import com.avelycure.moviefan.di.modules.PopularMovieAdapterFactory
 import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
+import com.avelycure.moviefan.utils.getQueryChangeStateFlow
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -194,18 +195,4 @@ class PopularMoviesFragment : Fragment() {
         (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.alazar_red))
         sb.show()
     }
-}
-
-fun SearchView.getQueryChangeStateFlow(): StateFlow<String> {
-    val query = MutableStateFlow("")
-    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(query: String?): Boolean {
-            return true
-        }
-        override fun onQueryTextChange(newText: String): Boolean {
-            query.value = newText
-            return true
-        }
-    })
-    return query
 }
