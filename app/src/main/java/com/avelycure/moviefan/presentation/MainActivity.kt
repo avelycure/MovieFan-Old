@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.presentation.popular_movie.PopularMoviesFragment
-import com.avelycure.moviefan.presentation.search_film.SearchFilmFragment
+import com.avelycure.moviefan.presentation.search_film.SearchMovieFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.search_movie -> {
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.fragment_container, SearchFilmFragment())
+                        .replace(R.id.fragment_container, SearchMovieFragment())
                         .commit()
                     true
                 }
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     private fun showSearchMovie() {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.fragment_container, SearchFilmFragment())
+            .add(R.id.fragment_container, SearchMovieFragment())
             .commit()
     }
 }

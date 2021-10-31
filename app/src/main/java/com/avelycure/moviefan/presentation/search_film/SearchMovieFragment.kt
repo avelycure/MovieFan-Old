@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 
-class SearchFilmFragment: Fragment() {
+class SearchMovieFragment: Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
