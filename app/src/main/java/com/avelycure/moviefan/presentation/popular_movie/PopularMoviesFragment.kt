@@ -118,6 +118,9 @@ class PopularMoviesFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         if((activity as AppCompatActivity).supportActionBar?.title == Constants.POPULAR_MOVIE_TITLE_DEFAULT)
             inflater.inflate(R.menu.toolbar_menu, menu)
+
+        if((activity as AppCompatActivity).supportActionBar?.title == Constants.SEARCH_MOVIE_TITLE_DEFAULT)
+            inflater.inflate(R.menu.search_film_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
