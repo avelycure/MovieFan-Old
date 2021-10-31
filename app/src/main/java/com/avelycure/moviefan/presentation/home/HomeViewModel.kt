@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.presentation.home
 
+import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import com.avelycure.moviefan.domain.interactors.GetPopularMovies
 import com.avelycure.moviefan.domain.interactors.SearchMovie
@@ -12,6 +13,7 @@ class HomeViewModel
     val getPopularMovies: GetPopularMovies,
     val searchMovie: SearchMovie
 ) : ViewModel() {
+    var state: Parcelable? = null
 
     fun getPopularMovies() = getPopularMovies
         .execute()

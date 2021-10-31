@@ -12,7 +12,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        showPopularMovies()
+
+        if(savedInstanceState == null)
+            showPopularMovies()
     }
 
     private fun showPopularMovies() {
@@ -20,5 +22,9 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .add(R.id.fragment_container, HomeFragment())
             .commit()
+    }
+
+    override fun onPause() {
+        super.onPause()
     }
 }
