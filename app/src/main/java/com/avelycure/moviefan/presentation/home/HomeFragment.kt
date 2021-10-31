@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.adapters.MovieAdapter
-import com.avelycure.moviefan.di.PopularMovieAdapterFactory
 import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
@@ -37,13 +36,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     @Inject
-    lateinit var movieAdapterFactory: PopularMovieAdapterFactory
     lateinit var movieAdapter: MovieAdapter
 
     private val homeViewModel: HomeViewModel by viewModels()
 
     private lateinit var searchView: SearchView
-    private lateinit var closeBtn: ImageView
     private lateinit var rvPopularMovie: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
     private lateinit var btnRetry: Button
@@ -107,7 +104,7 @@ class HomeFragment : Fragment() {
     private fun initRecyclerView(view: View) {
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
 
-        movieAdapter = movieAdapterFactory.create { movie ->
+        movieAdapter.onClickedItem = { movie ->
             if (isOnline())
                 createYouTubeFragment(movie)
             else
@@ -134,10 +131,20 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
         rvPopularMovie.adapter = movieAdapter.withLoadStateFooter(
             footer = MovieLoadStateAdapter { movieAdapter.retry() }
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (homeViewModel.state != null)
+            rvPopularMovie.layoutManager?.onRestoreInstanceState(homeViewModel.state)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        homeViewModel.state = rvPopularMovie.layoutManager?.onSaveInstanceState()
     }
 
     private fun initViewElements(view: View) {
@@ -171,6 +178,7 @@ class HomeFragment : Fragment() {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
                 return true
             }
+
             override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
                 (activity as AppCompatActivity).invalidateOptionsMenu()
                 fetchPopularMovies()

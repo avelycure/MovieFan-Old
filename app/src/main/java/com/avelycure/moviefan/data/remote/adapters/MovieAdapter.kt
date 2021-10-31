@@ -15,17 +15,18 @@ import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.models.Movie
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MovieAdapter
-@AssistedInject constructor(
-    @Assisted val onClickedItem: (Movie) -> Unit,
+@Inject constructor(
     val imageLoader: ImageLoader,
     @ApplicationContext val context: Context
 ) :
     PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieComparator) {
+    var onClickedItem: (Movie) -> Unit = {}
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.bind(item = getItem(position), onClicked = onClickedItem)
