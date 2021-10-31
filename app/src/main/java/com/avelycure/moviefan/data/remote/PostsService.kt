@@ -61,10 +61,10 @@ class PostsService(
         }
     }
 
-    override suspend fun searchMovies(query: String): PopularMoviesResponse {
+    override suspend fun searchMovies(query: String, page: Int): PopularMoviesResponse {
         return try {
             client.get {
-                url("${Constants.BASE_URL}/search/movie${Constants.API_KEY}&$query")
+                url("${Constants.BASE_URL}/search/movie${Constants.API_KEY}&query=$query&page=$page")
             }
         } catch (e: RedirectResponseException) {
             throw Exception("Further action needs to be taken in order to complete the request")

@@ -27,7 +27,10 @@ import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,6 +40,7 @@ class PopularMoviesFragment : Fragment() {
     lateinit var movieAdapterFactory: PopularMovieAdapterFactory
     lateinit var movieAdapter: PopularMovieAdapter
     private val popularMoviesViewModel: PopularMoviesViewModel by viewModels()
+    private lateinit var searchView: SearchView
 
     private lateinit var rvPopularMovie: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
@@ -117,11 +121,34 @@ class PopularMoviesFragment : Fragment() {
         )
     }
 
+    @FlowPreview
+    @ExperimentalCoroutinesApi
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         if((activity as AppCompatActivity).supportActionBar?.title == Constants.POPULAR_MOVIE_TITLE_DEFAULT){
             menu.clear()
             inflater.inflate(R.menu.toolbar_menu, menu)
+
+            val searchManager = (activity as AppCompatActivity).getSystemService(Context.SEARCH_SERVICE) as SearchManager
+            searchView = menu.findItem(R.id.search_view).actionView as SearchView
+            searchView.setSearchableInfo(searchManager.getSearchableInfo((activity as AppCompatActivity).componentName))
+            searchView.setIconifiedByDefault(false)
+
+            lifecycleScope.launch {
+                searchView.getQueryChangeStateFlow()
+                    .debounce(500)
+                    .filter { query ->
+                        return@filter query.isNotEmpty()
+                    }
+                    .distinctUntilChanged()
+                    .flatMapLatest { query ->
+                        popularMoviesViewModel.searchMovie(query)
+                    }
+                    .flowOn(Dispatchers.Main)
+                    .collectLatest {
+                        movieAdapter.submitData(it)
+                    }
+            }
         }
     }
 
@@ -166,4 +193,18 @@ class PopularMoviesFragment : Fragment() {
         (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.alazar_red))
         sb.show()
     }
+}
+
+fun SearchView.getQueryChangeStateFlow(): StateFlow<String> {
+    val query = MutableStateFlow("")
+    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            return true
+        }
+        override fun onQueryTextChange(newText: String): Boolean {
+            query.value = newText
+            return true
+        }
+    })
+    return query
 }
