@@ -39,6 +39,7 @@ class PopularMoviesFragment : Fragment() {
     @Inject
     lateinit var movieAdapterFactory: PopularMovieAdapterFactory
     lateinit var movieAdapter: PopularMovieAdapter
+
     private val popularMoviesViewModel: PopularMoviesViewModel by viewModels()
     private lateinit var searchView: SearchView
 

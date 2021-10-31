@@ -6,5 +6,7 @@ import com.avelycure.moviefan.domain.models.PopularMovie
 class SearchMovie(
     val repository: MovieRepository
 ) {
-
+    fun execute(query: String) = repository
+        .getSearchPager(query)
+        .flow
 }

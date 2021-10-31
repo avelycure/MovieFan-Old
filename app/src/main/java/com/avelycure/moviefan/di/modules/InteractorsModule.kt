@@ -29,4 +29,8 @@ object InteractorsModule {
         return GetVideos(repository)
     }
 
+    @Provides
+    fun provideSearchMovie(repository: MovieRepository): SearchMovie {
+        return SearchMovie(repository)
+    }
 }
