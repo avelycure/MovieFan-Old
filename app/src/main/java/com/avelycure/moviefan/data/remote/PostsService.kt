@@ -60,4 +60,20 @@ class PostsService(
             throw Exception("No internet connection")
         }
     }
+
+    override suspend fun searchMovies(query: String): PopularMoviesResponse {
+        return try {
+            client.get {
+                url("${Constants.BASE_URL}/search/movie${Constants.API_KEY}&$query")
+            }
+        } catch (e: RedirectResponseException) {
+            throw Exception("Further action needs to be taken in order to complete the request")
+        } catch (e: ClientRequestException) {
+            throw Exception("The request contains bad syntax or cannot be fulfilled")
+        } catch (e: ServerResponseException) {
+            throw Exception("The server failed to fulfil an apparently valid request")
+        } catch (e: IOException) {
+            throw Exception("No internet connection")
+        }
+    }
 }

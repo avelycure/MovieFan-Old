@@ -8,4 +8,5 @@ interface IPostsService {
     suspend fun getPosts(nextPage: Int): PopularMoviesResponse
     suspend fun getVideos(id: Int): VideosResponse
     suspend fun getMovieDetail(id: Int): DetailResponse
+    suspend fun searchMovies(query: String): PopularMoviesResponse
 }
