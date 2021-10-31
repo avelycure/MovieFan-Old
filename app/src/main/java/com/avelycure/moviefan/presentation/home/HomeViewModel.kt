@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.presentation.popular_movie
+package com.avelycure.moviefan.presentation.home
 
 import androidx.lifecycle.ViewModel
 import com.avelycure.moviefan.domain.interactors.GetPopularMovies
@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class PopularMoviesViewModel
+class HomeViewModel
 @Inject constructor(
     val getPopularMovies: GetPopularMovies,
     val searchMovie: SearchMovie

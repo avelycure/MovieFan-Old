@@ -2,21 +2,21 @@ package com.avelycure.moviefan.data.remote.sources
 
 import androidx.paging.PagingSource
 import com.avelycure.moviefan.data.remote.service.IPostsService
-import com.avelycure.moviefan.data.remote.dto.popular.mappers.toPopularMovie
-import com.avelycure.moviefan.domain.models.PopularMovie
+import com.avelycure.moviefan.data.remote.dto.movie.mappers.toMovie
+import com.avelycure.moviefan.domain.models.Movie
 
 class MoviePagingSource(
     val postsService: IPostsService
-) : PagingSource<Int, PopularMovie>() {
+) : PagingSource<Int, Movie>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PopularMovie> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         try {
             val page = params.key ?: 1
             val response = postsService
                 .getPosts(page)
                 .results
                 .map {
-                    it.toPopularMovie()
+                    it.toMovie()
                 }
 
             return LoadResult.Page(

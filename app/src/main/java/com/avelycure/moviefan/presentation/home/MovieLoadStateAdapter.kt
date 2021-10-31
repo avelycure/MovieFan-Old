@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.presentation.popular_movie
+package com.avelycure.moviefan.presentation.home
 
 import android.view.LayoutInflater
 import android.view.View

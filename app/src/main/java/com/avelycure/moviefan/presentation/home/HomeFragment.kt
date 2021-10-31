@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.presentation.popular_movie
+package com.avelycure.moviefan.presentation.home
 
 import android.app.SearchManager
 import android.content.Context
@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.data.remote.adapters.PopularMovieAdapter
+import com.avelycure.moviefan.data.remote.adapters.MovieAdapter
 import com.avelycure.moviefan.di.PopularMovieAdapterFactory
 import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
@@ -36,12 +36,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PopularMoviesFragment : Fragment() {
+class HomeFragment : Fragment() {
     @Inject
     lateinit var movieAdapterFactory: PopularMovieAdapterFactory
-    lateinit var movieAdapter: PopularMovieAdapter
+    lateinit var movieAdapter: MovieAdapter
 
-    private val popularMoviesViewModel: PopularMoviesViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var searchView: SearchView
 
     private lateinit var rvPopularMovie: RecyclerView
@@ -144,7 +144,7 @@ class PopularMoviesFragment : Fragment() {
                     }
                     .distinctUntilChanged()
                     .flatMapLatest { query ->
-                        popularMoviesViewModel.searchMovie(query)
+                        homeViewModel.searchMovie(query)
                     }
                     .flowOn(Dispatchers.Main)
                     .collectLatest {
@@ -169,7 +169,7 @@ class PopularMoviesFragment : Fragment() {
 
     private fun fetchPopularMovies() {
         lifecycleScope.launch {
-            popularMoviesViewModel
+            homeViewModel
                 .getPopularMovies()
                 .collectLatest {
                     movieAdapter.submitData(it)

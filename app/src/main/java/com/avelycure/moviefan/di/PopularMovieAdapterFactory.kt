@@ -1,10 +1,10 @@
 package com.avelycure.moviefan.di
 
-import com.avelycure.moviefan.data.remote.adapters.PopularMovieAdapter
-import com.avelycure.moviefan.domain.models.PopularMovie
+import com.avelycure.moviefan.data.remote.adapters.MovieAdapter
+import com.avelycure.moviefan.domain.models.Movie
 import dagger.assisted.AssistedFactory
 
 @AssistedFactory
 interface PopularMovieAdapterFactory {
-    fun create(onClickItem: (PopularMovie) -> Unit): PopularMovieAdapter
+    fun create(onClickItem: (Movie) -> Unit): MovieAdapter
 }
