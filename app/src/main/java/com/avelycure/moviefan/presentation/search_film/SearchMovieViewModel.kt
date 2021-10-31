@@ -11,5 +11,4 @@ class SearchMovieViewModel
         val searchMovie: SearchMovie
     ): ViewModel() {
 
-
 }
