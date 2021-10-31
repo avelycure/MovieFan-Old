@@ -9,6 +9,7 @@ import com.avelycure.moviefan.domain.models.MovieInfo
 import com.avelycure.moviefan.domain.models.VideoInfo
 import com.avelycure.moviefan.domain.state.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,26 +20,24 @@ class MovieInfoViewModel
     val getDetails: GetDetails,
     val getVideos: GetVideos
 ) : ViewModel() {
-    val state = MutableLiveData<MovieInfoState>()
-    init {
-        state.value = MovieInfoState()
-    }
+    val state: MutableStateFlow<MovieInfoState> = MutableStateFlow(MovieInfoState())
 
     fun getVideos(id: Int) {
         viewModelScope.launch {
             getVideos
                 .execute(id)
                 .collectLatest { dataState ->
-                    when(dataState){
+                    when (dataState) {
                         is DataState.Data -> {
                             state.value =
-                                state.value?.copy(videoInfo = dataState.data ?: VideoInfo())
+                                state.value.copy(videoInfo = dataState.data ?: VideoInfo())
                         }
                         is DataState.Loading -> {
                             state.value =
-                                state.value?.copy(videoLoadingState = dataState.progressBarState)
+                                state.value.copy(videoLoadingState = dataState.progressBarState)
                         }
-                        is DataState.Response -> {}
+                        is DataState.Response -> {
+                        }
                     }
                 }
         }
@@ -52,11 +51,11 @@ class MovieInfoViewModel
                     when (dataState) {
                         is DataState.Data -> {
                             state.value =
-                                state.value?.copy(movieInfo = dataState.data ?: MovieInfo())
+                                state.value.copy(movieInfo = dataState.data ?: MovieInfo())
                         }
                         is DataState.Loading -> {
                             state.value =
-                                state.value?.copy(detailsLoadingState = dataState.progressBarState)
+                                state.value.copy(detailsLoadingState = dataState.progressBarState)
                         }
                         is DataState.Response -> {
 

@@ -25,6 +25,7 @@ import com.avelycure.moviefan.domain.models.*
 import com.avelycure.moviefan.domain.state.DataState
 import com.avelycure.moviefan.domain.state.ProgressBarState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -67,26 +68,27 @@ class MovieInfoFragment : Fragment() {
 
         movieInfoViewModel.getDetails(movieId)
         movieInfoViewModel.getVideos(movieId)
-
-        movieInfoViewModel.state.observe(viewLifecycleOwner, Observer { state ->
-            if(state.detailsLoadingState == ProgressBarState.Loading)
-                pb.visibility = View.VISIBLE
-            else{
-                pb.visibility = View.GONE
-                setUi(state.movieInfo)
-            }
-
-            if(state.videoLoadingState != ProgressBarState.Loading)
-                childFragmentManager
-                    .beginTransaction()
-                    .add(
-                        R.id.youtube_container,
-                        YTFragment.getInstance(state.videoInfo.key)
-                    )
-                    .commit()
-        })
-
         initViewElements(view)
+
+        lifecycleScope.launch {
+            movieInfoViewModel.state.collect { state ->
+                if (state.detailsLoadingState == ProgressBarState.Loading)
+                    pb.visibility = View.VISIBLE
+                else {
+                    pb.visibility = View.GONE
+                    setUi(state.movieInfo)
+                }
+
+                if (state.videoLoadingState != ProgressBarState.Loading)
+                    childFragmentManager
+                        .beginTransaction()
+                        .add(
+                            R.id.youtube_container,
+                            YTFragment.getInstance(state.videoInfo.key)
+                        )
+                        .commit()
+            }
+        }
         return view
     }
 
