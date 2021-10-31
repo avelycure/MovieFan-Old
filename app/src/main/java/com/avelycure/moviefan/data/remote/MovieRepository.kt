@@ -36,4 +36,11 @@ class MovieRepository(
     suspend fun getDetails(id: Int): MovieInfo {
         return postsService.getMovieDetail(id).toMovieInfo()
     }
+
+    fun getSearchPager(query: String, pagingConfig: PagingConfig = getDefaultPageConfig()) =
+        Pager(
+            config = pagingConfig,
+            pagingSourceFactory = { SearchPagingSource(postsService = postsService,
+            query = query) }
+        )
 }
