@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.presentation
+package com.avelycure.moviefan.presentation.app_info
 
 import android.os.Bundle
 import android.view.LayoutInflater

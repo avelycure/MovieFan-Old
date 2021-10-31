@@ -21,7 +21,7 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.PopularMovieAdapter
 import com.avelycure.moviefan.di.modules.PopularMovieAdapterFactory
-import com.avelycure.moviefan.presentation.AppInfo
+import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
