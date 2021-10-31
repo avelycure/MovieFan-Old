@@ -44,7 +44,7 @@ class PopularMoviesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragement_popular_movies, container, false)
+        val view = inflater.inflate(R.layout.fragment_popular_movies, container, false)
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.pm_toolbar))
         (activity as AppCompatActivity).supportActionBar?.title = Constants.POPULAR_MOVIE_TITLE_DEFAULT
 
