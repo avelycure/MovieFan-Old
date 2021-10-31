@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 
 class SearchMovieFragment: Fragment() {
+    private val searchMovieViewModel: SearchMovieViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

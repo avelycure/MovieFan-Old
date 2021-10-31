@@ -16,7 +16,7 @@ class PostsService(
     override suspend fun getPosts(nextPage: Int): PopularMoviesResponse {
         return try {
             client.get {
-                url(Constants.POPULAR_MOVIES + nextPage)
+                url("${Constants.BASE_URL}/${Constants.POPULAR_MOVIES}${Constants.API_KEY}&page=$nextPage")
             }
         } catch (e: RedirectResponseException) {
             throw Exception("Further action needs to be taken in order to complete the request")
@@ -32,7 +32,7 @@ class PostsService(
     override suspend fun getVideos(id: Int): VideosResponse {
         return try {
             client.get {
-                url("${Constants.BASE_URL}/$id/videos?api_key=${Constants.API_KEY}")
+                url("${Constants.BASE_URL}/movie/$id/videos${Constants.API_KEY}")
             }
         } catch (e: RedirectResponseException) {
             throw Exception("Further action needs to be taken in order to complete the request")
@@ -48,7 +48,7 @@ class PostsService(
     override suspend fun getMovieDetail(id: Int): DetailResponse {
         return try {
             client.get {
-                url("${Constants.BASE_URL}/$id?api_key=${Constants.API_KEY}${Constants.CREDITS}")
+                url("${Constants.BASE_URL}/movie/$id${Constants.API_KEY}&${Constants.CREDITS}")
             }
         } catch (e: RedirectResponseException) {
             throw Exception("Further action needs to be taken in order to complete the request")
