@@ -1,10 +1,13 @@
-package com.avelycure.moviefan.data.remote
+package com.avelycure.moviefan.data.remote.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.mappers.toMovieInfo
 import com.avelycure.moviefan.data.remote.dto.video.mappers.toVideoInfo
+import com.avelycure.moviefan.data.remote.service.IPostsService
+import com.avelycure.moviefan.data.remote.sources.MoviePagingSource
+import com.avelycure.moviefan.data.remote.sources.SearchPagingSource
 import com.avelycure.moviefan.domain.models.MovieInfo
 import com.avelycure.moviefan.domain.models.VideoInfo
 

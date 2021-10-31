@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.data.remote
+package com.avelycure.moviefan.data.remote.service
 
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.popular.PopularMoviesResponse

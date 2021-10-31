@@ -1,7 +1,6 @@
 package com.avelycure.moviefan.domain.interactors
 
-import com.avelycure.moviefan.data.remote.MovieRepository
-import com.avelycure.moviefan.domain.models.PopularMovie
+import com.avelycure.moviefan.data.remote.repository.MovieRepository
 
 class SearchMovie(
     val repository: MovieRepository

@@ -1,6 +1,6 @@
 package com.avelycure.moviefan.di.modules
 
-import com.avelycure.moviefan.data.remote.MovieRepository
+import com.avelycure.moviefan.data.remote.repository.MovieRepository
 import com.avelycure.moviefan.domain.interactors.GetDetails
 import com.avelycure.moviefan.domain.interactors.GetPopularMovies
 import com.avelycure.moviefan.domain.interactors.GetVideos

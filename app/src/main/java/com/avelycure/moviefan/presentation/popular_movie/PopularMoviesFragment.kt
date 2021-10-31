@@ -21,8 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.data.remote.PopularMovieAdapter
-import com.avelycure.moviefan.di.modules.PopularMovieAdapterFactory
+import com.avelycure.moviefan.data.remote.adapters.PopularMovieAdapter
+import com.avelycure.moviefan.di.PopularMovieAdapterFactory
 import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import com.avelycure.moviefan.utils.getQueryChangeStateFlow
