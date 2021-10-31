@@ -32,11 +32,11 @@ class MovieInfoViewModel
                     when(dataState){
                         is DataState.Data -> {
                             state.value =
-                                state.value?.copy(videoInfo = dataState.data ?: VideoInfo(), videoIsLoading = false)
+                                state.value?.copy(videoInfo = dataState.data ?: VideoInfo())
                         }
                         is DataState.Loading -> {
                             state.value =
-                                state.value?.copy(videoIsLoading = true)
+                                state.value?.copy(videoLoadingState = dataState.progressBarState)
                         }
                         is DataState.Response -> {}
                     }

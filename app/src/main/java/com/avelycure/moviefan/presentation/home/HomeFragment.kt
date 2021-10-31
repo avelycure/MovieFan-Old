@@ -7,9 +7,7 @@ import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
@@ -23,6 +21,7 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.adapters.MovieAdapter
 import com.avelycure.moviefan.di.PopularMovieAdapterFactory
+import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import com.avelycure.moviefan.utils.getQueryChangeStateFlow
@@ -42,8 +41,9 @@ class HomeFragment : Fragment() {
     lateinit var movieAdapter: MovieAdapter
 
     private val homeViewModel: HomeViewModel by viewModels()
-    private lateinit var searchView: SearchView
 
+    private lateinit var searchView: SearchView
+    private lateinit var closeBtn: ImageView
     private lateinit var rvPopularMovie: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
     private lateinit var btnRetry: Button
@@ -53,56 +53,73 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_popular_movies, container, false)
-        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.pm_toolbar))
-        (activity as AppCompatActivity).supportActionBar?.title = Constants.POPULAR_MOVIE_TITLE_DEFAULT
-
-        rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
-        loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
-        btnRetry = view.findViewById(R.id.main_btn_restart)
-        btnRetry.setOnClickListener {
-            if (isOnline()) {
-                btnRetry.visibility = View.INVISIBLE
-                fetchPopularMovies()
-            } else
-                showNoInternetConnectionError(view)
-        }
-
-        rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
-
-        setHasOptionsMenu(true)
+        initViewElements(view)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initAdapter(btnRetry)
-
+        initRecyclerView(btnRetry)
         fetchPopularMovies()
     }
 
-    private fun initAdapter(view: View) {
-        movieAdapter = movieAdapterFactory.create {
-            if (isOnline()) {
-                val fragmentInfo = MovieInfoFragment()
-                fragmentInfo.arguments = bundleOf(
-                    Constants.ID_KEY to it.movieId,
-                    Constants.MOVIE_TITLE to it.title
-                )
-                activity?.supportFragmentManager
-                    ?.beginTransaction()
-                    ?.addToBackStack(Constants.POPULAR_MOVIE_TAG)
-                    ?.add(R.id.fragment_container, fragmentInfo)
-                    ?.commit()
-            } else
+    @FlowPreview
+    @ExperimentalCoroutinesApi
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        if ((activity as AppCompatActivity).supportActionBar?.title == Constants.POPULAR_MOVIE_TITLE_DEFAULT) {
+            menu.clear()
+            inflater.inflate(R.menu.toolbar_menu, menu)
+            initSearchView(menu)
+
+            lifecycleScope.launch {
+                searchView.getQueryChangeStateFlow()
+                    .debounce(500)
+                    .filter { query ->
+                        return@filter query.isNotEmpty()
+                    }
+                    .distinctUntilChanged()
+                    .flatMapLatest { query ->
+                        homeViewModel.searchMovie(query)
+                    }
+                    .flowOn(Dispatchers.Main)
+                    .collectLatest {
+                        movieAdapter.submitData(it)
+                    }
+            }
+        }
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.action_info) {
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.addToBackStack(Constants.POPULAR_MOVIE_TAG)
+                ?.add(R.id.fragment_container, AppInfo())
+                ?.commit()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun initRecyclerView(view: View) {
+        rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
+
+        movieAdapter = movieAdapterFactory.create { movie ->
+            if (isOnline())
+                createYouTubeFragment(movie)
+            else
                 showNoInternetConnectionError(view)
         }
 
         movieAdapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading) {
+            if (loadState.refresh is LoadState.Loading)
                 loadingProgressBar.visibility = View.VISIBLE
-            } else {
+            else {
                 loadingProgressBar.visibility = View.GONE
+
                 val errorState = when {
                     loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
                     loadState.append is LoadState.Error -> loadState.append as LoadState.Error
@@ -123,48 +140,56 @@ class HomeFragment : Fragment() {
         )
     }
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        if((activity as AppCompatActivity).supportActionBar?.title == Constants.POPULAR_MOVIE_TITLE_DEFAULT){
-            menu.clear()
-            inflater.inflate(R.menu.toolbar_menu, menu)
+    private fun initViewElements(view: View) {
+        setHasOptionsMenu(true)
 
-            val searchManager = (activity as AppCompatActivity).getSystemService(Context.SEARCH_SERVICE) as SearchManager
-            searchView = menu.findItem(R.id.search_view).actionView as SearchView
-            searchView.setSearchableInfo(searchManager.getSearchableInfo((activity as AppCompatActivity).componentName))
-            searchView.setIconifiedByDefault(false)
+        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.pm_toolbar))
+        (activity as AppCompatActivity).supportActionBar?.title =
+            Constants.POPULAR_MOVIE_TITLE_DEFAULT
 
-            lifecycleScope.launch {
-                searchView.getQueryChangeStateFlow()
-                    .debounce(500)
-                    .filter { query ->
-                        return@filter query.isNotEmpty()
-                    }
-                    .distinctUntilChanged()
-                    .flatMapLatest { query ->
-                        homeViewModel.searchMovie(query)
-                    }
-                    .flowOn(Dispatchers.Main)
-                    .collectLatest {
-                        movieAdapter.submitData(it)
-                    }
-            }
+        rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
+        loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
+        btnRetry = view.findViewById(R.id.main_btn_restart)
+        btnRetry.setOnClickListener {
+            if (isOnline()) {
+                btnRetry.visibility = View.INVISIBLE
+                fetchPopularMovies()
+            } else
+                showNoInternetConnectionError(view)
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.action_info) {
-            activity?.supportFragmentManager
-                ?.beginTransaction()
-                ?.addToBackStack(Constants.POPULAR_MOVIE_TAG)
-                ?.add(R.id.fragment_container, AppInfo())
-                ?.commit()
-            true
-        } else {
-            super.onOptionsItemSelected(item)
-        }
+    private fun initSearchView(menu: Menu) {
+        val searchManager =
+            (activity as AppCompatActivity).getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView = menu.findItem(R.id.search_view).actionView as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo((activity as AppCompatActivity).componentName))
+        searchView.setIconifiedByDefault(false)
+
+        (menu.findItem(R.id.search_view) as MenuItem).setOnActionExpandListener(object :
+            MenuItem.OnActionExpandListener {
+            override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
+                return true
+            }
+            override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean {
+                (activity as AppCompatActivity).invalidateOptionsMenu()
+                fetchPopularMovies()
+                return true
+            }
+        })
+    }
+
+    private fun createYouTubeFragment(movie: Movie) {
+        val fragmentInfo = MovieInfoFragment()
+        fragmentInfo.arguments = bundleOf(
+            Constants.ID_KEY to movie.movieId,
+            Constants.MOVIE_TITLE to movie.title
+        )
+        activity?.supportFragmentManager
+            ?.beginTransaction()
+            ?.addToBackStack(Constants.POPULAR_MOVIE_TAG)
+            ?.add(R.id.fragment_container, fragmentInfo)
+            ?.commit()
     }
 
     private fun fetchPopularMovies() {

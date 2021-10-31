@@ -76,7 +76,7 @@ class MovieInfoFragment : Fragment() {
                 setUi(state.movieInfo)
             }
 
-            if(!state.videoIsLoading)
+            if(state.videoLoadingState != ProgressBarState.Loading)
                 childFragmentManager
                     .beginTransaction()
                     .add(
@@ -86,12 +86,6 @@ class MovieInfoFragment : Fragment() {
                     .commit()
         })
 
-        setHasOptionsMenu(true)
-        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.mi_toolbar))
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar?.title =
-            arguments?.getString(Constants.MOVIE_TITLE) ?: Constants.MOVIE_INFO_TITLE_DEFAULT
         initViewElements(view)
         return view
     }
@@ -125,6 +119,13 @@ class MovieInfoFragment : Fragment() {
     }
 
     private fun initViewElements(view: View) {
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.mi_toolbar))
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.title =
+            arguments?.getString(Constants.MOVIE_TITLE) ?: Constants.MOVIE_INFO_TITLE_DEFAULT
+
         pb = view.findViewById(R.id.mi_pb)
         tvTitle = view.findViewById(R.id.mi_title)
         tvOverview = view.findViewById(R.id.mi_overview)

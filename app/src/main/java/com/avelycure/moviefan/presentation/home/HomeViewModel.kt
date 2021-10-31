@@ -12,6 +12,7 @@ class HomeViewModel
     val getPopularMovies: GetPopularMovies,
     val searchMovie: SearchMovie
 ) : ViewModel() {
+
     fun getPopularMovies() = getPopularMovies
         .execute()
 

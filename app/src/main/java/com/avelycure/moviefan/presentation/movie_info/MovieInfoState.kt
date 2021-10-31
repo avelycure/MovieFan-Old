@@ -10,6 +10,6 @@ data class MovieInfoState(
     val detailsLoadingState: ProgressBarState = ProgressBarState.Idle,
     val errorQueue: Queue<UIComponent> = Queue(mutableListOf()),
     val movieInfo: MovieInfo = MovieInfo(),
-    val videoIsLoading: Boolean = false,
+    val videoLoadingState: ProgressBarState = ProgressBarState.Idle,
     val videoInfo: VideoInfo = VideoInfo()
 )
