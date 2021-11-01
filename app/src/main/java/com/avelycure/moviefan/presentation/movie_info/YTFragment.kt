@@ -9,6 +9,9 @@ import com.avelycure.moviefan.common.Constants
 import com.google.android.youtube.player.*
 
 //todo check if user has actual version of youtube service https://developers.google.com/youtube/android/player/reference/com/google/android/youtube/player/YouTubeInitializationResult?hl=pt-br
+/**
+ * Fragment to represent youtube video
+ */
 class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedListener {
     private lateinit var videoPath: String
 

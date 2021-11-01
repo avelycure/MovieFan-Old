@@ -15,10 +15,15 @@ import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.models.Movie
+import com.avelycure.moviefan.utils.extensions.getOriginalTitleAndReleaseDate
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Adapter of the recycler view in home fragment. It is used to show popular movies and
+ * movies that were found when user began searching
+ */
 @Singleton
 class MovieAdapter
 @Inject constructor(
@@ -81,10 +86,4 @@ class MovieAdapter
             return oldItem == newItem
         }
     }
-
-    fun Movie.getOriginalTitleAndReleaseDate(): String =
-        if (this.releaseDate.isNotEmpty())
-            originalTitle + ", " + this.releaseDate.substring(0, 4)
-        else
-            originalTitle
 }

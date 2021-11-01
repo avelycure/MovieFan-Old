@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
@@ -25,6 +26,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
+/**
+ * Fragment which shows detail information about movies
+ */
 @AndroidEntryPoint
 class MovieInfoFragment : Fragment() {
     @Inject
@@ -61,8 +65,8 @@ class MovieInfoFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
         movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
 
-        initViewElements(view)
         movieInfoViewModel.onTrigger(MovieInfoEvents.OnOpenInfoFragment(movieId = movieId))
+        initViewElements(view)
 
         lifecycleScope.launchWhenStarted {
             movieInfoViewModel
@@ -75,21 +79,19 @@ class MovieInfoFragment : Fragment() {
                         setUi(state.movieInfo)
                     }
 
-                    if (state.videoLoadingState != ProgressBarState.Loading)
-                        if (state.videoInfo.key != Constants.NO_TRAILER_CODE.toString())
-                            childFragmentManager
-                                .beginTransaction()
-                                .add(
-                                    R.id.youtube_container,
-                                    YTFragment.getInstance(state.videoInfo.key)
-                                )
-                                .commit()
-                        else
-                            showError(view, requireContext(), Constants.NO_TRAILER_AVAILABLE)
+                    if (state.videoIsAvailable)
+                        childFragmentManager
+                            .beginTransaction()
+                            .add(
+                                R.id.youtube_container,
+                                YTFragment.getInstance(state.videoInfo.key)
+                            )
+                            .commit()
+
                     if (!state.errorQueue.isEmpty()) {
-                        val t = state.errorQueue.peek()
-                        if (t is UIComponent.Dialog) {
-                            showError(view, requireContext(), t.description)
+                        val uiComponent = state.errorQueue.peek()
+                        if (uiComponent is UIComponent.Dialog) {
+                            showError(view, requireContext(), uiComponent.description)
                             movieInfoViewModel.onTrigger(MovieInfoEvents.OnRemoveHeadFromQueue)
                         }
                     }
@@ -159,8 +161,7 @@ class MovieInfoFragment : Fragment() {
         return if (item.itemId == android.R.id.home) {
             activity?.supportFragmentManager?.popBackStack()
             true
-        } else {
+        } else 
             super.onOptionsItemSelected(item)
-        }
     }
 }

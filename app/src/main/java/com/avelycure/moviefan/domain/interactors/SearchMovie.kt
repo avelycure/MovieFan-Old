@@ -2,6 +2,9 @@ package com.avelycure.moviefan.domain.interactors
 
 import com.avelycure.moviefan.data.remote.repository.MovieRepository
 
+/**
+ * Makes flow which emits movies
+ */
 class SearchMovie(
     val repository: MovieRepository
 ) {

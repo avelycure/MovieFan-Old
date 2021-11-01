@@ -7,6 +7,9 @@ import android.widget.TextView
 import com.avelycure.moviefan.R
 import com.google.android.material.snackbar.Snackbar
 
+/**
+ * Function to show snackbar
+ */
 fun showError(view: View, context: Context, text: String) {
     val sb = Snackbar.make(
         context,

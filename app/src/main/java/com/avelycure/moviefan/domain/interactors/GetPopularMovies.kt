@@ -9,6 +9,6 @@ class GetPopularMovies(
     private val repository: MovieRepository
 ) {
     fun execute(): Flow<PagingData<Movie>> = repository
-        .getPager()
+        .getPopularPager()
         .flow
 }

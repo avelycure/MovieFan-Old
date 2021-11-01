@@ -1,5 +1,8 @@
 package com.avelycure.moviefan.domain.state
 
+/**
+ * Possible states of screen
+ */
 sealed class DataState<T> {
     data class Response<T>(
         val uiComponent: UIComponent

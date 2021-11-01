@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.avelycure.moviefan.R
 
+/**
+ * This fragment is needed because of attribution policy of The Movie Database
+ */
 class AppInfo : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
