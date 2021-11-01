@@ -19,6 +19,7 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.models.*
 import com.avelycure.moviefan.domain.state.ProgressBarState
+import com.avelycure.moviefan.domain.state.UIComponent
 import com.avelycure.moviefan.utils.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -60,31 +61,39 @@ class MovieInfoFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
         movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
 
-        movieInfoViewModel.getDetails(movieId)
-        movieInfoViewModel.getTrailerCode(movieId)
         initViewElements(view)
+        movieInfoViewModel.onTrigger(MovieInfoEvents.OnOpenInfoFragment(movieId = movieId))
 
         lifecycleScope.launchWhenStarted {
-            movieInfoViewModel.state.collect { state ->
-                if (state.detailsLoadingState == ProgressBarState.Loading)
-                    pb.visibility = View.VISIBLE
-                else {
-                    pb.visibility = View.GONE
-                    setUi(state.movieInfo)
-                }
+            movieInfoViewModel
+                .state
+                .collect { state ->
+                    if (state.detailsLoadingState == ProgressBarState.Loading)
+                        pb.visibility = View.VISIBLE
+                    else {
+                        pb.visibility = View.GONE
+                        setUi(state.movieInfo)
+                    }
 
-                if (state.videoLoadingState != ProgressBarState.Loading)
-                    if (state.videoInfo.key != "-1")
-                        childFragmentManager
-                            .beginTransaction()
-                            .add(
-                                R.id.youtube_container,
-                                YTFragment.getInstance(state.videoInfo.key)
-                            )
-                            .commit()
-                    else
-                        showError(view, requireContext(), Constants.NO_TRAILER_AVAILABLE)
-            }
+                    if (state.videoLoadingState != ProgressBarState.Loading)
+                        if (state.videoInfo.key != Constants.NO_TRAILER_CODE.toString())
+                            childFragmentManager
+                                .beginTransaction()
+                                .add(
+                                    R.id.youtube_container,
+                                    YTFragment.getInstance(state.videoInfo.key)
+                                )
+                                .commit()
+                        else
+                            showError(view, requireContext(), Constants.NO_TRAILER_AVAILABLE)
+                    if (!state.errorQueue.isEmpty()) {
+                        val t = state.errorQueue.peek()
+                        if (t is UIComponent.Dialog) {
+                            showError(view, requireContext(), t.description)
+                            movieInfoViewModel.onTrigger(MovieInfoEvents.OnRemoveHeadFromQueue)
+                        }
+                    }
+                }
         }
         return view
     }

@@ -20,8 +20,7 @@ class GetTrailerCode(
             emit(
                 DataState.Response<VideoInfo>(
                     uiComponent = UIComponent.Dialog(
-                        title = "Error",
-                        description = e.message ?: "Unknown error occured"
+                        description = e.message ?: "Unknown error occurred"
                     )
                 )
             )

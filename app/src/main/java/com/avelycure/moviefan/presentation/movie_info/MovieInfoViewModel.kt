@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.presentation.movie_info
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.avelycure.moviefan.domain.interactors.GetDetails
@@ -7,8 +8,12 @@ import com.avelycure.moviefan.domain.interactors.GetTrailerCode
 import com.avelycure.moviefan.domain.models.MovieInfo
 import com.avelycure.moviefan.domain.models.VideoInfo
 import com.avelycure.moviefan.domain.state.DataState
+import com.avelycure.moviefan.domain.state.Queue
+import com.avelycure.moviefan.domain.state.UIComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +24,18 @@ class MovieInfoViewModel
     val getDetails: GetDetails,
     val getTrailerCode: GetTrailerCode
 ) : ViewModel() {
-    val state: MutableStateFlow<MovieInfoState> = MutableStateFlow(MovieInfoState())
+    private val _state = MutableStateFlow(MovieInfoState())
+    val state = _state.asStateFlow()
+
+    fun onTrigger(event: MovieInfoEvents) {
+        when (event) {
+            is MovieInfoEvents.OnRemoveHeadFromQueue -> removeHeadMessage()
+            is MovieInfoEvents.OnOpenInfoFragment -> {
+                getDetails(event.movieId)
+                getTrailerCode(event.movieId)
+            }
+        }
+    }
 
     fun getTrailerCode(id: Int) {
         viewModelScope.launch {
@@ -28,15 +44,17 @@ class MovieInfoViewModel
                 .collectLatest { dataState ->
                     when (dataState) {
                         is DataState.Data -> {
-                            state.value =
-                                state.value.copy(videoInfo = dataState.data ?: VideoInfo())
+                            _state.value =
+                                _state.value.copy(videoInfo = dataState.data ?: VideoInfo())
                         }
                         is DataState.Loading -> {
-                            state.value =
-                                state.value.copy(videoLoadingState = dataState.progressBarState)
+                            _state.value =
+                                _state.value.copy(videoLoadingState = dataState.progressBarState)
                         }
                         is DataState.Response -> {
-
+                            appendToMessageQueue(
+                                dataState.uiComponent as UIComponent.Dialog
+                            )
                         }
                     }
                 }
@@ -50,18 +68,36 @@ class MovieInfoViewModel
                 .collectLatest { dataState ->
                     when (dataState) {
                         is DataState.Data -> {
-                            state.value =
-                                state.value.copy(movieInfo = dataState.data ?: MovieInfo())
+                            _state.value =
+                                _state.value.copy(movieInfo = dataState.data ?: MovieInfo())
                         }
                         is DataState.Loading -> {
-                            state.value =
-                                state.value.copy(detailsLoadingState = dataState.progressBarState)
+                            _state.value =
+                                _state.value.copy(detailsLoadingState = dataState.progressBarState)
                         }
                         is DataState.Response -> {
-
+                            appendToMessageQueue(
+                                dataState.uiComponent as UIComponent.Dialog
+                            )
                         }
                     }
                 }
+        }
+    }
+
+    private fun appendToMessageQueue(uiComponent: UIComponent) {
+        val queue = _state.value.errorQueue
+        queue.add(uiComponent)
+        _state.value = _state.value.copy(errorQueue = queue)
+    }
+
+    private fun removeHeadMessage() {
+        try {
+            val queue = _state.value.errorQueue
+            queue.remove()
+            _state.value = _state.value.copy(errorQueue = queue)
+        } catch (e: Exception) {
+            Log.d("mytag", "Nothing to remove from MessageQueue")
         }
     }
 }
