@@ -14,7 +14,7 @@ class SearchPagingSource (
         try {
             val page = params.key ?: 1
             val response = postsService
-                .searchMovies(query, page)
+                .getMovies(query, page)
                 .results
                 .map {
                     it.toMovie()

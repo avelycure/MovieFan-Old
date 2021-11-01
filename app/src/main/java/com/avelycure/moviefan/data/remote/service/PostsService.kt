@@ -13,7 +13,7 @@ class PostsService(
     private val client: HttpClient
 ) : IPostsService {
 
-    override suspend fun getPosts(nextPage: Int): MoviesResponse {
+    override suspend fun getPopularMovies(nextPage: Int): MoviesResponse {
         return try {
             client.get {
                 url("${Constants.BASE_URL}/${Constants.POPULAR_MOVIES}${Constants.API_KEY}&page=$nextPage")
@@ -61,7 +61,7 @@ class PostsService(
         }
     }
 
-    override suspend fun searchMovies(query: String, page: Int): MoviesResponse {
+    override suspend fun getMovies(query: String, page: Int): MoviesResponse {
         return try {
             client.get {
                 url("${Constants.BASE_URL}/search/movie${Constants.API_KEY}&query=$query&page=$page")

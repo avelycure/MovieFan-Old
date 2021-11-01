@@ -1,32 +1,26 @@
 package com.avelycure.moviefan.presentation.movie_info
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.domain.*
 import com.avelycure.moviefan.domain.models.*
-import com.avelycure.moviefan.domain.state.DataState
 import com.avelycure.moviefan.domain.state.ProgressBarState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -67,10 +61,10 @@ class MovieInfoFragment : Fragment() {
         movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
 
         movieInfoViewModel.getDetails(movieId)
-        movieInfoViewModel.getVideos(movieId)
+        movieInfoViewModel.getTrailerCode(movieId)
         initViewElements(view)
 
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             movieInfoViewModel.state.collect { state ->
                 if (state.detailsLoadingState == ProgressBarState.Loading)
                     pb.visibility = View.VISIBLE

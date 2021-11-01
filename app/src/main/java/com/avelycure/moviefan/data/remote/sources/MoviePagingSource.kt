@@ -13,7 +13,7 @@ class MoviePagingSource(
         try {
             val page = params.key ?: 1
             val response = postsService
-                .getPosts(page)
+                .getPopularMovies(page)
                 .results
                 .map {
                     it.toMovie()

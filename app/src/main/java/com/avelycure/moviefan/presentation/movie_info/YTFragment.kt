@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.utils.showNoInternetConnectionError
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.youtube.player.*
 
@@ -39,17 +40,12 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
             youTubePlayer?.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
         } else {
             youTubePlayer?.release()
-            this.parentFragment?.view?.let {
-                val sb = Snackbar.make(
-                    requireContext(),
+            view?.let {
+                showNoInternetConnectionError(
                     it,
-                    Constants.NO_TRAILER_AVAILABLE,
-                    Snackbar.LENGTH_SHORT
+                    requireContext(),
+                    Constants.NO_TRAILER_AVAILABLE
                 )
-                (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text)
-                    .setTextColor(Color.WHITE)
-                (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.alazar_red))
-                sb.show()
             }
         }
     }

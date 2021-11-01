@@ -1,10 +1,9 @@
 package com.avelycure.moviefan.presentation.movie_info
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.avelycure.moviefan.domain.interactors.GetDetails
-import com.avelycure.moviefan.domain.interactors.GetVideos
+import com.avelycure.moviefan.domain.interactors.GetTrailerCode
 import com.avelycure.moviefan.domain.models.MovieInfo
 import com.avelycure.moviefan.domain.models.VideoInfo
 import com.avelycure.moviefan.domain.state.DataState
@@ -18,13 +17,13 @@ import javax.inject.Inject
 class MovieInfoViewModel
 @Inject constructor(
     val getDetails: GetDetails,
-    val getVideos: GetVideos
+    val getTrailerCode: GetTrailerCode
 ) : ViewModel() {
     val state: MutableStateFlow<MovieInfoState> = MutableStateFlow(MovieInfoState())
 
-    fun getVideos(id: Int) {
+    fun getTrailerCode(id: Int) {
         viewModelScope.launch {
-            getVideos
+            getTrailerCode
                 .execute(id)
                 .collectLatest { dataState ->
                     when (dataState) {
@@ -37,6 +36,7 @@ class MovieInfoViewModel
                                 state.value.copy(videoLoadingState = dataState.progressBarState)
                         }
                         is DataState.Response -> {
+
                         }
                     }
                 }

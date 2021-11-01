@@ -8,13 +8,13 @@ import com.avelycure.moviefan.domain.state.UIComponent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GetVideos(
+class GetTrailerCode(
     private val repository: MovieRepository
 ) {
     fun execute(id: Int): Flow<DataState<VideoInfo>> = flow {
         try {
             emit(DataState.Loading(progressBarState = ProgressBarState.Loading))
-            val result = repository.getVideos(id)
+            val result = repository.getTrailerCode(id)
             emit(DataState.Data(result))
         } catch (e: Exception) {
             emit(

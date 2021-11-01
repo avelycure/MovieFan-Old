@@ -28,7 +28,7 @@ class MovieRepository(
         PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
 
 
-    suspend fun getVideos(id: Int): VideoInfo {
+    suspend fun getTrailerCode(id: Int): VideoInfo {
         val result = postsService.getVideos(id)
         return if (result.results.isNotEmpty())
             result.results[0].toVideoInfo()

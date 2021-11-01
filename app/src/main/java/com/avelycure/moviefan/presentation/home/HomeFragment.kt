@@ -3,13 +3,12 @@ package com.avelycure.moviefan.presentation.home
 import android.app.SearchManager
 import android.content.Context
 import android.graphics.Color
-import android.net.ConnectivityManager
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContentProviderCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,6 +24,7 @@ import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import com.avelycure.moviefan.utils.getQueryChangeStateFlow
 import com.avelycure.moviefan.utils.isOnline
+import com.avelycure.moviefan.utils.showNoInternetConnectionError
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -88,7 +88,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId == R.id.action_info) {
             activity?.supportFragmentManager
@@ -107,9 +106,13 @@ class HomeFragment : Fragment() {
 
         movieAdapter.onClickedItem = { movie ->
             if (isOnline(activity as AppCompatActivity))
-                createYouTubeFragment(movie)
+                openMovieInfoFragment(movie)
             else
-                showNoInternetConnectionError(view)
+                showNoInternetConnectionError(
+                    view,
+                    requireContext(),
+                    Constants.NO_INTERNET_CONNECTION
+                )
         }
 
         movieAdapter.addLoadStateListener { loadState ->
@@ -128,7 +131,11 @@ class HomeFragment : Fragment() {
                     if (movieAdapter.itemCount == 0)
                         btnRetry.visibility = View.VISIBLE
                     loadingProgressBar.visibility = View.GONE
-                    showNoInternetConnectionError(btnRetry)
+                    showNoInternetConnectionError(
+                        btnRetry,
+                        requireContext(),
+                        Constants.NO_INTERNET_CONNECTION
+                    )
                 }
             }
         }
@@ -163,7 +170,11 @@ class HomeFragment : Fragment() {
                 btnRetry.visibility = View.INVISIBLE
                 fetchPopularMovies()
             } else
-                showNoInternetConnectionError(view)
+                showNoInternetConnectionError(
+                    view,
+                    requireContext(),
+                    Constants.NO_INTERNET_CONNECTION
+                )
         }
     }
 
@@ -188,7 +199,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun createYouTubeFragment(movie: Movie) {
+    private fun openMovieInfoFragment(movie: Movie) {
         val fragmentInfo = MovieInfoFragment()
         fragmentInfo.arguments = bundleOf(
             Constants.ID_KEY to movie.movieId,
@@ -209,18 +220,5 @@ class HomeFragment : Fragment() {
                     movieAdapter.submitData(it)
                 }
         }
-    }
-
-    private fun showNoInternetConnectionError(view: View) {
-        val sb = Snackbar.make(
-            requireContext(),
-            view,
-            Constants.NO_INTERNET_CONNECTION,
-            Snackbar.LENGTH_SHORT
-        )
-        (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text)
-            .setTextColor(Color.WHITE)
-        (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.alazar_red))
-        sb.show()
     }
 }
