@@ -24,6 +24,7 @@ import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import com.avelycure.moviefan.utils.getQueryChangeStateFlow
+import com.avelycure.moviefan.utils.isOnline
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -105,7 +106,7 @@ class HomeFragment : Fragment() {
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
 
         movieAdapter.onClickedItem = { movie ->
-            if (isOnline())
+            if (isOnline(activity as AppCompatActivity))
                 createYouTubeFragment(movie)
             else
                 showNoInternetConnectionError(view)
@@ -158,7 +159,7 @@ class HomeFragment : Fragment() {
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
         btnRetry = view.findViewById(R.id.main_btn_restart)
         btnRetry.setOnClickListener {
-            if (isOnline()) {
+            if (isOnline(activity as AppCompatActivity)) {
                 btnRetry.visibility = View.INVISIBLE
                 fetchPopularMovies()
             } else
@@ -208,12 +209,6 @@ class HomeFragment : Fragment() {
                     movieAdapter.submitData(it)
                 }
         }
-    }
-
-    private fun isOnline(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        (activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetwork != null
-    } else {
-        true
     }
 
     private fun showNoInternetConnectionError(view: View) {
