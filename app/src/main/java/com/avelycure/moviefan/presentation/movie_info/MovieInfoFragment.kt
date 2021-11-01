@@ -19,9 +19,9 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.models.*
 import com.avelycure.moviefan.domain.state.ProgressBarState
+import com.avelycure.moviefan.utils.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -74,13 +74,16 @@ class MovieInfoFragment : Fragment() {
                 }
 
                 if (state.videoLoadingState != ProgressBarState.Loading)
-                    childFragmentManager
-                        .beginTransaction()
-                        .add(
-                            R.id.youtube_container,
-                            YTFragment.getInstance(state.videoInfo.key)
-                        )
-                        .commit()
+                    if (state.videoInfo.key != "-1")
+                        childFragmentManager
+                            .beginTransaction()
+                            .add(
+                                R.id.youtube_container,
+                                YTFragment.getInstance(state.videoInfo.key)
+                            )
+                            .commit()
+                    else
+                        showError(view, requireContext(), Constants.NO_TRAILER_AVAILABLE)
             }
         }
         return view

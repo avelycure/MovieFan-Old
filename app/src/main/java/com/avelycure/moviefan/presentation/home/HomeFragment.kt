@@ -2,13 +2,11 @@ package com.avelycure.moviefan.presentation.home
 
 import android.app.SearchManager
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContentProviderCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,8 +22,7 @@ import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import com.avelycure.moviefan.utils.getQueryChangeStateFlow
 import com.avelycure.moviefan.utils.isOnline
-import com.avelycure.moviefan.utils.showNoInternetConnectionError
-import com.google.android.material.snackbar.Snackbar
+import com.avelycure.moviefan.utils.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -108,7 +105,7 @@ class HomeFragment : Fragment() {
             if (isOnline(activity as AppCompatActivity))
                 openMovieInfoFragment(movie)
             else
-                showNoInternetConnectionError(
+                showError(
                     view,
                     requireContext(),
                     Constants.NO_INTERNET_CONNECTION
@@ -131,7 +128,7 @@ class HomeFragment : Fragment() {
                     if (movieAdapter.itemCount == 0)
                         btnRetry.visibility = View.VISIBLE
                     loadingProgressBar.visibility = View.GONE
-                    showNoInternetConnectionError(
+                    showError(
                         btnRetry,
                         requireContext(),
                         Constants.NO_INTERNET_CONNECTION
@@ -170,7 +167,7 @@ class HomeFragment : Fragment() {
                 btnRetry.visibility = View.INVISIBLE
                 fetchPopularMovies()
             } else
-                showNoInternetConnectionError(
+                showError(
                     view,
                     requireContext(),
                     Constants.NO_INTERNET_CONNECTION

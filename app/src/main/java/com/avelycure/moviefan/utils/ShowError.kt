@@ -4,12 +4,10 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
 import com.google.android.material.snackbar.Snackbar
 
-fun showNoInternetConnectionError(view: View, context: Context, text: String) {
+fun showError(view: View, context: Context, text: String) {
     val sb = Snackbar.make(
         context,
         view,

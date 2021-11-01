@@ -1,16 +1,11 @@
 package com.avelycure.moviefan.presentation.movie_info
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.core.os.bundleOf
-import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.utils.showNoInternetConnectionError
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.youtube.player.*
 
 //todo check if user has actual version of youtube service https://developers.google.com/youtube/android/player/reference/com/google/android/youtube/player/YouTubeInitializationResult?hl=pt-br
@@ -35,19 +30,8 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
         youTubePlayer: YouTubePlayer?,
         b: Boolean
     ) {
-        if (videoPath != Constants.NO_TRAILER_CODE.toString()) {
-            youTubePlayer?.cueVideo(videoPath);
-            youTubePlayer?.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
-        } else {
-            youTubePlayer?.release()
-            view?.let {
-                showNoInternetConnectionError(
-                    it,
-                    requireContext(),
-                    Constants.NO_TRAILER_AVAILABLE
-                )
-            }
-        }
+        youTubePlayer?.cueVideo(videoPath);
+        youTubePlayer?.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT)
     }
 
     override fun onInitializationFailure(
