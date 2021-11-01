@@ -3,6 +3,9 @@ package com.avelycure.moviefan.domain.models
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.*
 
+/**
+ * Class which represents detailed information of the movie
+ */
 data class MovieInfo(
     val adult: Boolean = false,
     val budget: Int = 0,

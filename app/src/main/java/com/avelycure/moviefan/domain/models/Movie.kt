@@ -1,5 +1,8 @@
 package com.avelycure.moviefan.domain.models
 
+/**
+ * Class which represents item in recycler view
+ */
 data class Movie(
     val title: String,
     val originalTitle: String,

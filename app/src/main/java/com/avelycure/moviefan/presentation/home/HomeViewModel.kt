@@ -10,8 +10,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel
 @Inject constructor(
-    val getPopularMovies: GetPopularMovies,
-    val searchMovie: SearchMovie
+    private val getPopularMovies: GetPopularMovies,
+    private val searchMovie: SearchMovie
 ) : ViewModel() {
     var state: Parcelable? = null
 

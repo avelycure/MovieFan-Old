@@ -12,6 +12,9 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
 
+/**
+ * Adapter for handling situation when user scrolls faster than we get responses from server
+ */
 class MovieLoadStateAdapter(
     private val retry: () -> Unit
 ) : LoadStateAdapter<MovieLoadStateAdapter.LoadStateViewHolder>() {

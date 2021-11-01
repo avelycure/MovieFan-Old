@@ -1,5 +1,10 @@
 package com.avelycure.moviefan.domain.state
 
+import android.util.Log
+
+/**
+ * Class to work with messages in error queue
+ */
 class Queue<T>(list: MutableList<T>) {
 
     var items: MutableList<T> = list
@@ -9,7 +14,7 @@ class Queue<T>(list: MutableList<T>) {
     fun count(): Int = items.count()
 
     override fun toString() = items.toString()
-
+    
     fun add(element: T) {
         items.add(element)
     }
@@ -61,5 +66,4 @@ class Queue<T>(list: MutableList<T>) {
     fun clear() {
         items.removeAll { true }
     }
-
 }

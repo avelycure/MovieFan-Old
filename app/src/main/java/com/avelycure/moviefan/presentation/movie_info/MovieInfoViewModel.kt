@@ -1,8 +1,11 @@
 package com.avelycure.moviefan.presentation.movie_info
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.interactors.GetDetails
 import com.avelycure.moviefan.domain.interactors.GetTrailerCode
 import com.avelycure.moviefan.domain.models.MovieInfo
@@ -45,14 +48,18 @@ class MovieInfoViewModel
                     when (dataState) {
                         is DataState.Data ->
                             _state.value =
-                                _state.value.copy(videoInfo = dataState.data ?: VideoInfo())
-                        is DataState.Loading ->
-                            _state.value =
-                                _state.value.copy(videoLoadingState = dataState.progressBarState)
-                        is DataState.Response ->
+                                _state.value.copy(
+                                    videoInfo = dataState.data ?: VideoInfo(),
+                                    videoIsAvailable = true
+                                )
+                        is DataState.Loading -> {
+                        }
+                        is DataState.Response -> {
                             appendToMessageQueue(
                                 dataState.uiComponent as UIComponent.Dialog
                             )
+                        }
+
                     }
                 }
         }
@@ -80,8 +87,14 @@ class MovieInfoViewModel
         }
     }
 
+    /**
+     * Simple implementation, but problem is that queues are compared with links, so
+     * we must create new queue. Then state will be able to differ them
+     */
     private fun appendToMessageQueue(uiComponent: UIComponent) {
-        val queue = _state.value.errorQueue
+        val queue: Queue<UIComponent> = Queue(mutableListOf())
+        for (i in 0 until _state.value.errorQueue.count())
+            _state.value.errorQueue.poll()?.let { queue.add(it) }
         queue.add(uiComponent)
         _state.value = _state.value.copy(errorQueue = queue)
     }

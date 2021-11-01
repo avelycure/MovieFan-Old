@@ -21,6 +21,8 @@ object Constants {
 
     const val CREDITS = "append_to_response=credits"
 
+    // Response from server contains only genre code, this map is needed to transform
+    // numbers to strings
     val movieGenre = mapOf(
         28 to "Action",
         12 to "Adventure",

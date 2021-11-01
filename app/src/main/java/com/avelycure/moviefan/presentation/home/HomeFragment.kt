@@ -31,8 +31,12 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Fragment to represent popular movies and movies that were found while searching
+ */
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+    // Injecting adapter for faster reaction on screen rotation
     @Inject
     lateinit var movieAdapter: MovieAdapter
 
@@ -58,6 +62,10 @@ class HomeFragment : Fragment() {
         fetchPopularMovies()
     }
 
+    /**
+     * Creating menu and make searchView a stateFlow, so when typing we are getting movies that
+     * matches the string we have already typed
+     */
     @FlowPreview
     @ExperimentalCoroutinesApi
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -141,12 +149,14 @@ class HomeFragment : Fragment() {
         )
     }
 
+    // To restore rv state after rotation
     override fun onResume() {
         super.onResume()
         if (homeViewModel.state != null)
             rvPopularMovie.layoutManager?.onRestoreInstanceState(homeViewModel.state)
     }
 
+    // To restore rv state after rotation
     override fun onPause() {
         super.onPause()
         homeViewModel.state = rvPopularMovie.layoutManager?.onSaveInstanceState()
@@ -182,6 +192,8 @@ class HomeFragment : Fragment() {
         searchView.setSearchableInfo(searchManager.getSearchableInfo((activity as AppCompatActivity).componentName))
         searchView.setIconifiedByDefault(false)
 
+        // The default state of the homeFragment is showing popular movies, so when we close
+        // searchView we are calling fetchPopularMovies()
         (menu.findItem(R.id.search_view) as MenuItem).setOnActionExpandListener(object :
             MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(p0: MenuItem?): Boolean {
