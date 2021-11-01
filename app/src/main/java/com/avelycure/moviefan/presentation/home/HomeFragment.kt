@@ -2,9 +2,6 @@ package com.avelycure.moviefan.presentation.home
 
 import android.app.SearchManager
 import android.content.Context
-import android.graphics.Color
-import android.net.ConnectivityManager
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -24,7 +21,8 @@ import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import com.avelycure.moviefan.utils.getQueryChangeStateFlow
-import com.google.android.material.snackbar.Snackbar
+import com.avelycure.moviefan.utils.isOnline
+import com.avelycure.moviefan.utils.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -87,7 +85,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (item.itemId == R.id.action_info) {
             activity?.supportFragmentManager
@@ -105,10 +102,14 @@ class HomeFragment : Fragment() {
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
 
         movieAdapter.onClickedItem = { movie ->
-            if (isOnline())
-                createYouTubeFragment(movie)
+            if (isOnline(activity as AppCompatActivity))
+                openMovieInfoFragment(movie)
             else
-                showNoInternetConnectionError(view)
+                showError(
+                    view,
+                    requireContext(),
+                    Constants.NO_INTERNET_CONNECTION
+                )
         }
 
         movieAdapter.addLoadStateListener { loadState ->
@@ -127,7 +128,11 @@ class HomeFragment : Fragment() {
                     if (movieAdapter.itemCount == 0)
                         btnRetry.visibility = View.VISIBLE
                     loadingProgressBar.visibility = View.GONE
-                    showNoInternetConnectionError(btnRetry)
+                    showError(
+                        btnRetry,
+                        requireContext(),
+                        Constants.NO_INTERNET_CONNECTION
+                    )
                 }
             }
         }
@@ -158,11 +163,15 @@ class HomeFragment : Fragment() {
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
         btnRetry = view.findViewById(R.id.main_btn_restart)
         btnRetry.setOnClickListener {
-            if (isOnline()) {
+            if (isOnline(activity as AppCompatActivity)) {
                 btnRetry.visibility = View.INVISIBLE
                 fetchPopularMovies()
             } else
-                showNoInternetConnectionError(view)
+                showError(
+                    view,
+                    requireContext(),
+                    Constants.NO_INTERNET_CONNECTION
+                )
         }
     }
 
@@ -187,7 +196,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun createYouTubeFragment(movie: Movie) {
+    private fun openMovieInfoFragment(movie: Movie) {
         val fragmentInfo = MovieInfoFragment()
         fragmentInfo.arguments = bundleOf(
             Constants.ID_KEY to movie.movieId,
@@ -208,24 +217,5 @@ class HomeFragment : Fragment() {
                     movieAdapter.submitData(it)
                 }
         }
-    }
-
-    private fun isOnline(): Boolean = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        (activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).activeNetwork != null
-    } else {
-        true
-    }
-
-    private fun showNoInternetConnectionError(view: View) {
-        val sb = Snackbar.make(
-            requireContext(),
-            view,
-            Constants.NO_INTERNET_CONNECTION,
-            Snackbar.LENGTH_SHORT
-        )
-        (sb.view as Snackbar.SnackbarLayout).findViewById<TextView>(R.id.snackbar_text)
-            .setTextColor(Color.WHITE)
-        (sb.view as Snackbar.SnackbarLayout).setBackgroundColor(resources.getColor(R.color.alazar_red))
-        sb.show()
     }
 }

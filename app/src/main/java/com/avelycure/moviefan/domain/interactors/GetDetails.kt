@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.flow
 class GetDetails(
     private val repository: MovieRepository
 ) {
-
     fun execute(id: Int): Flow<DataState<MovieInfo>> = flow{
         try {
             emit(DataState.Loading(progressBarState = ProgressBarState.Loading))
@@ -21,8 +20,7 @@ class GetDetails(
             emit(
                 DataState.Response<MovieInfo>(
                     uiComponent = UIComponent.Dialog(
-                        title= "Error",
-                        description = e.message ?: "Unknown error occured"
+                        description = e.message ?: "Unknown error occurred"
                     )
                 )
             )
