@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.flow
 class GetDetails(
     private val repository: MovieRepository
 ) {
-
     fun execute(id: Int): Flow<DataState<MovieInfo>> = flow{
         try {
             emit(DataState.Loading(progressBarState = ProgressBarState.Loading))

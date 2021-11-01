@@ -21,8 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieInfoViewModel
 @Inject constructor(
-    val getDetails: GetDetails,
-    val getTrailerCode: GetTrailerCode
+    private val getDetails: GetDetails,
+    private val getTrailerCode: GetTrailerCode
 ) : ViewModel() {
     private val _state = MutableStateFlow(MovieInfoState())
     val state = _state.asStateFlow()
@@ -37,49 +37,44 @@ class MovieInfoViewModel
         }
     }
 
-    fun getTrailerCode(id: Int) {
+    private fun getTrailerCode(id: Int) {
         viewModelScope.launch {
             getTrailerCode
                 .execute(id)
                 .collectLatest { dataState ->
                     when (dataState) {
-                        is DataState.Data -> {
+                        is DataState.Data ->
                             _state.value =
                                 _state.value.copy(videoInfo = dataState.data ?: VideoInfo())
-                        }
-                        is DataState.Loading -> {
+                        is DataState.Loading ->
                             _state.value =
                                 _state.value.copy(videoLoadingState = dataState.progressBarState)
-                        }
-                        is DataState.Response -> {
+                        is DataState.Response ->
                             appendToMessageQueue(
                                 dataState.uiComponent as UIComponent.Dialog
                             )
-                        }
                     }
                 }
         }
     }
 
-    fun getDetails(id: Int) {
+    private fun getDetails(id: Int) {
         viewModelScope.launch {
             getDetails
                 .execute(id)
                 .collectLatest { dataState ->
                     when (dataState) {
-                        is DataState.Data -> {
+                        is DataState.Data ->
                             _state.value =
                                 _state.value.copy(movieInfo = dataState.data ?: MovieInfo())
-                        }
-                        is DataState.Loading -> {
+                        is DataState.Loading ->
                             _state.value =
                                 _state.value.copy(detailsLoadingState = dataState.progressBarState)
-                        }
-                        is DataState.Response -> {
+                        is DataState.Response ->
                             appendToMessageQueue(
                                 dataState.uiComponent as UIComponent.Dialog
                             )
-                        }
+
                     }
                 }
         }

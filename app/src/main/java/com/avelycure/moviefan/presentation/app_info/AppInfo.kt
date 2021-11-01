@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.avelycure.moviefan.R
 
-class AppInfo: Fragment() {
+class AppInfo : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,8 +27,7 @@ class AppInfo: Fragment() {
         return if (item.itemId == android.R.id.home) {
             activity?.supportFragmentManager?.popBackStack()
             true
-        } else {
+        } else
             super.onOptionsItemSelected(item)
-        }
     }
 }
