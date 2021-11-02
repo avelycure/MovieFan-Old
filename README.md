@@ -76,6 +76,7 @@ The state does not emit nothing, because as said in docs of StateFlow:
 > Atomically compares the current value with expect and sets it to update if it is equal to expect. The result is true if the value was set to update and false > otherwise.
 > This function use a regular comparison using Any.equals. If both expect and update are equal to the current value, this function returns true, but it does not > actually change the reference that is stored in the value.
 > This method is thread-safe and can be safely invoked from concurrent coroutines without external synchronization.
+
 > public fun compareAndSet(expect: T, update: T): Boolean
 
 So in my Query class it just compare links, and as the links are the same it emits nothing. I had many ideas(override equals to return query length or always false) but this will probably lead to difficult bugs, so I made a simple thing: 
