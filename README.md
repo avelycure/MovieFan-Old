@@ -1,5 +1,7 @@
 # MovieFan
 
+## Main info
+
 Application for getting information about films from The Movie Database:
 * getting list of popular movies
 * search movie by name
@@ -16,6 +18,8 @@ Application for getting information about films from The Movie Database:
 * Paging 3
 
 ## Functionality
+
+### Popular movies
 First of all, the user goes to the main page of the application, which contains a list of popular films
 
 <p>
@@ -24,7 +28,7 @@ First of all, the user goes to the main page of the application, which contains 
 
 The user can quickly scroll through the list and quickly receive images thanks to Coil and Paging Library, while in the event of an Internet problem, the downloaded elements will not be lost. With LoadStateManager it is easy to show progress bar while loading images and show error messages if there are problems with internet connection.
 
-To prevent slow loading of movies when user rotates the screen we use Hilt to inject MovieAdapter.
+### Search movie
 
 We have two different requests: 
 * get popular movies
@@ -32,9 +36,17 @@ We have two different requests:
 
 But the responses are the same! So we can use the same data class(Movie) in both requests and the same adapter. The only difference is that in fetching popular movies we use PopularPagingSource and in searching movies we use SearchPagingSource.
 
+Searching movie with Flow is rather easy. We just make stateFlow from SearchView and use flow operators: 
+* debounce(to prevent many calls)
+* filter(to prevent calls with empty query)
+* distincUntilChanged(not to call multiple times with the same query)
+* flatMapLatest(to drop loading request if we got new one)
+
+### Movie info
+
 While watching main information about movies the user will probably want to see more detailed information about the film, so he can click on it and get information about the country, companies, actors, budget and revenue.
 
-## YouTubePlayerSupportFragmentX
+### YouTubePlayerSupportFragmentX
 
 For many movies there is an option to watch a trailer. There is interesting thing about this case. To show a YouTube video you should use either YouTubeBaseActivity or YouTubePlayerSupportFragment.
 
@@ -44,6 +56,9 @@ I did not want to use more than one activity in my app, so I decided to use YouT
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/movie_info1.jpg" width="256" />
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/movie_info2.jpg" width="256" />
 </p>
+
+### Dependency injection
+To prevent slow loading of movies when user rotates the screen we use Hilt to inject MovieAdapter.
 
 ## Difficulties / resolved issues
 While working with Ktor, I discovered an interesting fact. If the server sends a response in which there is no field, then I get an error <i>kotlinx.serialization.MissingFieldException</i>. Moreover, if you specify this field as nullable in the data class of the response, then the error will not disappear. Therefore, in order to solve this problem, I leave the field not-nullable and assign it a default value - an empty string.
