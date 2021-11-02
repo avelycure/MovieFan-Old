@@ -18,6 +18,7 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
     companion object {
         fun getInstance(videoPath: String) = YTFragment().apply {
             arguments = bundleOf(Constants.VIDEO_PATH_KEY to videoPath)
+            
         }
     }
 

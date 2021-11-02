@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
                     .flatMapLatest { query ->
                         homeViewModel.searchMovie(query)
                     }
-                    .flowOn(Dispatchers.Main)
+                    .flowOn(Dispatchers.IO)
                     .collectLatest {
                         movieAdapter.submitData(it)
                     }

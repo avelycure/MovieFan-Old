@@ -2,16 +2,11 @@ package com.avelycure.moviefan.data.remote.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
-import com.avelycure.moviefan.data.remote.dto.details.mappers.toMovieInfo
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
-import com.avelycure.moviefan.data.remote.dto.video.mappers.toVideoInfo
 import com.avelycure.moviefan.data.remote.service.IPostsService
-import com.avelycure.moviefan.data.remote.sources.MoviePagingSource
+import com.avelycure.moviefan.data.remote.sources.PopularPagingSource
 import com.avelycure.moviefan.data.remote.sources.SearchPagingSource
-import com.avelycure.moviefan.domain.models.MovieInfo
-import com.avelycure.moviefan.domain.models.VideoInfo
 
 class MovieRepository(
     private val postsService: IPostsService
@@ -24,7 +19,7 @@ class MovieRepository(
     fun getPopularPager(pagingConfig: PagingConfig = getDefaultPageConfig()) =
         Pager(
             config = pagingConfig,
-            pagingSourceFactory = { MoviePagingSource(postsService = postsService) }
+            pagingSourceFactory = { PopularPagingSource(postsService = postsService) }
         )
 
     // Returns Pager for fetching movies by their title
