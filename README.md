@@ -26,6 +26,7 @@ To prevent slow loading of movies when user rotates the screen we use Hilt to in
 We have two different requests: 
 * get popular movies
 * get movies by name
+
 But the responses are the same! So we can use the same data class(Movie) in both requests and the same adapter. The only difference is that in fetching popular movies we use PopularPagingSource and in searching movies we use SearchPagingSource.
 
 While watching main information about movies the user will probably want to see more detailed information about the film, so he can click on it and get information about the country, companies, actors, budget and revenue.
