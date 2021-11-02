@@ -5,7 +5,7 @@ import com.avelycure.moviefan.data.remote.service.IPostsService
 import com.avelycure.moviefan.data.remote.dto.movie.mappers.toMovie
 import com.avelycure.moviefan.domain.models.Movie
 
-class MoviePagingSource(
+class PopularPagingSource(
     val postsService: IPostsService
 ) : PagingSource<Int, Movie>() {
 
