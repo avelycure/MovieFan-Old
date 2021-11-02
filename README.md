@@ -42,9 +42,6 @@ I did not want to use more than one activity in my app, so I decided to use YouT
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/movie_info2.jpg" width="256" />
 </p>
 
-# Styling
-The app's color theme adjusts automatically to the version selected on the device.
-
 ## Difficulties / resolved issues
 While working with Ktor, I discovered an interesting fact. If the server sends a response in which there is no field, then I get an error <i>kotlinx.serialization.MissingFieldException</i>. Moreover, if you specify this field as nullable in the data class of the response, then the error will not disappear. Therefore, in order to solve this problem, I leave the field not-nullable and assign it a default value - an empty string.
 
