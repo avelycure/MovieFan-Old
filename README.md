@@ -1,6 +1,9 @@
 # MovieFan
 
-Application for getting information about popular films from The Movie Database
+Application for getting information about films from The Movie Database:
+* getting list of popular movies
+* search movie by name
+* get detailed information about the movie
 
 ## Project features
 * Kotlin
