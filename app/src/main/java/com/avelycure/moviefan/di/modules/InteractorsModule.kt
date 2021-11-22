@@ -1,10 +1,7 @@
 package com.avelycure.moviefan.di.modules
 
 import com.avelycure.moviefan.data.repository.MovieRepository
-import com.avelycure.moviefan.domain.interactors.GetDetails
-import com.avelycure.moviefan.domain.interactors.GetPopularMovies
-import com.avelycure.moviefan.domain.interactors.GetTrailerCode
-import com.avelycure.moviefan.domain.interactors.SearchMovie
+import com.avelycure.moviefan.domain.interactors.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,5 +29,10 @@ object InteractorsModule {
     @Provides
     fun provideSearchMovie(repository: MovieRepository): SearchMovie {
         return SearchMovie(repository)
+    }
+
+    @Provides
+    fun provideSaveToCache(repository: MovieRepository):SaveToCache{
+        return SaveToCache(repository)
     }
 }

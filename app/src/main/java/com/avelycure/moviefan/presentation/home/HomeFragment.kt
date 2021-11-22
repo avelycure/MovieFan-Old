@@ -110,14 +110,14 @@ class HomeFragment : Fragment() {
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
 
         movieAdapter.onClickedItem = { movie ->
-            if (isOnline(activity as AppCompatActivity))
+            //if (isOnline(activity as AppCompatActivity))
                 openMovieInfoFragment(movie)
-            else
+            /*else
                 showError(
                     view,
                     requireContext(),
                     Constants.NO_INTERNET_CONNECTION
-                )
+                )*/
         }
 
         movieAdapter.addLoadStateListener { loadState ->

@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.avelycure.moviefan.domain.interactors.GetDetails
 import com.avelycure.moviefan.domain.interactors.GetTrailerCode
+import com.avelycure.moviefan.domain.interactors.SaveToCache
 import com.avelycure.moviefan.domain.models.MovieInfo
 import com.avelycure.moviefan.domain.models.VideoInfo
 import com.avelycure.moviefan.domain.state.DataState
 import com.avelycure.moviefan.domain.state.Queue
 import com.avelycure.moviefan.domain.state.UIComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -21,7 +23,8 @@ import javax.inject.Inject
 class MovieInfoViewModel
 @Inject constructor(
     private val getDetails: GetDetails,
-    private val getTrailerCode: GetTrailerCode
+    private val getTrailerCode: GetTrailerCode,
+    private val saveToCache: SaveToCache
 ) : ViewModel() {
     private val _state = MutableStateFlow(MovieInfoState())
     val state = _state.asStateFlow()
@@ -62,14 +65,18 @@ class MovieInfoViewModel
     }
 
     private fun getDetails(id: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getDetails
                 .execute(id)
                 .collectLatest { dataState ->
                     when (dataState) {
-                        is DataState.Data ->
+                        is DataState.Data ->{
+                            viewModelScope.launch(Dispatchers.IO) {
+                                saveToCache.execute(movieInfo = dataState.data!!)
+                            }
                             _state.value =
                                 _state.value.copy(movieInfo = dataState.data ?: MovieInfo())
+                        }
                         is DataState.Loading ->
                             _state.value =
                                 _state.value.copy(detailsLoadingState = dataState.progressBarState)

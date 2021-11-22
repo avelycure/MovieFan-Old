@@ -57,7 +57,7 @@ class PostsService(
         } catch (e: ServerResponseException) {
             throw Exception("The server failed to fulfil an apparently valid request")
         } catch (e: IOException) {
-            throw Exception("No internet connection")
+            throw IOException("No internet connection")
         }
     }
 
