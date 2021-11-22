@@ -46,39 +46,38 @@ kapt {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
     // Dagger
-    implementation 'com.google.dagger:dagger:2.39.1'
-    kapt 'com.google.dagger:dagger-compiler:2.39.1'
+    implementation dagger.dagger
+    kapt dagger.dagger_compiler
 
     //Hilt
-    implementation 'com.google.dagger:hilt-android:2.39.1'
-    kapt 'com.google.dagger:hilt-compiler:2.39.1'
+    implementation dagger_hilt.hilt_android
+    kapt dagger_hilt.hilt_compiler
 
-    implementation 'androidx.fragment:fragment-ktx:1.3.6'
+    implementation ktor.core
+    implementation ktor.android
+    implementation ktor.serialization
+    implementation ktor.logging
+    implementation ktor.logback
 
-    def ktor_version = "1.6.3"
-    implementation "io.ktor:ktor-client-core:$ktor_version"
-    implementation "io.ktor:ktor-client-android:$ktor_version"
-    implementation "io.ktor:ktor-client-serialization:$ktor_version"
-    implementation "io.ktor:ktor-client-logging:$ktor_version"
-    implementation "ch.qos.logback:logback-classic:1.2.3"
-
-    def paging_version = "3.0.0-alpha03"
-    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    implementation paging3.paging_runtime
 
     //Coil
-    implementation "io.coil-kt:coil:1.4.0"
+    implementation coil.coil
 
     //CardView
-    implementation("androidx.cardview:cardview:1.0.0")
+    implementation cardview.cardview
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    testImplementation 'junit:junit:4.13.2'
+    //Testing
+    androidTestImplementation testing.junit_ext
+    androidTestImplementation testing.espresso_core
+    testImplementation testing.junit
 }

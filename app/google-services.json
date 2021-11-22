@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "716566538112",
+    "project_id": "moviefan-441c3",
+    "storage_bucket": "moviefan-441c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716566538112:android:847943d688ab6ee8248365",
+        "android_client_info": {
+          "package_name": "com.avelycure.moviefan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "716566538112-umpmusmicee5ae83lq4rl770r6rcn4g1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDky85ZB0McisiK3AfhMtFw4D794604Rac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "716566538112-umpmusmicee5ae83lq4rl770r6rcn4g1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
