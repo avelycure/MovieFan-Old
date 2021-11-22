@@ -1,6 +1,6 @@
 package com.avelycure.moviefan.domain.interactors
 
-import com.avelycure.moviefan.data.remote.repository.MovieRepository
+import com.avelycure.moviefan.data.repository.MovieRepository
 
 /**
  * Makes flow which emits movies

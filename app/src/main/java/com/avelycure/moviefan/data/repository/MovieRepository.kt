@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.data.remote.repository
+package com.avelycure.moviefan.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig

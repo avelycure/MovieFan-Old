@@ -1,11 +1,8 @@
 package com.avelycure.moviefan.presentation.movie_info
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.interactors.GetDetails
 import com.avelycure.moviefan.domain.interactors.GetTrailerCode
 import com.avelycure.moviefan.domain.models.MovieInfo
@@ -14,7 +11,6 @@ import com.avelycure.moviefan.domain.state.DataState
 import com.avelycure.moviefan.domain.state.Queue
 import com.avelycure.moviefan.domain.state.UIComponent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
