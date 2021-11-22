@@ -10,12 +10,13 @@ Application for getting information about films from The Movie Database:
 ## Project features
 * Kotlin
 * Kotlin Coroutines with Flow
-* Clean Architecture
+* Clean Architecture(MVVM and use cases)
 * Ktor for making requests to server
 * ViewModel, StateFlow, Lifecycle
 * Coil
 * Dependency injection with Hilt
 * Paging 3
+* Firebase: Crashlytics
 
 ## Functionality
 
