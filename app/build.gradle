@@ -80,6 +80,11 @@ dependencies {
     //CardView
     implementation cardview.cardview
 
+    //Room
+    implementation room.room_runtime
+    implementation room.room_coroutines
+    kapt room.room_compiler
+
     //Testing
     androidTestImplementation testing.junit_ext
     androidTestImplementation testing.espresso_core
