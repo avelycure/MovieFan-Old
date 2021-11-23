@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
@@ -110,38 +111,33 @@ class HomeFragment : Fragment() {
         rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
 
         movieAdapter.onClickedItem = { movie ->
-            //if (isOnline(activity as AppCompatActivity))
-                openMovieInfoFragment(movie)
-            /*else
-                showError(
-                    view,
-                    requireContext(),
-                    Constants.NO_INTERNET_CONNECTION
-                )*/
+            openMovieInfoFragment(movie)
         }
 
         movieAdapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading)
+            if (loadState.mediator?.refresh is LoadState.Loading)
                 loadingProgressBar.visibility = View.VISIBLE
-            else {
+            else
                 loadingProgressBar.visibility = View.GONE
 
-                val errorState = when {
-                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-                    else -> null
-                }
-                errorState?.let {
-                    if (movieAdapter.itemCount == 0)
-                        btnRetry.visibility = View.VISIBLE
-                    loadingProgressBar.visibility = View.GONE
-                    showError(
-                        btnRetry,
-                        requireContext(),
-                        Constants.NO_INTERNET_CONNECTION
-                    )
-                }
+            if (loadState.mediator?.refresh is LoadState.Error && movieAdapter.itemCount == 0)
+                btnRetry.visibility = View.VISIBLE
+            else
+                btnRetry.visibility = View.GONE
+
+            val errorState = when {
+                loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                else -> null
+            }
+
+            errorState?.let {
+                showError(
+                    btnRetry,
+                    requireContext(),
+                    Constants.NO_INTERNET_CONNECTION
+                )
             }
         }
         rvPopularMovie.adapter = movieAdapter.withLoadStateFooter(
@@ -172,16 +168,9 @@ class HomeFragment : Fragment() {
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
         btnRetry = view.findViewById(R.id.main_btn_restart)
+
         btnRetry.setOnClickListener {
-            if (isOnline(activity as AppCompatActivity)) {
-                btnRetry.visibility = View.INVISIBLE
-                fetchPopularMovies()
-            } else
-                showError(
-                    view,
-                    requireContext(),
-                    Constants.NO_INTERNET_CONNECTION
-                )
+            fetchPopularMovies()
         }
     }
 

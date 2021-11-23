@@ -18,6 +18,10 @@ object CacheModule {
 
     @Provides
     @Singleton
+    fun provideRemoteKeyDao(appDatabase: AppDatabase) = appDatabase.remoteKeysDao()
+
+    @Provides
+    @Singleton
     fun provideAppDatabase(app: Application) = Room.databaseBuilder(
         app, AppDatabase::class.java, "database"
     ).build()

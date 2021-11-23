@@ -4,14 +4,17 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.avelycure.moviefan.data.local.dao.CacheDao
+import com.avelycure.moviefan.data.local.dao.RemoteKeysDao
 import com.avelycure.moviefan.data.local.entities.EntityMovie
-import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
+import com.avelycure.moviefan.data.local.entities.RemoteKeys
 import com.avelycure.moviefan.data.local.type_converters.*
+import com.avelycure.moviefan.domain.models.Movie
 
 @Database(
     entities = arrayOf(
         EntityMovie::class,
-        EntityPopularMovie::class
+        RemoteKeys::class,
+        Movie::class
     ),
     version = 1
 )
@@ -27,4 +30,5 @@ import com.avelycure.moviefan.data.local.type_converters.*
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun cacheDao(): CacheDao
+    abstract fun remoteKeysDao(): RemoteKeysDao
 }
