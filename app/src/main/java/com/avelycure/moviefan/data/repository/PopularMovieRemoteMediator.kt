@@ -8,10 +8,8 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import coil.network.HttpException
 import com.avelycure.moviefan.data.local.AppDatabase
-import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
 import com.avelycure.moviefan.data.local.entities.RemoteKeys
 import com.avelycure.moviefan.data.remote.dto.movie.mappers.toMovie
-import com.avelycure.moviefan.data.remote.dto.movie.toEntityPopularMovie
 import com.avelycure.moviefan.data.remote.service.IPostsService
 import com.avelycure.moviefan.domain.models.Movie
 import io.ktor.utils.io.errors.*

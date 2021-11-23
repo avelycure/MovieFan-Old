@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.avelycure.moviefan.data.local.entities.EntityMovie
-import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
 import com.avelycure.moviefan.domain.models.Movie
 
 @Dao
