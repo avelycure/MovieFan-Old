@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
@@ -65,7 +64,9 @@ class MovieInfoFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
         movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
 
-        movieInfoViewModel.onTrigger(MovieInfoEvents.OnOpenInfoFragment(movieId = movieId))
+        if (savedInstanceState == null)
+            movieInfoViewModel.onTrigger(MovieInfoEvents.OnOpenInfoFragment(movieId = movieId))
+
         initViewElements(view)
 
         lifecycleScope.launchWhenStarted {
@@ -161,7 +162,7 @@ class MovieInfoFragment : Fragment() {
         return if (item.itemId == android.R.id.home) {
             activity?.supportFragmentManager?.popBackStack()
             true
-        } else 
+        } else
             super.onOptionsItemSelected(item)
     }
 }

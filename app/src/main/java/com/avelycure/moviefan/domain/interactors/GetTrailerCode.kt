@@ -2,7 +2,7 @@ package com.avelycure.moviefan.domain.interactors
 
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.video.mappers.toVideoInfo
-import com.avelycure.moviefan.data.remote.repository.MovieRepository
+import com.avelycure.moviefan.data.repository.MovieRepository
 import com.avelycure.moviefan.domain.models.VideoInfo
 import com.avelycure.moviefan.domain.state.DataState
 import com.avelycure.moviefan.domain.state.ProgressBarState
