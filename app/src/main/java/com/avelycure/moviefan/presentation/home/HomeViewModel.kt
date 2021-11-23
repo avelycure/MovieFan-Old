@@ -18,7 +18,7 @@ class HomeViewModel
 ) : ViewModel() {
     var state: Parcelable? = null
 
-    fun getPopularMovies(): Flow<PagingData<EntityPopularMovie>> = getPopularMovies
+    fun getPopularMovies() = getPopularMovies
         .execute()
 
     fun searchMovie(query: String) = searchMovie

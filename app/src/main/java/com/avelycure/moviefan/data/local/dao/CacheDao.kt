@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.avelycure.moviefan.data.local.entities.EntityMovie
 import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
+import com.avelycure.moviefan.domain.models.Movie
 
 @Dao
 interface CacheDao {
@@ -17,11 +18,11 @@ interface CacheDao {
     fun getMovieInfo(movieId: Int):EntityMovie
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPopularMovies(movies: List<EntityPopularMovie>)
+    suspend fun insertPopularMovies(movies: List<Movie>)
 
-    @Query("SELECT * FROM popular")
-    fun getPopularMovies(): PagingSource<Int, EntityPopularMovie>
+    @Query("SELECT * FROM popular_movies")
+    fun getPopularMovies(): PagingSource<Int, Movie>
 
-    @Query("DELETE FROM popular")
+    @Query("DELETE FROM popular_movies")
     suspend fun clearPopularMovies()
 }

@@ -33,7 +33,7 @@ class MovieRepository(
             pagingSourceFactory = { PopularPagingSource(postsService = postsService) }
         )
 
-    fun getPagerWithRemoteMediator(pagingConfig: PagingConfig = getDefaultPageConfig()): Pager<Int, EntityPopularMovie> {
+    fun getPagerWithRemoteMediator(pagingConfig: PagingConfig = getDefaultPageConfig()): Pager<Int, Movie> {
         val pagingSourceFactory = { database.cacheDao().getPopularMovies() }
         return Pager(
             config = pagingConfig,

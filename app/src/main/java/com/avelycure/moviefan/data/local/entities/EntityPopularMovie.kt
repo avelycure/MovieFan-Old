@@ -25,7 +25,7 @@ data class EntityPopularMovie (
 )
 
 
-fun EntityPopularMovie.toMovie(): Movie {
+/*fun EntityPopularMovie.toMovie(): Movie {
     return Movie(
         originalTitle = originalTitle,
         popularity = popularity,
@@ -37,4 +37,4 @@ fun EntityPopularMovie.toMovie(): Movie {
         movieId = movieId,
         genreIds = genreIds
     )
-}
+}*/

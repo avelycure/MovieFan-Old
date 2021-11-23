@@ -9,12 +9,13 @@ import com.avelycure.moviefan.data.local.entities.EntityMovie
 import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
 import com.avelycure.moviefan.data.local.entities.RemoteKeys
 import com.avelycure.moviefan.data.local.type_converters.*
+import com.avelycure.moviefan.domain.models.Movie
 
 @Database(
     entities = arrayOf(
         EntityMovie::class,
-        EntityPopularMovie::class,
-        RemoteKeys::class
+        RemoteKeys::class,
+        Movie::class
     ),
     version = 1
 )

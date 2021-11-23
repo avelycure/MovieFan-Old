@@ -14,8 +14,6 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
-import com.avelycure.moviefan.data.local.entities.toMovie
 import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.utils.extensions.getOriginalTitleAndReleaseDate
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -32,11 +30,11 @@ class MovieAdapter
     val imageLoader: ImageLoader,
     @ApplicationContext val context: Context
 ) :
-    PagingDataAdapter<EntityPopularMovie, MovieAdapter.MovieViewHolder>(MovieComparator) {
+    PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieComparator) {
     var onClickedItem: (Movie) -> Unit = {}
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(item = getItem(position)?.toMovie(), onClicked = onClickedItem)
+        holder.bind(item = getItem(position), onClicked = onClickedItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -79,12 +77,12 @@ class MovieAdapter
         }
     }
 
-    object MovieComparator : DiffUtil.ItemCallback<EntityPopularMovie>() {
-        override fun areItemsTheSame(oldItem: EntityPopularMovie, newItem: EntityPopularMovie): Boolean {
+    object MovieComparator : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: EntityPopularMovie, newItem: EntityPopularMovie): Boolean {
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem == newItem
         }
     }
