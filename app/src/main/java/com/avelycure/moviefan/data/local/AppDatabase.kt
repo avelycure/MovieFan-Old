@@ -5,11 +5,13 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.avelycure.moviefan.data.local.dao.CacheDao
 import com.avelycure.moviefan.data.local.entities.EntityMovie
+import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
 import com.avelycure.moviefan.data.local.type_converters.*
 
 @Database(
     entities = arrayOf(
-        EntityMovie::class
+        EntityMovie::class,
+        EntityPopularMovie::class
     ),
     version = 1
 )
@@ -19,7 +21,8 @@ import com.avelycure.moviefan.data.local.type_converters.*
         ConverterGenre::class,
         ConverterProductionCountries::class,
         ConverterLanguages::class,
-        ConverterCast::class
+        ConverterCast::class,
+        ConverterGenreIds::class
     )
 )
 abstract class AppDatabase : RoomDatabase() {
