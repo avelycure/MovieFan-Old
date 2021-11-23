@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.di.modules
 
+import com.avelycure.moviefan.data.local.AppDatabase
 import com.avelycure.moviefan.data.local.dao.CacheDao
 import com.avelycure.moviefan.data.repository.MovieRepository
 import com.avelycure.moviefan.data.remote.service.IPostsService
@@ -35,7 +36,7 @@ object KtorModule {
 
     @Provides
     @Singleton
-    fun provideMovieRepository(postsService: IPostsService, cacheDao: CacheDao): MovieRepository {
-        return MovieRepository(postsService, cacheDao)
+    fun provideMovieRepository(postsService: IPostsService, cacheDao: CacheDao, appDatabase: AppDatabase): MovieRepository {
+        return MovieRepository(postsService, cacheDao, appDatabase)
     }
 }
