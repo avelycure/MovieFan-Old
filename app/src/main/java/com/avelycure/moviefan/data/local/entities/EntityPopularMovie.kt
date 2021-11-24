@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.avelycure.moviefan.data.local.type_converters.ConverterGenreIds
-import com.avelycure.moviefan.domain.models.Movie
 
 @Entity(tableName = "popular_movies")
 data class EntityPopularMovie(
@@ -21,17 +20,3 @@ data class EntityPopularMovie(
     val movieId: Int,
     val voteCount: Int
 )
-
-fun EntityPopularMovie.toMovie():Movie{
-    return Movie(
-        title = title,
-        originalTitle = originalTitle,
-        posterPath = posterPath,
-        genreIds = genreIds,
-        popularity = popularity,
-        voteAverage = voteAverage,
-        releaseDate = releaseDate,
-        movieId = movieId,
-        voteCount = voteCount
-    )
-}

@@ -1,7 +1,7 @@
 package com.avelycure.moviefan.domain.interactors
 
 import androidx.paging.map
-import com.avelycure.moviefan.data.local.entities.toMovie
+import com.avelycure.moviefan.data.local.mappers.toMovie
 import com.avelycure.moviefan.data.repository.MovieRepository
 import kotlinx.coroutines.flow.map
 

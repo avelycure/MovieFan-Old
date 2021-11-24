@@ -1,6 +1,7 @@
 package com.avelycure.moviefan.data.remote.sources
 
 import androidx.paging.PagingSource
+import com.avelycure.moviefan.data.remote.dto.movie.MovieListResult
 import com.avelycure.moviefan.data.remote.service.IPostsService
 import com.avelycure.moviefan.data.remote.dto.movie.mappers.toMovie
 import com.avelycure.moviefan.domain.models.Movie
@@ -8,17 +9,14 @@ import com.avelycure.moviefan.domain.models.Movie
 class SearchPagingSource (
     val postsService: IPostsService,
     val query: String
-) : PagingSource<Int, Movie>() {
+) : PagingSource<Int, MovieListResult>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieListResult> {
         try {
             val page = params.key ?: 1
             val response = postsService
                 .getMovies(query, page)
                 .results
-                .map {
-                    it.toMovie()
-                }
 
             return LoadResult.Page(
                 data = response,
