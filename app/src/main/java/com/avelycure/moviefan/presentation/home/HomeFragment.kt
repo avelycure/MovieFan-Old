@@ -3,6 +3,7 @@ package com.avelycure.moviefan.presentation.home
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
@@ -22,14 +22,10 @@ import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
 import com.avelycure.moviefan.utils.getQueryChangeStateFlow
-import com.avelycure.moviefan.utils.isOnline
 import com.avelycure.moviefan.utils.showError
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -148,14 +144,18 @@ class HomeFragment : Fragment() {
     // To restore rv state after rotation
     override fun onResume() {
         super.onResume()
-        if (homeViewModel.state != null)
-            rvPopularMovie.layoutManager?.onRestoreInstanceState(homeViewModel.state)
+        //(rvPopularMovie.layoutManager as LinearLayoutManager).scrollToPosition(homeViewModel.firstVisibleItem)
+        //if (homeViewModel.state != null)
+        //    rvPopularMovie.layoutManager?.onRestoreInstanceState(homeViewModel.state)
     }
 
     // To restore rv state after rotation
     override fun onPause() {
         super.onPause()
-        homeViewModel.state = rvPopularMovie.layoutManager?.onSaveInstanceState()
+        homeViewModel.firstVisibleItem =
+            (rvPopularMovie.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+        Log.d("mytag", "FVI = ${(rvPopularMovie.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()}")
+        //homeViewModel.state = rvPopularMovie.layoutManager?.onSaveInstanceState()
     }
 
     private fun initViewElements(view: View) {
@@ -212,11 +212,16 @@ class HomeFragment : Fragment() {
 
     private fun fetchPopularMovies() {
         lifecycleScope.launch {
-            homeViewModel
+            /*homeViewModel
                 .getPopularMovies()
                 .collectLatest {
                     movieAdapter.submitData(it)
-                }
+                }*/
+            homeViewModel.lookForPopularMovies().collectLatest {
+                movieAdapter.submitData(it)
+                //(rvPopularMovie.layoutManager as LinearLayoutManager).scrollToPosition(homeViewModel.firstVisibleItem)
+
+            }
         }
     }
 }
