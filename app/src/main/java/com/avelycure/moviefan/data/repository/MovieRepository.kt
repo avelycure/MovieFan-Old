@@ -3,19 +3,19 @@ package com.avelycure.moviefan.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.avelycure.moviefan.data.local.AppDatabase
-import com.avelycure.moviefan.data.local.dao.CacheDao
-import com.avelycure.moviefan.data.local.entities.EntityMovie
+import com.avelycure.moviefan.data.local.dao.CacheMovieInfoDao
+import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
+import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import com.avelycure.moviefan.data.remote.service.IPostsService
 import com.avelycure.moviefan.data.remote.sources.SearchPagingSource
-import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.domain.models.MovieInfo
-import com.avelycure.moviefan.domain.models.toEntityMovie
+import com.avelycure.moviefan.domain.mappers.*
 
 class MovieRepository(
     private val postsService: IPostsService,
-    private val cacheDao: CacheDao,
+    private val cacheMovieInfoDao: CacheMovieInfoDao,
     private val database: AppDatabase
 ) {
     companion object {
@@ -23,8 +23,10 @@ class MovieRepository(
     }
 
     // Returns Pager for fetching popular movies
-    fun getPagerWithRemoteMediator(pagingConfig: PagingConfig = getDefaultPageConfig()): Pager<Int, Movie> {
-        val pagingSourceFactory = { database.cacheDao().getPopularMovies() }
+    fun getPagerWithRemoteMediator(
+        pagingConfig: PagingConfig = getDefaultPageConfig()
+    ): Pager<Int, EntityPopularMovie> {
+        val pagingSourceFactory = { database.cachePopularMovieDao().getPopularMovies() }
         return Pager(
             config = pagingConfig,
             remoteMediator = PopularMovieRemoteMediator(
@@ -59,10 +61,10 @@ class MovieRepository(
     }
 
     suspend fun saveMovieInfo(movieInfo: MovieInfo) {
-        cacheDao.insertMovie(movieInfo.toEntityMovie())
+        cacheMovieInfoDao.insertMovie(movieInfo.toEntityMovieInfo())
     }
 
-    suspend fun getMovieInfoFromCache(id: Int): EntityMovie {
-        return cacheDao.getMovieInfo(id)
+    suspend fun getMovieInfoFromCache(id: Int): EntityMovieInfo {
+        return cacheMovieInfoDao.getMovieInfo(id)
     }
 }

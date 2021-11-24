@@ -14,11 +14,15 @@ import javax.inject.Singleton
 object CacheModule {
     @Provides
     @Singleton
-    fun provideCacheDao(appDatabase: AppDatabase) = appDatabase.cacheDao()
+    fun provideCacheMovieInfoDao(appDatabase: AppDatabase) = appDatabase.cacheMovieInfoDao()
 
     @Provides
     @Singleton
-    fun provideRemoteKeyDao(appDatabase: AppDatabase) = appDatabase.remoteKeysDao()
+    fun provideCacheRemoteKeyDao(appDatabase: AppDatabase) = appDatabase.remoteKeysDao()
+
+    @Provides
+    @Singleton
+    fun provideCachePopularMovieDao(appDatabase: AppDatabase) = appDatabase.remoteKeysDao()
 
     @Provides
     @Singleton
