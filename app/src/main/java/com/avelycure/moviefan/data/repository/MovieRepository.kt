@@ -4,12 +4,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.avelycure.moviefan.data.local.AppDatabase
 import com.avelycure.moviefan.data.local.dao.CacheDao
-import com.avelycure.moviefan.data.local.entities.EntityMovie
+import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
+import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import com.avelycure.moviefan.data.remote.service.IPostsService
 import com.avelycure.moviefan.data.remote.sources.SearchPagingSource
-import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.domain.models.MovieInfo
 import com.avelycure.moviefan.domain.models.toEntityMovie
 
@@ -23,7 +23,7 @@ class MovieRepository(
     }
 
     // Returns Pager for fetching popular movies
-    fun getPagerWithRemoteMediator(pagingConfig: PagingConfig = getDefaultPageConfig()): Pager<Int, Movie> {
+    fun getPagerWithRemoteMediator(pagingConfig: PagingConfig = getDefaultPageConfig()): Pager<Int, EntityPopularMovie> {
         val pagingSourceFactory = { database.cacheDao().getPopularMovies() }
         return Pager(
             config = pagingConfig,
@@ -62,7 +62,7 @@ class MovieRepository(
         cacheDao.insertMovie(movieInfo.toEntityMovie())
     }
 
-    suspend fun getMovieInfoFromCache(id: Int): EntityMovie {
+    suspend fun getMovieInfoFromCache(id: Int): EntityMovieInfo {
         return cacheDao.getMovieInfo(id)
     }
 }

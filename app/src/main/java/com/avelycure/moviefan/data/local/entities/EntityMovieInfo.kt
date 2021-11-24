@@ -11,7 +11,7 @@ import com.avelycure.moviefan.data.remote.dto.details.SpokenLanguages
 import com.avelycure.moviefan.domain.models.MovieInfo
 
 @Entity(tableName = "movies")
-data class EntityMovie(
+data class EntityMovieInfo(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val adult: Boolean = false,
@@ -42,7 +42,7 @@ data class EntityMovie(
     val movieId: Int
 )
 
-fun EntityMovie.toMovieInfo():MovieInfo{
+fun EntityMovieInfo.toMovieInfo():MovieInfo{
     return MovieInfo(
         adult = adult,
         budget = budget,

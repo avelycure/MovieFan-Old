@@ -1,7 +1,7 @@
 package com.avelycure.moviefan.domain.models
 
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.data.local.entities.EntityMovie
+import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
 import com.avelycure.moviefan.data.remote.dto.details.*
 
 /**
@@ -76,8 +76,8 @@ fun MovieInfo.getCast(): String {
         ""
 }
 
-fun MovieInfo.toEntityMovie(): EntityMovie {
-    return EntityMovie(
+fun MovieInfo.toEntityMovie(): EntityMovieInfo {
+    return EntityMovieInfo(
         id = 0,
         adult = adult,
         budget = budget,
