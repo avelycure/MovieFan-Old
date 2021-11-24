@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.data.remote.dto.movie.mappers
+package com.avelycure.moviefan.data.remote.mappers
 
 import com.avelycure.moviefan.data.remote.dto.movie.MovieListResult
 import com.avelycure.moviefan.domain.models.Movie

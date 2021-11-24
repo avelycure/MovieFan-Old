@@ -3,8 +3,6 @@ package com.avelycure.moviefan.data.remote.sources
 import androidx.paging.PagingSource
 import com.avelycure.moviefan.data.remote.dto.movie.MovieListResult
 import com.avelycure.moviefan.data.remote.service.IPostsService
-import com.avelycure.moviefan.data.remote.dto.movie.mappers.toMovie
-import com.avelycure.moviefan.domain.models.Movie
 
 class SearchPagingSource (
     val postsService: IPostsService,

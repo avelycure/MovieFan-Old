@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.data.remote.dto.movie.mappers
+package com.avelycure.moviefan.data.remote.mappers
 
 import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
 import com.avelycure.moviefan.data.remote.dto.movie.MovieListResult
