@@ -58,7 +58,6 @@ class MovieInfoViewModel
                                 dataState.uiComponent as UIComponent.Dialog
                             )
                         }
-
                     }
                 }
         }

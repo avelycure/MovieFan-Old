@@ -2,8 +2,8 @@
 <androidx.appcompat.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/similar_movie_image_item"
     android:layout_width="180dp"
-    android:layout_height="256dp"
+    android:layout_height="320dp"
     android:layout_marginStart="8dp"
-    android:scaleType="centerCrop">
+    android:scaleType="fitXY">
 
 </androidx.appcompat.widget.AppCompatImageView>

@@ -28,7 +28,7 @@ class SimilarMoviesAdapter(
     override fun onBindViewHolder(holder: SimilarMoviesViewHolder, position: Int) {
         imageLoader.enqueue(
             ImageRequest.Builder(context)
-                .data(Constants.IMAGE + similarMovies[position])
+                .data(Constants.IMAGE + similarMovies[position].posterPath)
                 .target(holder.image)
                 .build()
         )
