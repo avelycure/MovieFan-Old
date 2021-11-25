@@ -49,7 +49,7 @@ class PostsService(
     override suspend fun getMovieDetail(id: Int): DetailResponse {
         return try {
             client.get {
-                url("${Constants.BASE_URL}/movie/$id${Constants.API_KEY}&${Constants.CREDITS}")
+                url("${Constants.BASE_URL}/movie/$id${Constants.API_KEY}&${Constants.CREDITS},${Constants.MOVIE_IMAGES}")
             }
         } catch (e: RedirectResponseException) {
             throw Exception("Further action needs to be taken in order to complete the request")

@@ -29,5 +29,6 @@ data class DetailResponse(
     val video: Boolean,
     val vote_average: Float,
     val vote_count: Int,
-    val credits: Credit
+    val credits: Credit,
+    val images: MovieImages
 )

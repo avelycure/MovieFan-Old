@@ -8,8 +8,8 @@ import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
 @Dao
 interface CacheMovieInfoDao {
     @Insert
-    fun insertMovie(movieInfo: EntityMovieInfo)
+    suspend fun insertMovie(movieInfo: EntityMovieInfo)
 
     @Query("SELECT * FROM movies WHERE movieId = :movieId")
-    fun getMovieInfo(movieId: Int):EntityMovieInfo
+    suspend fun getMovieInfo(movieId: Int):EntityMovieInfo
 }

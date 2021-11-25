@@ -27,6 +27,12 @@ fun DetailResponse.toMovieInfo(): MovieInfo {
         cast = credits.cast.map {
             it.name
         },
-        movieId = id
+        movieId = id,
+        imagesBackdrop = images.backdrops.map {
+            it.file_path
+        },
+        imagesPosters = images.posters.map {
+            it.file_path
+        }
     )
 }

@@ -28,7 +28,9 @@ data class MovieInfo(
     val voteCount: Int = 0,
     val posterPath: String? = "",
     val cast: List<String> = emptyList(),
-    val movieId: Int = 0
+    val movieId: Int = 0,
+    val imagesBackdrop: List<String> = emptyList(),
+    val imagesPosters: List<String> = emptyList()
 )
 
 fun MovieInfo.getCompanies(): String {

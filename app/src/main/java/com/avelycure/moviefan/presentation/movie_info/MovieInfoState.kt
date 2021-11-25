@@ -11,5 +11,6 @@ data class MovieInfoState(
     val errorQueue: Queue<UIComponent> = Queue(mutableListOf()),
     val movieInfo: MovieInfo = MovieInfo(),
     val videoIsAvailable: Boolean = false,
-    val videoInfo: VideoInfo = VideoInfo()
+    val videoInfo: VideoInfo = VideoInfo(),
+    val images: List<String> = emptyList()
 )

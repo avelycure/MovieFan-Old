@@ -20,6 +20,7 @@ object Constants {
     const val NO_TRAILER_CODE = -1
 
     const val CREDITS = "append_to_response=credits"
+    const val MOVIE_IMAGES = "images"
 
     // Response from server contains only genre code, this map is needed to transform
     // numbers to strings
