@@ -113,30 +113,17 @@
                 app:layout_constraintTop_toBottomOf="@id/mi_ratingbar" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/mi_cast_title"
-                style="@style/MovieInfoTextSubtitle"
-                app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
-                app:layout_constraintTop_toBottomOf="@id/mi_genres" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/mi_cast"
-                style="@style/MovieInfoText"
-                app:layout_constraintEnd_toEndOf="@+id/mi_title"
-                app:layout_constraintStart_toEndOf="@id/mi_reviews"
-                app:layout_constraintTop_toBottomOf="@id/mi_genres" />
-
-            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_countries_title"
                 style="@style/MovieInfoTextSubtitle"
                 app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
-                app:layout_constraintTop_toBottomOf="@id/mi_cast" />
+                app:layout_constraintTop_toBottomOf="@id/mi_genres" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_countries"
                 style="@style/MovieInfoText"
                 app:layout_constraintEnd_toEndOf="@+id/mi_title"
                 app:layout_constraintStart_toEndOf="@id/mi_reviews"
-                app:layout_constraintTop_toBottomOf="@id/mi_cast" />
+                app:layout_constraintTop_toBottomOf="@id/mi_genres" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_companies_title"
@@ -178,6 +165,29 @@
                 app:layout_constraintTop_toBottomOf="@id/mi_budget" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/mi_cast_title"
+                style="@style/MovieInfoTextSubtitle"
+                app:layout_constraintStart_toStartOf="@id/mi_ratingbar"
+                app:layout_constraintTop_toBottomOf="@id/mi_revenue" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/mi_cast"
+                style="@style/MovieInfoText"
+                app:layout_constraintEnd_toEndOf="@+id/mi_title"
+                app:layout_constraintStart_toEndOf="@id/mi_reviews"
+                app:layout_constraintTop_toBottomOf="@id/mi_revenue" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/mi_more_about_cast"
+                android:text="@string/more"
+                android:textStyle="italic"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintTop_toBottomOf="@id/mi_cast"
+                app:layout_constraintEnd_toEndOf="@+id/mi_cast"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_title_overview"
                 android:text="Overview"
                 android:layout_width="match_parent"
@@ -189,7 +199,7 @@
                 android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mi_revenue" />
+                app:layout_constraintTop_toBottomOf="@+id/mi_more_about_cast" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_overview"

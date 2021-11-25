@@ -31,7 +31,8 @@ ext.versions = [
         espresso_core: "3.4.0",
         junit        : "4.13.2",
         cardview     : "1.0.0",
-        room         : "2.3.0"
+        room         : "2.3.0",
+        prompt       : "3.3.2"
 ]
 
 ext.dagger = [
@@ -71,7 +72,11 @@ ext.cardview = [
 ]
 
 ext.room = [
-        room_runtime: "androidx.room:room-runtime:$versions.room",
+        room_runtime   : "androidx.room:room-runtime:$versions.room",
         room_coroutines: "androidx.room:room-ktx:$versions.room",
-        room_compiler: "androidx.room:room-compiler:$versions.room"
+        room_compiler  : "androidx.room:room-compiler:$versions.room"
+]
+
+ext.prompts = [
+        material_tap_target_prompt: "uk.co.samuelwall:material-tap-target-prompt:$versions.prompt"
 ]

@@ -97,4 +97,7 @@ dependencies {
     androidTestImplementation testing.junit_ext
     androidTestImplementation testing.espresso_core
     testImplementation testing.junit
+
+    //Tips
+    implementation prompts.material_tap_target_prompt
 }

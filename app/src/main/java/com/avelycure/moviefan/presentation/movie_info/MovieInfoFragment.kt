@@ -22,6 +22,8 @@ import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.models.*
 import com.avelycure.moviefan.domain.state.ProgressBarState
 import com.avelycure.moviefan.domain.state.UIComponent
+import com.avelycure.moviefan.presentation.movie_info.adapters.MovieImagesAdapter
+import com.avelycure.moviefan.presentation.movie_info.adapters.SimilarMoviesAdapter
 import com.avelycure.moviefan.utils.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

@@ -4,4 +4,5 @@
     <string name="movie_db">This product uses the TMDB API but is not endorsed or certified by TMDB.</string>
     <string name="btn_retry">Retry</string>
     <string name="info">Info</string>
+    <string name="more"><u>more about cast</u></string>
 </resources>
