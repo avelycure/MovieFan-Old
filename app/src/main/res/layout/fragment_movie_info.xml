@@ -178,13 +178,50 @@
                 app:layout_constraintTop_toBottomOf="@id/mi_budget" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/mi_title_overview"
+                android:text="Overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="?attr/titleTextColor"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mi_revenue" />
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_overview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                app:layout_constraintEnd_toEndOf="@+id/mi_title"
-                app:layout_constraintStart_toStartOf="@+id/mi_title"
-                app:layout_constraintTop_toBottomOf="@id/mi_revenue" />
+                app:layout_constraintEnd_toEndOf="@+id/mi_title_overview"
+                app:layout_constraintStart_toStartOf="@+id/mi_title_overview"
+                app:layout_constraintTop_toBottomOf="@id/mi_title_overview" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/mi_title_images"
+                android:text="Images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:textColor="?attr/titleTextColor"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mi_overview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:id="@+id/mi_rv_images"
+                app:layout_constraintTop_toBottomOf="@id/mi_title_images"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
