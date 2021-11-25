@@ -232,6 +232,7 @@ class HomeFragment : Fragment() {
         MoviePromptBuilder(requireActivity())
             .setTarget(width - 50F, actionBarHeight.toFloat())
             .setPrimaryText("Search movie")
+            .setPreferenceKey("shown_home_prompts")
             .setSecondaryText("Tap search to find movies")
             .setIcon(android.R.drawable.ic_menu_search)
             .show()
