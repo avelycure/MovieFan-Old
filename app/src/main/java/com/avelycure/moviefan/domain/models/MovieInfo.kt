@@ -30,7 +30,8 @@ data class MovieInfo(
     val cast: List<String> = emptyList(),
     val movieId: Int = 0,
     val imagesBackdrop: List<String> = emptyList(),
-    val imagesPosters: List<String> = emptyList()
+    val imagesPosters: List<String> = emptyList(),
+    val similar: List<Movie> = emptyList()
 )
 
 fun MovieInfo.getCompanies(): String {
