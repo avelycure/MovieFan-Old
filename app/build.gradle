@@ -99,5 +99,5 @@ dependencies {
     testImplementation testing.junit
 
     //Tips
-    implementation 'uk.co.samuelwall:material-tap-target-prompt:3.3.2'
+    implementation prompts.material_tap_target_prompt
 }
