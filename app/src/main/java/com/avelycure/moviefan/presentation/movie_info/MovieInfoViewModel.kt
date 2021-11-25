@@ -70,7 +70,7 @@ class MovieInfoViewModel
                 .execute(id)
                 .collectLatest { dataState ->
                     when (dataState) {
-                        is DataState.Data ->{
+                        is DataState.Data -> {
                             viewModelScope.launch(Dispatchers.IO) {
                                 saveToCache.execute(movieInfo = dataState.data!!)
                             }

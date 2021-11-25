@@ -3,7 +3,7 @@ package com.avelycure.moviefan.data.remote.service
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.movie.MoviesResponse
-import com.avelycure.moviefan.data.remote.dto.person.PersonImages
+import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import io.ktor.client.*
 import io.ktor.client.features.*
@@ -78,7 +78,7 @@ class PostsService(
         }
     }
 
-    override suspend fun getPersonImages(id: Int): PersonImages {
+    override suspend fun getPersonImages(id: Int): ResponsePersonImages {
         return try {
             client.get {
                 url("${Constants.BASE_URL}/person/$id/images${Constants.API_KEY}")
