@@ -36,6 +36,7 @@ class MovieInfoFragment : Fragment() {
     lateinit var imageLoader: ImageLoader
 
     lateinit var movieImagesAdapter: MovieImagesAdapter
+    lateinit var similarMoviesAdapter: SimilarMoviesAdapter
 
     private val movieInfoViewModel: MovieInfoViewModel by viewModels()
     private var movieId = Constants.NO_TRAILER_CODE
@@ -60,6 +61,7 @@ class MovieInfoFragment : Fragment() {
     private lateinit var ivPoster: AppCompatImageView
     private lateinit var tvOverview: AppCompatTextView
     private lateinit var rvMovieImages: RecyclerView
+    private lateinit var rvSimilarMovies: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,7 +86,7 @@ class MovieInfoFragment : Fragment() {
                         pb.visibility = View.VISIBLE
                     else {
                         pb.visibility = View.GONE
-                        setUi(state.movieInfo, state.images)
+                        setUi(state.movieInfo, state.images, state.similar)
                     }
 
                     if (state.videoIsAvailable)
@@ -108,7 +110,7 @@ class MovieInfoFragment : Fragment() {
         return view
     }
 
-    private fun setUi(movieInfo: MovieInfo, images: List<String>) {
+    private fun setUi(movieInfo: MovieInfo, images: List<String>, similar: List<Movie>) {
         imageLoader.enqueue(
             ImageRequest.Builder(requireContext())
                 .data(Constants.IMAGE + movieInfo.posterPath)
@@ -135,6 +137,7 @@ class MovieInfoFragment : Fragment() {
         tvCastTitle.text = "Cast: "
         tvCast.text = movieInfo.getCast()
         movieImagesAdapter.imagesList = images
+        similarMoviesAdapter.similarMovies = similar
     }
 
     private fun initViewElements(view: View) {
@@ -165,12 +168,18 @@ class MovieInfoFragment : Fragment() {
         tvCast = view.findViewById(R.id.mi_cast)
         tvCastTitle = view.findViewById(R.id.mi_cast_title)
         rvMovieImages = view.findViewById(R.id.mi_rv_images)
+        rvSimilarMovies = view.findViewById(R.id.mi_rv_similar_movies)
     }
 
-    fun initRecyclerView() {
+    private fun initRecyclerView() {
         movieImagesAdapter = MovieImagesAdapter(emptyList(), imageLoader, requireContext())
         rvMovieImages.adapter = movieImagesAdapter
         rvMovieImages.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        similarMoviesAdapter = SimilarMoviesAdapter(emptyList(), imageLoader, requireContext())
+        rvSimilarMovies.adapter = similarMoviesAdapter
+        rvSimilarMovies.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
