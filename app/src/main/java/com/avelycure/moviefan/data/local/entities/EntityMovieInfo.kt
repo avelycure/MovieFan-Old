@@ -38,5 +38,9 @@ data class EntityMovieInfo(
     val posterPath: String? = "",
     @TypeConverters(ConverterCast::class)
     val cast: List<String> = emptyList(),
-    val movieId: Int
+    val movieId: Int,
+    @TypeConverters(ConverterCast::class)
+    val imagesBackdrop: List<String> = emptyList(),
+    @TypeConverters(ConverterCast::class)
+    val imagesPosters: List<String> = emptyList()
 )

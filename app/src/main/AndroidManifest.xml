@@ -20,7 +20,8 @@
         android:theme="@style/Theme.MovieFan">
         <activity
             android:name=".presentation.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="userPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -7,11 +7,12 @@ import com.avelycure.moviefan.data.local.dao.CacheMovieInfoDao
 import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
 import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
+import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import com.avelycure.moviefan.data.remote.service.IPostsService
 import com.avelycure.moviefan.data.remote.sources.SearchPagingSource
+import com.avelycure.moviefan.domain.mappers.toEntityMovieInfo
 import com.avelycure.moviefan.domain.models.MovieInfo
-import com.avelycure.moviefan.domain.mappers.*
 
 class MovieRepository(
     private val postsService: IPostsService,
@@ -50,7 +51,18 @@ class MovieRepository(
         )
 
     private fun getDefaultPageConfig() =
-        PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
+        PagingConfig(
+            pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true, prefetchDistance = 60,
+            initialLoadSize = 60
+        )
+
+    suspend fun saveMovieInfo(movieInfo: MovieInfo) {
+        cacheMovieInfoDao.insertMovie(movieInfo.toEntityMovieInfo())
+    }
+
+    suspend fun getMovieInfoFromCache(id: Int): EntityMovieInfo {
+        return cacheMovieInfoDao.getMovieInfo(id)
+    }
 
     suspend fun getTrailerCode(id: Int): VideosResponse {
         return postsService.getVideos(id)
@@ -60,11 +72,7 @@ class MovieRepository(
         return postsService.getMovieDetail(id)
     }
 
-    suspend fun saveMovieInfo(movieInfo: MovieInfo) {
-        cacheMovieInfoDao.insertMovie(movieInfo.toEntityMovieInfo())
-    }
-
-    suspend fun getMovieInfoFromCache(id: Int): EntityMovieInfo {
-        return cacheMovieInfoDao.getMovieInfo(id)
+    suspend fun getPersonImages(id: Int): ResponsePersonImages{
+        return postsService.getPersonImages(id)
     }
 }

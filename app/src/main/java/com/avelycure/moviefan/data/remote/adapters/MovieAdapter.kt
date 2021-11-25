@@ -34,7 +34,7 @@ class MovieAdapter
     var onClickedItem: (Movie) -> Unit = {}
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(item = getItem(position), onClicked = onClickedItem, position)
+        holder.bind(item = getItem(position), onClicked = onClickedItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -53,9 +53,9 @@ class MovieAdapter
         private val tvOriginalTitle =
             view.findViewById<AppCompatTextView>(R.id.pm_item_movie_original_title)
 
-        fun bind(item: Movie?, onClicked: (Movie) -> Unit, position: Int) {
+        fun bind(item: Movie?, onClicked: (Movie) -> Unit) {
             item?.let { popularMovie ->
-                tvTitle.text = popularMovie.title + position
+                tvTitle.text = popularMovie.title
                 tvReviews.text = popularMovie.voteCount.toString()
                 ratingBar.rating = popularMovie.voteAverage / 2F
                 tvOriginalTitle.text = popularMovie.getOriginalTitleAndReleaseDate()
@@ -79,7 +79,7 @@ class MovieAdapter
 
     object MovieComparator : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-            return oldItem == newItem
+            return oldItem.movieId == newItem.movieId
         }
 
         override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {

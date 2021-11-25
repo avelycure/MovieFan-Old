@@ -13,6 +13,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
@@ -32,6 +34,8 @@ import javax.inject.Inject
 class MovieInfoFragment : Fragment() {
     @Inject
     lateinit var imageLoader: ImageLoader
+
+    lateinit var movieImagesAdapter: MovieImagesAdapter
 
     private val movieInfoViewModel: MovieInfoViewModel by viewModels()
     private var movieId = Constants.NO_TRAILER_CODE
@@ -55,6 +59,7 @@ class MovieInfoFragment : Fragment() {
     private lateinit var tvCompanies: AppCompatTextView
     private lateinit var ivPoster: AppCompatImageView
     private lateinit var tvOverview: AppCompatTextView
+    private lateinit var rvMovieImages: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +74,8 @@ class MovieInfoFragment : Fragment() {
 
         initViewElements(view)
 
+        initRecyclerView()
+
         lifecycleScope.launchWhenStarted {
             movieInfoViewModel
                 .state
@@ -77,7 +84,7 @@ class MovieInfoFragment : Fragment() {
                         pb.visibility = View.VISIBLE
                     else {
                         pb.visibility = View.GONE
-                        setUi(state.movieInfo)
+                        setUi(state.movieInfo, state.images)
                     }
 
                     if (state.videoIsAvailable)
@@ -101,7 +108,7 @@ class MovieInfoFragment : Fragment() {
         return view
     }
 
-    private fun setUi(movieInfo: MovieInfo) {
+    private fun setUi(movieInfo: MovieInfo, images: List<String>) {
         imageLoader.enqueue(
             ImageRequest.Builder(requireContext())
                 .data(Constants.IMAGE + movieInfo.posterPath)
@@ -127,6 +134,7 @@ class MovieInfoFragment : Fragment() {
         tvOverview.text = movieInfo.overview
         tvCastTitle.text = "Cast: "
         tvCast.text = movieInfo.getCast()
+        movieImagesAdapter.imagesList = images
     }
 
     private fun initViewElements(view: View) {
@@ -156,6 +164,14 @@ class MovieInfoFragment : Fragment() {
         ivPoster = view.findViewById(R.id.mi_poster)
         tvCast = view.findViewById(R.id.mi_cast)
         tvCastTitle = view.findViewById(R.id.mi_cast_title)
+        rvMovieImages = view.findViewById(R.id.mi_rv_images)
+    }
+
+    fun initRecyclerView() {
+        movieImagesAdapter = MovieImagesAdapter(emptyList(), imageLoader, requireContext())
+        rvMovieImages.adapter = movieImagesAdapter
+        rvMovieImages.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

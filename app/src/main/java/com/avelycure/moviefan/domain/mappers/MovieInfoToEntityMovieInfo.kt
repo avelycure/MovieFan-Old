@@ -26,6 +26,8 @@ fun MovieInfo.toEntityMovieInfo(): EntityMovieInfo {
         voteCount = voteCount,
         posterPath = posterPath,
         cast = cast,
-        movieId = movieId
+        movieId = movieId,
+        imagesPosters = imagesPosters,
+        imagesBackdrop = imagesBackdrop
     )
 }

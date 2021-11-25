@@ -40,7 +40,7 @@ class MovieInfoViewModel
     }
 
     private fun getTrailerCode(id: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getTrailerCode
                 .execute(id)
                 .collectLatest { dataState ->
@@ -70,12 +70,15 @@ class MovieInfoViewModel
                 .execute(id)
                 .collectLatest { dataState ->
                     when (dataState) {
-                        is DataState.Data ->{
+                        is DataState.Data -> {
                             viewModelScope.launch(Dispatchers.IO) {
                                 saveToCache.execute(movieInfo = dataState.data!!)
                             }
                             _state.value =
-                                _state.value.copy(movieInfo = dataState.data ?: MovieInfo())
+                                _state.value.copy(
+                                    movieInfo = dataState.data ?: MovieInfo(),
+                                    images = dataState.data?.imagesBackdrop ?: emptyList()
+                                )
                         }
                         is DataState.Loading ->
                             _state.value =
