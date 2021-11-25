@@ -40,7 +40,7 @@ class MovieInfoViewModel
     }
 
     private fun getTrailerCode(id: Int) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getTrailerCode
                 .execute(id)
                 .collectLatest { dataState ->
