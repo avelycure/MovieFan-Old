@@ -57,9 +57,6 @@ For many movies there is an option to watch a trailer. There is interesting thin
 
 I did not want to use more than one activity in my app, so I decided to use YouTubePlayerSupportFragment and found a problem: YouTubePlayerSupportFragment does not support androidx. I was already upset that I would have to create a new activity, when I found the solution for this problem [[here]](https://gist.github.com/medyo/f226b967213c3b8ec6f6bebb5338a492)
 
-### Dependency injection
-To prevent slow loading of movies when user rotates the screen we use Hilt to inject MovieAdapter.
-
 ## Difficulties / resolved issues
 
 ### Ktor
