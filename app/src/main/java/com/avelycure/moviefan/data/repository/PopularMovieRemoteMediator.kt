@@ -1,9 +1,7 @@
 package com.avelycure.moviefan.data.repository
 
-import androidx.paging.ExperimentalPagingApi
-import androidx.paging.LoadType
-import androidx.paging.PagingState
-import androidx.paging.RemoteMediator
+import android.util.Log
+import androidx.paging.*
 import androidx.room.withTransaction
 import coil.network.HttpException
 import com.avelycure.moviefan.data.local.AppDatabase
@@ -26,6 +24,7 @@ class PopularMovieRemoteMediator(
     ): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> {
+                Log.d("mytag", "Refresh")
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                 remoteKeys?.nextKey?.minus(1) ?: TMDB_STARTING_PAGE_INDEX
             }
@@ -38,6 +37,7 @@ class PopularMovieRemoteMediator(
                 prevKey
             }
             LoadType.APPEND -> {
+                Log.d("mytag", "Prepend")
                 val remoteKeys = getRemoteKeyForLastItem(state)
                 val nextKey = remoteKeys?.nextKey
                 if (nextKey == null) {

@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -110,6 +111,8 @@ class HomeFragment : Fragment() {
             openMovieInfoFragment(movie)
         }
 
+        movieAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
+
         movieAdapter.addLoadStateListener { loadState ->
             if (loadState.mediator?.refresh is LoadState.Loading)
                 loadingProgressBar.visibility = View.VISIBLE
@@ -141,6 +144,19 @@ class HomeFragment : Fragment() {
         )
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        homeViewModel.firstVisibleItem =
+            (rvPopularMovie.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+        Log.d(
+            "mytag",
+            "FVI = ${(rvPopularMovie.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()}"
+        )
+
+        //outState.putParcelable("layout_manager_state", (rvPopularMovie.layoutManager as LinearLayoutManager).onSaveInstanceState())
+        homeViewModel.state = (rvPopularMovie.layoutManager as LinearLayoutManager).onSaveInstanceState()
+    }
+
     // To restore rv state after rotation
     override fun onResume() {
         super.onResume()
@@ -152,9 +168,7 @@ class HomeFragment : Fragment() {
     // To restore rv state after rotation
     override fun onPause() {
         super.onPause()
-        homeViewModel.firstVisibleItem =
-            (rvPopularMovie.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-        Log.d("mytag", "FVI = ${(rvPopularMovie.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()}")
+
         //homeViewModel.state = rvPopularMovie.layoutManager?.onSaveInstanceState()
     }
 
@@ -211,17 +225,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchPopularMovies() {
-        lifecycleScope.launch {
-            /*homeViewModel
-                .getPopularMovies()
+        lifecycleScope.launchWhenStarted {
+            homeViewModel
+                .lookForPopularMovies()
                 .collectLatest {
                     movieAdapter.submitData(it)
-                }*/
-            homeViewModel.lookForPopularMovies().collectLatest {
-                movieAdapter.submitData(it)
-                //(rvPopularMovie.layoutManager as LinearLayoutManager).scrollToPosition(homeViewModel.firstVisibleItem)
 
-            }
+                    (rvPopularMovie.layoutManager as LinearLayoutManager).onRestoreInstanceState(homeViewModel.state)
+                }
         }
     }
 }

@@ -50,7 +50,10 @@ class MovieRepository(
         )
 
     private fun getDefaultPageConfig() =
-        PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true)
+        PagingConfig(
+            pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = true, prefetchDistance = 60,
+            initialLoadSize = 60
+        )
 
     suspend fun getTrailerCode(id: Int): VideosResponse {
         return postsService.getVideos(id)
