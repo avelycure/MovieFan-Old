@@ -1,6 +1,7 @@
 package com.avelycure.moviefan.data.remote.dto.details.mappers
 
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
+import com.avelycure.moviefan.data.remote.mappers.toMovie
 import com.avelycure.moviefan.domain.models.MovieInfo
 
 fun DetailResponse.toMovieInfo(): MovieInfo {
@@ -33,6 +34,9 @@ fun DetailResponse.toMovieInfo(): MovieInfo {
         },
         imagesPosters = images.posters.map {
             it.file_path
+        },
+        similar = similar.results.map {
+            it.toMovie()
         }
     )
 }

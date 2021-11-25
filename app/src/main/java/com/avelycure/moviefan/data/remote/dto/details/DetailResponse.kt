@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.data.remote.dto.details
 
+import com.avelycure.moviefan.data.remote.dto.movie.MoviesResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -30,5 +31,6 @@ data class DetailResponse(
     val vote_average: Float,
     val vote_count: Int,
     val credits: Credit,
-    val images: MovieImages
+    val images: MovieImages,
+    val similar: MoviesResponse
 )
