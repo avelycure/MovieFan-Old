@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.presentation.movie_info
+package com.avelycure.moviefan.presentation.movie_info.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

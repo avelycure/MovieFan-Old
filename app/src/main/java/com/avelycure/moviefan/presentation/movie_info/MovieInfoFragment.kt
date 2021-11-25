@@ -1,11 +1,6 @@
 package com.avelycure.moviefan.presentation.movie_info
 
-import android.app.Activity
-import android.content.res.Resources
-import android.graphics.Rect
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -27,17 +22,12 @@ import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.models.*
 import com.avelycure.moviefan.domain.state.ProgressBarState
 import com.avelycure.moviefan.domain.state.UIComponent
+import com.avelycure.moviefan.presentation.movie_info.adapters.MovieImagesAdapter
+import com.avelycure.moviefan.presentation.movie_info.adapters.SimilarMoviesAdapter
 import com.avelycure.moviefan.utils.showError
-import com.avelycure.moviefan.utils.ui.MoviePromptBuilder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import javax.inject.Inject
-import kotlin.math.roundToInt
 
 /**
  * Fragment which shows detail information about movies
