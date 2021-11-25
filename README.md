@@ -17,6 +17,7 @@ Application for getting information about films from The Movie Database:
 * Dependency injection with Hilt
 * Paging 3
 * Firebase: Crashlytics
+* [Material Prompts](https://github.com/sjwall/MaterialTapTargetPrompt) for better UX
 
 ## Functionality
 
