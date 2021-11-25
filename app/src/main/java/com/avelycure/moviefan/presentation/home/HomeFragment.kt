@@ -27,7 +27,12 @@ import com.avelycure.moviefan.utils.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import javax.inject.Inject
+import android.util.TypedValue
+import android.util.DisplayMetrics
+import com.avelycure.moviefan.utils.ui.MoviePromptBuilder
+
 
 /**
  * Fragment to represent popular movies and movies that were found while searching
@@ -72,6 +77,7 @@ class HomeFragment : Fragment() {
             menu.clear()
             inflater.inflate(R.menu.toolbar_menu, menu)
             initSearchView(menu)
+            showTips()
 
             lifecycleScope.launch {
                 searchView.getQueryChangeStateFlow()
@@ -144,34 +150,6 @@ class HomeFragment : Fragment() {
         )
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        homeViewModel.firstVisibleItem =
-            (rvPopularMovie.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-        Log.d(
-            "mytag",
-            "FVI = ${(rvPopularMovie.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()}"
-        )
-
-        //outState.putParcelable("layout_manager_state", (rvPopularMovie.layoutManager as LinearLayoutManager).onSaveInstanceState())
-        homeViewModel.state = (rvPopularMovie.layoutManager as LinearLayoutManager).onSaveInstanceState()
-    }
-
-    // To restore rv state after rotation
-    override fun onResume() {
-        super.onResume()
-        //(rvPopularMovie.layoutManager as LinearLayoutManager).scrollToPosition(homeViewModel.firstVisibleItem)
-        //if (homeViewModel.state != null)
-        //    rvPopularMovie.layoutManager?.onRestoreInstanceState(homeViewModel.state)
-    }
-
-    // To restore rv state after rotation
-    override fun onPause() {
-        super.onPause()
-
-        //homeViewModel.state = rvPopularMovie.layoutManager?.onSaveInstanceState()
-    }
-
     private fun initViewElements(view: View) {
         setHasOptionsMenu(true)
 
@@ -231,8 +209,32 @@ class HomeFragment : Fragment() {
                 .collectLatest {
                     movieAdapter.submitData(it)
 
-                    (rvPopularMovie.layoutManager as LinearLayoutManager).onRestoreInstanceState(homeViewModel.state)
+                    (rvPopularMovie.layoutManager as LinearLayoutManager).onRestoreInstanceState(
+                        homeViewModel.state
+                    )
                 }
         }
     }
+
+    private fun showTips() {
+
+        val tv = TypedValue()
+        var actionBarHeight = 30
+        if (requireContext().theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            actionBarHeight =
+                TypedValue.complexToDimensionPixelSize(tv.data, context!!.resources.displayMetrics)
+        }
+
+        val displayMetrics = DisplayMetrics()
+        activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+        val width = displayMetrics.widthPixels
+
+        MoviePromptBuilder(requireActivity())
+            .setTarget(width - 50F, actionBarHeight.toFloat())
+            .setPrimaryText("Search movie")
+            .setSecondaryText("Tap search to find movies")
+            .setIcon(android.R.drawable.ic_menu_search)
+            .show()
+    }
+
 }
