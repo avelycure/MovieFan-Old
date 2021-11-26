@@ -77,16 +77,8 @@ class HomeFragment : Fragment() {
             showTips()
 
             lifecycleScope.launch {
-                searchView
-                    .getQueryChangeStateFlow()
-                    .debounce(500)
-                    .filter { query ->
-                        return@filter query.isNotEmpty()
-                    }
-                    .distinctUntilChanged()
-                    .flatMapLatest { query ->
-                        homeViewModel.searchMovie(query)
-                    }
+                homeViewModel
+                    .searchMovie(searchView.getQueryChangeStateFlow())
                     .flowOn(Dispatchers.IO)
                     .collectLatest {
                         movieAdapter.submitData(it)
