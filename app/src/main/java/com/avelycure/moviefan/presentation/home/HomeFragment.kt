@@ -3,13 +3,11 @@ package com.avelycure.moviefan.presentation.home
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,7 +25,6 @@ import com.avelycure.moviefan.utils.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import javax.inject.Inject
 import android.util.TypedValue
 import android.util.DisplayMetrics
@@ -80,15 +77,8 @@ class HomeFragment : Fragment() {
             showTips()
 
             lifecycleScope.launch {
-                searchView.getQueryChangeStateFlow()
-                    .debounce(500)
-                    .filter { query ->
-                        return@filter query.isNotEmpty()
-                    }
-                    .distinctUntilChanged()
-                    .flatMapLatest { query ->
-                        homeViewModel.searchMovie(query)
-                    }
+                homeViewModel
+                    .searchMovie(searchView.getQueryChangeStateFlow())
                     .flowOn(Dispatchers.IO)
                     .collectLatest {
                         movieAdapter.submitData(it)

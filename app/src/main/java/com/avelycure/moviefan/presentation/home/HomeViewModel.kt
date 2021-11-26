@@ -7,7 +7,9 @@ import com.avelycure.moviefan.domain.interactors.GetPopularMovies
 import com.avelycure.moviefan.domain.interactors.SearchMovie
 import com.avelycure.moviefan.domain.models.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,21 +18,28 @@ class HomeViewModel
     private val getPopularMovies: GetPopularMovies,
     private val searchMovie: SearchMovie
 ) : ViewModel() {
-    var state: Parcelable? = null
-
-    var firstVisibleItem = 1
-
     private var mPagingData: Flow<PagingData<Movie>>? = null
 
     fun getPopularMovies() = getPopularMovies
         .execute()
 
-    fun searchMovie(query: String) = searchMovie
-        .execute(query)
+    @FlowPreview
+    @ExperimentalCoroutinesApi
+    fun searchMovie(queryFlow: Flow<String>): Flow<PagingData<Movie>> {
+        return queryFlow
+            .debounce(500)
+            .filter { query ->
+                return@filter query.isNotEmpty()
+            }
+            .distinctUntilChanged()
+            .flatMapLatest { query ->
+                searchMovie.execute(query)
+            }
+    }
 
     fun lookForPopularMovies(): Flow<PagingData<Movie>> {
         if (mPagingData != null) return mPagingData as Flow<PagingData<Movie>>
-        else{
+        else {
             mPagingData = getPopularMovies.execute()
             return mPagingData as Flow<PagingData<Movie>>
         }
