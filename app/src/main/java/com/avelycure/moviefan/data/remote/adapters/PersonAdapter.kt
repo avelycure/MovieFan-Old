@@ -42,11 +42,18 @@ class PersonAdapter
     }
 
     inner class PersonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvName: AppCompatTextView=  view.findViewById(R.id.pi_tv_name)
+        val tvName: AppCompatTextView = view.findViewById(R.id.pi_tv_name)
+        val ivPoster: AppCompatImageView = view.findViewById(R.id.person_item_iv)
         fun bind(item: Person?, onClicked: (Person) -> Unit) {
-            item?.let{
+            item?.let {
                 tvName.text = it.name
             }
+            imageLoader.enqueue(
+                ImageRequest.Builder(context)
+                    .data(Constants.IMAGE + item?.profile_path)
+                    .target(ivPoster)
+                    .build()
+            )
         }
     }
 
