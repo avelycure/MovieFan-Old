@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/popular_movies"
+        android:id="@+id/bnv_popular_movies"
         android:title="Popular movies"
         android:icon="@drawable/thumb_up_indigo"/>
     <item
-        android:id="@+id/search_movie"
-        android:title="Search"
+        android:id="@+id/bnv_search_movie"
+        android:title="Search person"
         android:icon="@drawable/search_indigo"/>
 </menu>
