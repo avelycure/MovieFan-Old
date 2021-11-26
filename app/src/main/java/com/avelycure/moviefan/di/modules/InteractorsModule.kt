@@ -35,4 +35,9 @@ object InteractorsModule {
     fun provideSaveToCache(repository: MovieRepository):SaveToCache{
         return SaveToCache(repository)
     }
+
+    @Provides
+    fun provideGetPerson(repository: MovieRepository):GetPerson{
+        return GetPerson(repository)
+    }
 }

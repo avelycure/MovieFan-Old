@@ -209,9 +209,9 @@ class HomeFragment : Fragment() {
                 .collectLatest {
                     movieAdapter.submitData(it)
 
-                    (rvPopularMovie.layoutManager as LinearLayoutManager).onRestoreInstanceState(
+                    /*(rvPopularMovie.layoutManager as LinearLayoutManager).onRestoreInstanceState(
                         homeViewModel.state
-                    )
+                    )*/
                 }
         }
     }
