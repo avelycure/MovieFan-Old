@@ -16,10 +16,6 @@ class HomeViewModel
     private val getPopularMovies: GetPopularMovies,
     private val searchMovie: SearchMovie
 ) : ViewModel() {
-    var state: Parcelable? = null
-
-    var firstVisibleItem = 1
-
     private var mPagingData: Flow<PagingData<Movie>>? = null
 
     fun getPopularMovies() = getPopularMovies

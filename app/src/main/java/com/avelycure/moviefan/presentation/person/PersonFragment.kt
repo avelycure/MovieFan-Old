@@ -1,16 +1,10 @@
 package com.avelycure.moviefan.presentation.person
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.*
 import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -56,23 +50,13 @@ class PersonFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
-            personNameEditText
-                .getQueryChangeStateFlow()
-                .debounce(500)
-                .filter { query ->
-                    return@filter query.isNotEmpty()
-                }
-                .distinctUntilChanged()
-                .flatMapLatest { query ->
-                    personViewModel.searchPerson(query)
-                }
+            personViewModel
+                .searchPerson(personNameEditText.getQueryChangeStateFlow())
                 .flowOn(Dispatchers.Main)
                 .collectLatest {
                     personAdapter.submitData(it)
                 }
         }
-
-
     }
 
     private fun initViewElements(view: View) {
