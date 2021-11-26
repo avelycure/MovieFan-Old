@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable-v24/logo_background_foreground.xml" value="0.2212962962962963" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2212962962962963" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fp_load_state_view.xml" value="0.11322463768115942" />
         <entry key="app/src/main/res/layout/fragement_popular_movies.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_app_info.xml" value="0.12001811594202899" />
         <entry key="app/src/main/res/layout/fragment_movie_info.xml" value="0.1" />
@@ -14,6 +15,7 @@
         <entry key="app/src/main/res/layout/fragment_search_film.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/load_state_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/movie_image_item.xml" value="0.11322463768115942" />
+        <entry key="app/src/main/res/layout/person_item.xml" value="0.11322463768115942" />
         <entry key="app/src/main/res/layout/popular_movie_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/similar_movie_item.xml" value="0.3633720930232558" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.12681159420289856" />

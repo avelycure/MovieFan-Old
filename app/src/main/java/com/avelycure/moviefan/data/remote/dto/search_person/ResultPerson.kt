@@ -4,10 +4,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResultPerson(
-    val profile_path: String?,
     val adult: Boolean,
+    val gender: Int,
     val id: Int,
     val known_for: List<KnownFor>,
+    val known_for_department: String?,
     val name: String,
-    val popularity: Float
+    val popularity: Float,
+    val profile_path: String?,
 )

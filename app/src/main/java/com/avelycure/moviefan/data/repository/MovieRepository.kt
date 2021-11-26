@@ -11,6 +11,7 @@ import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import com.avelycure.moviefan.data.remote.service.IPostsService
 import com.avelycure.moviefan.data.remote.sources.SearchPagingSource
+import com.avelycure.moviefan.data.remote.sources.SearchPersonPagingSource
 import com.avelycure.moviefan.domain.mappers.toEntityMovieInfo
 import com.avelycure.moviefan.domain.models.MovieInfo
 
@@ -75,4 +76,15 @@ class MovieRepository(
     suspend fun getPersonImages(id: Int): ResponsePersonImages{
         return postsService.getPersonImages(id)
     }
+
+    fun getSearchPersonPager(query: String, pagingConfig: PagingConfig = getDefaultPageConfig()) =
+        Pager(
+            config = pagingConfig,
+            pagingSourceFactory = {
+                SearchPersonPagingSource(
+                    postsService = postsService,
+                    query = query
+                )
+            }
+        )
 }

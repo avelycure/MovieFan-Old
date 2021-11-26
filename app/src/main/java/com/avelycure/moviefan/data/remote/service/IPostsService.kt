@@ -3,6 +3,7 @@ package com.avelycure.moviefan.data.remote.service
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.movie.MoviesResponse
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
+import com.avelycure.moviefan.data.remote.dto.search_person.ResponseSearchPerson
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 
 interface IPostsService {
@@ -11,4 +12,5 @@ interface IPostsService {
     suspend fun getMovieDetail(id: Int): DetailResponse
     suspend fun getVideos(id: Int): VideosResponse
     suspend fun getPersonImages(id: Int): ResponsePersonImages
+    suspend fun getPersons(query: String, page: Int): ResponseSearchPerson
 }

@@ -42,8 +42,11 @@ class PersonAdapter
     }
 
     inner class PersonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvName: AppCompatTextView=  view.findViewById(R.id.pi_tv_name)
         fun bind(item: Person?, onClicked: (Person) -> Unit) {
-
+            item?.let{
+                tvName.text = it.name
+            }
         }
     }
 

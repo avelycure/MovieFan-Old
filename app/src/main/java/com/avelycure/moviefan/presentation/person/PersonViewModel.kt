@@ -8,10 +8,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PersonViewModel
 @Inject constructor(
-    getPerson: GetPerson
+    private val getPerson: GetPerson
 ) : ViewModel() {
 
-    fun searchPerson(query: String){
-
-    }
+    fun searchPerson(query: String) = getPerson.execute(query)
 }

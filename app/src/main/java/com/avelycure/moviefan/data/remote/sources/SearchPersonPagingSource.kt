@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.data.remote.sources
 
+import android.util.Log
 import androidx.paging.PagingSource
 import com.avelycure.moviefan.data.remote.dto.search_person.ResultPerson
 import com.avelycure.moviefan.data.remote.service.IPostsService
@@ -21,6 +22,7 @@ class SearchPersonPagingSource(
                 nextKey = if (response.isEmpty()) null else page + 1
             )
         } catch (e: Exception) {
+            Log.d("mytag", "Error in source: ${e.message}")
             return LoadResult.Error(e)
         }
     }
