@@ -18,6 +18,8 @@ import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.mappers.setProperties
 import com.avelycure.moviefan.domain.models.Person
 import com.avelycure.moviefan.domain.models.PersonInfo
+import com.avelycure.moviefan.domain.models.getMovies
+import com.avelycure.moviefan.domain.models.getTvs
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -52,11 +54,15 @@ class PersonAdapter
         private val tvBiography: AppCompatTextView = view.findViewById(R.id.pi_biography)
         private val expLayout: ConstraintLayout = view.findViewById(R.id.pi_expandable_layout)
         private val layout: ConstraintLayout = view.findViewById(R.id.pi_layout)
+        private val tvs: AppCompatTextView = view.findViewById(R.id.pi_tv_tv)
+        private val movies: AppCompatTextView = view.findViewById(R.id.pi_tv_movie)
 
         fun bind(item: Person?, onExpand: (Int) -> Flow<PersonInfo>) {
             item?.let { person ->
                 tvName.text = person.name
                 tvBiography.text = person.biography
+                tvs.text = person.getTvs()
+                movies.text = person.getMovies()
 
                 if (person.expanded)
                     expLayout.visibility = View.VISIBLE

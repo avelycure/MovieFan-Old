@@ -15,7 +15,7 @@
         <entry key="app/src/main/res/layout/fragment_search_film.xml" value="0.2140625" />
         <entry key="app/src/main/res/layout/load_state_view.xml" value="0.1" />
         <entry key="app/src/main/res/layout/movie_image_item.xml" value="0.11322463768115942" />
-        <entry key="app/src/main/res/layout/person_item.xml" value="0.11322463768115942" />
+        <entry key="app/src/main/res/layout/person_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout/popular_movie_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/similar_movie_item.xml" value="0.3633720930232558" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.12681159420289856" />

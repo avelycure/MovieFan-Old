@@ -6,6 +6,7 @@
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
     android:layout_marginBottom="8dp"
+    android:background="?attr/colorSurface"
     android:theme="@style/Theme.MovieFan"
     app:cardCornerRadius="4dp">
 
@@ -24,19 +25,58 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pi_tv_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pi_primary_info_layout"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:fontFamily="sans-serif-black"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="?attr/titleTextColor"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/person_item_iv"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pi_tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="sans-serif-black"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="?attr/titleTextColor"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pi_tv_tv_title"
+                style="@style/MovieInfoTextSubtitle"
+                android:text="Tv:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pi_tv_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pi_tv_tv"
+                style="@style/MovieInfoText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pi_tv_tv_title"
+                app:layout_constraintTop_toTopOf="@+id/pi_tv_tv_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pi_tv_movie_title"
+                style="@style/MovieInfoTextSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Movie:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pi_tv_tv_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pi_tv_movie"
+                style="@style/MovieInfoText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pi_tv_movie_title"
+                app:layout_constraintTop_toTopOf="@+id/pi_tv_movie_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/pi_expandable_layout"
@@ -46,17 +86,23 @@
             app:layout_constraintTop_toBottomOf="@+id/person_item_iv">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Biography"
                 android:id="@+id/pi_biography_title"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:text="Biography"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="?attr/titleTextColor"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
                 android:id="@+id/pi_biography"
-                app:layout_constraintTop_toBottomOf="@+id/pi_biography_title"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/pi_biography_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
