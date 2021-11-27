@@ -11,8 +11,8 @@ data class Person(
     val adult: Boolean,
     val name: String,
     val popularity: Float,
-    val knownForMovie: List<KnownForMovie>,
-    val knownForTv: List<KnownForTv>
+    val knownForMovie: List<String>,
+    val knownForTv: List<String>
 ) {
     var birthday: String? = ""
     var knownForDepartment: String = ""
@@ -29,7 +29,7 @@ data class Person(
 fun Person.getMovies(): String{
     val movies = buildString {
         for (element in knownForMovie) {
-            append(element.title + ", ")
+            append(element + ", ")
         }
     }
     return if (movies.isNotBlank() && movies.isNotEmpty())
@@ -41,7 +41,7 @@ fun Person.getMovies(): String{
 fun Person.getTvs(): String{
     val tvs = buildString {
         for (element in knownForTv) {
-            append(element.name + ", ")
+            append(element + ", ")
         }
     }
     return if (tvs.isNotBlank() && tvs.isNotEmpty())

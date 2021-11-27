@@ -12,7 +12,7 @@ fun EntityPopularPerson.toPerson(): Person {
         adult = adult,
         name = name,
         popularity = popularity,
-        knownForMovie = knownForMovie.map { KnownForMovie(poster_path = it) },
-        knownForTv = knownForTv.map { KnownForTv(poster_path = it) }
+        knownForMovie = knownForMovie,
+        knownForTv = knownForTv
     )
 }

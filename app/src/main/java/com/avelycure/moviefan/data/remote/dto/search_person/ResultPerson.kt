@@ -22,9 +22,9 @@ fun ResultPerson.toEntityPopularPerson(): EntityPopularPerson {
 
     for (media in known_for) {
         if (media is KnownForMovie)
-            knownForMovie.add(media.poster_path ?: "")
+            knownForMovie.add(media.title)
         if (media is KnownForTv)
-            knownForTv.add(media.poster_path ?: "")
+            knownForTv.add(media.name)
     }
 
     return EntityPopularPerson(
