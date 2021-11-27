@@ -78,6 +78,9 @@ class PersonFragment : Fragment() {
 
         personAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 
+        personAdapter.scope = lifecycleScope
+        personAdapter.onExpand = personViewModel::onExpand
+
         personAdapter.addLoadStateListener { loadState ->
             if (loadState.mediator?.refresh is LoadState.Loading)
                 loadingProgressBar.visibility = View.VISIBLE

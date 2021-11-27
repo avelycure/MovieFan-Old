@@ -3,10 +3,21 @@ package com.avelycure.moviefan.domain.models
 import com.avelycure.moviefan.data.remote.dto.search_person.KnownFor
 
 data class Person(
-    val profile_path: String?,
-    val adult: Boolean,
+    var expanded: Boolean = false,
     val id: Int,
-    val known_for: List<KnownFor>,
+    val profilePath: String?,
+    val adult: Boolean,
     val name: String,
-    val popularity: Float
-)
+    val popularity: Float,
+    var knownFor: List<KnownFor>
+) {
+    var birthday: String? = ""
+    var knownForDepartment: String = ""
+    var deathDay: String? = ""
+    var alsoKnownAs: List<String> = emptyList()
+    var gender: Int = -1
+    var biography: String = ""
+    var placeOfBirth: String? = ""
+    var imdbId: String = ""
+    var homepage: String? = ""
+}

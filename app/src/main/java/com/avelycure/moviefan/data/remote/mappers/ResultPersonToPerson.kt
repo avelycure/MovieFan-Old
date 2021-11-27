@@ -5,10 +5,10 @@ import com.avelycure.moviefan.domain.models.Person
 
 fun ResultPerson.toPerson(): Person {
     return Person(
-        profile_path = profile_path,
+        profilePath = profile_path,
         adult = adult,
         id = id,
-        known_for = known_for,
+        knownFor = known_for,
         name = name,
         popularity = popularity
     )

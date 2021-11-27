@@ -7,6 +7,7 @@ import com.avelycure.moviefan.data.local.dao.CacheMovieInfoDao
 import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
 import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
+import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonInfo
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import com.avelycure.moviefan.data.remote.service.IPostsService
@@ -73,7 +74,11 @@ class MovieRepository(
         return postsService.getMovieDetail(id)
     }
 
-    suspend fun getPersonImages(id: Int): ResponsePersonImages{
+    suspend fun getPersonInfo(id: Int): ResponsePersonInfo {
+        return postsService.getPersonInfo(id)
+    }
+
+    suspend fun getPersonImages(id: Int): ResponsePersonImages {
         return postsService.getPersonImages(id)
     }
 

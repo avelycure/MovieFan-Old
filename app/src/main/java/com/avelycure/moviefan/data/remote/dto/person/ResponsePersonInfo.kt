@@ -3,7 +3,7 @@ package com.avelycure.moviefan.data.remote.dto.person
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponsePerson(
+data class ResponsePersonInfo(
     val birthday: String?,
     val known_for_department: String,
     val deathday: String?,
