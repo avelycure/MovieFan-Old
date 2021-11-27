@@ -45,4 +45,9 @@ object InteractorsModule {
     fun provideGetPersonInfo(repository: MovieRepository): GetPersonInfo {
         return GetPersonInfo(repository)
     }
+
+    @Provides
+    fun provideGetPopularPersons(repository: MovieRepository): GetPopularPersons {
+        return GetPopularPersons(repository)
+    }
 }

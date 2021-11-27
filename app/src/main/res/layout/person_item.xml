@@ -75,8 +75,25 @@
                 android:id="@+id/pi_tv_movie"
                 style="@style/MovieInfoText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/pi_tv_movie_title"
+                app:layout_constraintStart_toStartOf="@+id/pi_tv_tv"
                 app:layout_constraintTop_toTopOf="@+id/pi_tv_movie_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pi_tv_department_title"
+                style="@style/MovieInfoTextSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_height="wrap_content"
+                android:text="Department: "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pi_tv_movie" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pi_tv_department"
+                style="@style/MovieInfoText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/pi_tv_tv"
+                app:layout_constraintTop_toTopOf="@+id/pi_tv_department_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

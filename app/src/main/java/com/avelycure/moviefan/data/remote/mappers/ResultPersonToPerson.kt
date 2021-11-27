@@ -20,9 +20,10 @@ fun ResultPerson.toPerson(): Person {
         profilePath = profile_path,
         adult = adult,
         id = id,
-        knownForMovie = knownForMovie,
-        knownForTv = knownForTv,
+        knownForMovie = knownForMovie.map { it.title },
+        knownForTv = knownForTv.map { it.name },
         name = name,
-        popularity = popularity
+        popularity = popularity,
+        knownForDepartment = known_for_department ?: ""
     )
 }
