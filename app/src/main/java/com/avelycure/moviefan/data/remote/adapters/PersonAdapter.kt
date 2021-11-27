@@ -55,14 +55,32 @@ class PersonAdapter
         private val expLayout: ConstraintLayout = view.findViewById(R.id.pi_expandable_layout)
         private val layout: ConstraintLayout = view.findViewById(R.id.pi_layout)
         private val tvs: AppCompatTextView = view.findViewById(R.id.pi_tv_tv)
+        private val tvsTitle: AppCompatTextView = view.findViewById(R.id.pi_tv_tv_title)
         private val movies: AppCompatTextView = view.findViewById(R.id.pi_tv_movie)
+        private val moviesTitle: AppCompatTextView = view.findViewById(R.id.pi_tv_movie_title)
 
         fun bind(item: Person?, onExpand: (Int) -> Flow<PersonInfo>) {
             item?.let { person ->
                 tvName.text = person.name
                 tvBiography.text = person.biography
-                tvs.text = person.getTvs()
-                movies.text = person.getMovies()
+
+                if (person.getTvs().isBlank()) {
+                    tvs.visibility = View.GONE
+                    tvsTitle.visibility = View.GONE
+                } else {
+                    tvs.visibility = View.VISIBLE
+                    tvsTitle.visibility = View.VISIBLE
+                    tvs.text = person.getTvs()
+                }
+
+                if (person.getMovies().isBlank()) {
+                    movies.visibility = View.GONE
+                    moviesTitle.visibility = View.GONE
+                } else {
+                    moviesTitle.visibility = View.VISIBLE
+                    movies.visibility = View.VISIBLE
+                    movies.text = person.getMovies()
+                }
 
                 if (person.expanded)
                     expLayout.visibility = View.VISIBLE
