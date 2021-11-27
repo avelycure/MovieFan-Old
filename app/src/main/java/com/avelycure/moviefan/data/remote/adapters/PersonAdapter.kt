@@ -59,10 +59,18 @@ class PersonAdapter
         private val movies: AppCompatTextView = view.findViewById(R.id.pi_tv_movie)
         private val moviesTitle: AppCompatTextView = view.findViewById(R.id.pi_tv_movie_title)
 
+        private val tvHomepage: AppCompatTextView = view.findViewById(R.id.person_homepage)
+        private val tvPlaceOfBirth: AppCompatTextView =
+            view.findViewById(R.id.person_place_of_birth)
+        private val tvDateOfBirth: AppCompatTextView = view.findViewById(R.id.person_birthday)
+
         fun bind(item: Person?, onExpand: (Int) -> Flow<PersonInfo>) {
             item?.let { person ->
                 tvName.text = person.name
                 tvBiography.text = person.biography
+                tvDateOfBirth.text = person.birthday
+                tvHomepage.text = person.homepage
+                tvPlaceOfBirth.text = person.placeOfBirth
 
                 if (person.getTvs().isBlank()) {
                     tvs.visibility = View.GONE
