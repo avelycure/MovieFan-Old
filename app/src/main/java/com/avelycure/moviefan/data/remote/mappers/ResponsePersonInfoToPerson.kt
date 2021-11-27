@@ -3,7 +3,7 @@ package com.avelycure.moviefan.data.remote.mappers
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonInfo
 import com.avelycure.moviefan.domain.models.PersonInfo
 
-fun ResponsePersonInfo.toPersonInfo():PersonInfo{
+fun ResponsePersonInfo.toPersonInfo(): PersonInfo {
     return PersonInfo(
         birthday = birthday,
         knownForDepartment = known_for_department,
@@ -18,6 +18,7 @@ fun ResponsePersonInfo.toPersonInfo():PersonInfo{
         profilePath = profile_path,
         adult = adult,
         imdbId = imdb_id,
-        homepage = homepage
+        homepage = homepage,
+        profileImages = images?.profiles ?: emptyList()
     )
 }

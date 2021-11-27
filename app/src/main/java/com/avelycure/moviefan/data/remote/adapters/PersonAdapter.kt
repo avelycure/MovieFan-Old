@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
@@ -20,6 +21,8 @@ import com.avelycure.moviefan.domain.models.Person
 import com.avelycure.moviefan.domain.models.PersonInfo
 import com.avelycure.moviefan.domain.models.getMovies
 import com.avelycure.moviefan.domain.models.getTvs
+import com.avelycure.moviefan.presentation.movie_info.adapters.MovieImagesAdapter
+import com.avelycure.moviefan.presentation.person.PersonImagesAdapter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -64,6 +67,8 @@ class PersonAdapter
             view.findViewById(R.id.person_place_of_birth)
         private val tvDateOfBirth: AppCompatTextView = view.findViewById(R.id.person_birthday)
 
+        private val rvPersonImages: RecyclerView = view.findViewById(R.id.person_item_rv)
+
         fun bind(item: Person?, onExpand: (Int) -> Flow<PersonInfo>) {
             item?.let { person ->
                 tvName.text = person.name
@@ -96,11 +101,17 @@ class PersonAdapter
                     expLayout.visibility = View.GONE
 
                 layout.setOnClickListener {
+                    val personImagesAdapter = PersonImagesAdapter(emptyList(), imageLoader, context)
+                    rvPersonImages.adapter = personImagesAdapter
+                    rvPersonImages.layoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
                     scope.launch {
                         onExpand(person.id)
                             .collect { personInfo ->
                                 person.setProperties(personInfo)
+                                personImagesAdapter.personImages = person.profileImages
+                                personImagesAdapter.notifyDataSetChanged()
                                 notifyItemChanged(bindingAdapterPosition)
                             }
                     }

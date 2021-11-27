@@ -115,7 +115,7 @@ class PostsService(
     override suspend fun getPersonInfo(id: Int): ResponsePersonInfo {
         return try {
             client.get {
-                url("${Constants.BASE_URL}/person/$id${Constants.API_KEY}")
+                url("${Constants.BASE_URL}/person/$id${Constants.API_KEY}&${Constants.PERSON_IMAGES}")
             }
         } catch (e: RedirectResponseException) {
             throw Exception("Further action needs to be taken in order to complete the request")

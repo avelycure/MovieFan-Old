@@ -17,5 +17,11 @@ data class ResponsePersonInfo(
     val profile_path: String?,
     val adult: Boolean,
     val imdb_id: String,
-    val homepage: String?
+    val homepage: String?,
+    val images: Images?,
+)
+
+@Serializable
+data class Images(
+    val profiles: List<Profile>?
 )

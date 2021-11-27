@@ -20,4 +20,6 @@ fun Person.setProperties(personInfo: PersonInfo) {
         this.placeOfBirth = personInfo.placeOfBirth
     if (!personInfo.homepage.isNullOrBlank())
         this.homepage = personInfo.homepage
+    if(personInfo.profileImages.isNotEmpty())
+        this.profileImages = personInfo.profileImages
 }

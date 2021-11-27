@@ -1,5 +1,6 @@
 package com.avelycure.moviefan.domain.models
 
+import com.avelycure.moviefan.data.remote.dto.person.Profile
 import com.avelycure.moviefan.data.remote.dto.search_person.KnownForMovie
 import com.avelycure.moviefan.data.remote.dto.search_person.KnownForTv
 
@@ -22,6 +23,7 @@ data class Person(
     var placeOfBirth: String? = ""
     var imdbId: String = ""
     var homepage: String? = ""
+    var profileImages: List<Profile> = emptyList()
 }
 
 fun Person.getMovies(): String{
