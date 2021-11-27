@@ -5,9 +5,11 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.avelycure.moviefan.data.local.dao.CacheMovieInfoDao
 import com.avelycure.moviefan.data.local.dao.CachePopularMovieDao
+import com.avelycure.moviefan.data.local.dao.CachePopularPersonsDao
 import com.avelycure.moviefan.data.local.dao.RemoteKeysDao
 import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
 import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
+import com.avelycure.moviefan.data.local.entities.EntityPopularPerson
 import com.avelycure.moviefan.data.local.entities.EntityRemoteKeys
 import com.avelycure.moviefan.data.local.type_converters.*
 
@@ -15,7 +17,8 @@ import com.avelycure.moviefan.data.local.type_converters.*
     entities = arrayOf(
         EntityMovieInfo::class,
         EntityRemoteKeys::class,
-        EntityPopularMovie::class
+        EntityPopularMovie::class,
+        EntityPopularPerson::class
     ),
     version = 1
 )
@@ -33,4 +36,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun cacheMovieInfoDao(): CacheMovieInfoDao
     abstract fun remoteKeysDao(): RemoteKeysDao
     abstract fun cachePopularMovieDao(): CachePopularMovieDao
+    abstract fun cachePopularPersonsDao(): CachePopularPersonsDao
 }
