@@ -1,9 +1,9 @@
 package com.avelycure.moviefan.data.remote.service
 
-import android.util.Log
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.movie.MoviesResponse
+import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonInfo
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
 import com.avelycure.moviefan.data.remote.dto.search_person.ResponseSearchPerson
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
@@ -108,7 +108,22 @@ class PostsService(
         } catch (e: ServerResponseException) {
             throw Exception("The server failed to fulfil an apparently valid request")
         } catch (e: IOException) {
-            Log.d("mytag", "Error!!!: ${e.message}")
+            throw IOException("No internet connection")
+        }
+    }
+
+    override suspend fun getPersonInfo(id: Int): ResponsePersonInfo {
+        return try {
+            client.get {
+                url("${Constants.BASE_URL}/person/$id${Constants.API_KEY}&${Constants.PERSON_IMAGES}")
+            }
+        } catch (e: RedirectResponseException) {
+            throw Exception("Further action needs to be taken in order to complete the request")
+        } catch (e: ClientRequestException) {
+            throw Exception("The request contains bad syntax or cannot be fulfilled")
+        } catch (e: ServerResponseException) {
+            throw Exception("The server failed to fulfil an apparently valid request")
+        } catch (e: IOException) {
             throw IOException("No internet connection")
         }
     }

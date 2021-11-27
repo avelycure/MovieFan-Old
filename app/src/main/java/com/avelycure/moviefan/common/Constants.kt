@@ -24,6 +24,8 @@ object Constants {
     const val MOVIE_IMAGES = "images"
     const val SIMILAR_MOVIES = "similar"
 
+    const val PERSON_IMAGES = "append_to_response=images"
+
     // Response from server contains only genre code, this map is needed to transform
     // numbers to strings
     val movieGenre = mapOf(

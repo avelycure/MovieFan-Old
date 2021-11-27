@@ -3,7 +3,7 @@ package com.avelycure.moviefan.data.remote.dto.person
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponsePerson(
+data class ResponsePersonInfo(
     val birthday: String?,
     val known_for_department: String,
     val deathday: String?,
@@ -17,5 +17,11 @@ data class ResponsePerson(
     val profile_path: String?,
     val adult: Boolean,
     val imdb_id: String,
-    val homepage: String?
+    val homepage: String?,
+    val images: Images?,
+)
+
+@Serializable
+data class Images(
+    val profiles: List<Profile>?
 )
