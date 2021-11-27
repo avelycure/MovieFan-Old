@@ -23,6 +23,7 @@ fun ResultPerson.toPerson(): Person {
         knownForMovie = knownForMovie.map { it.title },
         knownForTv = knownForTv.map { it.name },
         name = name,
-        popularity = popularity
+        popularity = popularity,
+        knownForDepartment = known_for_department ?: ""
     )
 }

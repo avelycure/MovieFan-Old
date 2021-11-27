@@ -68,6 +68,7 @@ class PersonAdapter
         private val tvDateOfBirth: AppCompatTextView = view.findViewById(R.id.person_birthday)
 
         private val rvPersonImages: RecyclerView = view.findViewById(R.id.person_item_rv)
+        private val tvDepartment:AppCompatTextView = view.findViewById(R.id.pi_tv_department)
 
         fun bind(item: Person?, onExpand: (Int) -> Flow<PersonInfo>) {
             item?.let { person ->
@@ -94,6 +95,8 @@ class PersonAdapter
                     movies.visibility = View.VISIBLE
                     movies.text = person.getMovies()
                 }
+
+                tvDepartment.text = person.knownForDepartment
 
                 if (person.expanded)
                     expLayout.visibility = View.VISIBLE

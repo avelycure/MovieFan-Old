@@ -10,8 +10,6 @@ fun Person.setProperties(personInfo: PersonInfo) {
         this.biography = personInfo.biography
     if (!personInfo.deathDay.isNullOrBlank())
         this.deathDay = personInfo.deathDay
-    if (personInfo.knownForDepartment.isNotBlank())
-        this.knownForDepartment = personInfo.knownForDepartment
     if (personInfo.alsoKnownAs.isNotEmpty())
         this.alsoKnownAs = personInfo.alsoKnownAs
     if (personInfo.gender != -1)

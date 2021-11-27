@@ -11,11 +11,11 @@ data class Person(
     val adult: Boolean,
     val name: String,
     val popularity: Float,
+    val knownForDepartment: String,
     val knownForMovie: List<String>,
     val knownForTv: List<String>
 ) {
     var birthday: String? = ""
-    var knownForDepartment: String = ""
     var deathDay: String? = ""
     var alsoKnownAs: List<String> = emptyList()
     var gender: Int = -1

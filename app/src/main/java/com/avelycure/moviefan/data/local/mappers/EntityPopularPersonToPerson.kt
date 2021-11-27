@@ -13,6 +13,7 @@ fun EntityPopularPerson.toPerson(): Person {
         name = name,
         popularity = popularity,
         knownForMovie = knownForMovie,
-        knownForTv = knownForTv
+        knownForTv = knownForTv,
+        knownForDepartment = knownForDepartment
     )
 }

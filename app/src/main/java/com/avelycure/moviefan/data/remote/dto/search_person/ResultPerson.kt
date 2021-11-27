@@ -1,6 +1,5 @@
 package com.avelycure.moviefan.data.remote.dto.search_person
 
-import androidx.core.os.persistableBundleOf
 import com.avelycure.moviefan.data.local.entities.EntityPopularPerson
 import kotlinx.serialization.Serializable
 
@@ -32,7 +31,7 @@ fun ResultPerson.toEntityPopularPerson(): EntityPopularPerson {
         adult = adult,
         gender = gender,
         personId = id,
-        knownForDepartment = known_for_department,
+        knownForDepartment = known_for_department ?: "",
         name = name,
         popularity = popularity,
         profilePath = profile_path,

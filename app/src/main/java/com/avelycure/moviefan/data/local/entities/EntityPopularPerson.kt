@@ -12,7 +12,7 @@ data class EntityPopularPerson(
     val adult: Boolean,
     val gender: Int,
     val personId: Int,
-    val knownForDepartment: String?,
+    val knownForDepartment: String,
     val name: String,
     val popularity: Float,
     val profilePath: String?,
