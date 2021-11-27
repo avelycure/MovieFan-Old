@@ -6,6 +6,7 @@ import com.avelycure.moviefan.data.local.AppDatabase
 import com.avelycure.moviefan.data.local.dao.CacheMovieInfoDao
 import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
 import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
+import com.avelycure.moviefan.data.local.entities.EntityPopularPerson
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonInfo
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
@@ -92,4 +93,18 @@ class MovieRepository(
                 )
             }
         )
+
+    fun getPagerWithRemoteMediatorForPopularPersons(
+        pagingConfig: PagingConfig = getDefaultPageConfig()
+    ): Pager<Int, EntityPopularPerson> {
+        val pagingSourceFactory = { database.cachePopularPersonsDao().getPopularPersons() }
+        return Pager(
+            config = pagingConfig,
+            remoteMediator = PopularPersonRemoteMediator(
+                postsService = postsService,
+                appDatabase = database
+            ),
+            pagingSourceFactory = pagingSourceFactory
+        )
+    }
 }

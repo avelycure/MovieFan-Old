@@ -15,5 +15,5 @@ interface IPostsService {
     suspend fun getPersonImages(id: Int): ResponsePersonImages
     suspend fun getPersons(query: String, page: Int): ResponseSearchPerson
     suspend fun getPersonInfo(id: Int): ResponsePersonInfo
-    suspend fun getPopularPerson(): ResponsePersonInfo
+    suspend fun getPopularPerson(page: Int): ResponseSearchPerson
 }

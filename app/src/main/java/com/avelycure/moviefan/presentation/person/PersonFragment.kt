@@ -49,6 +49,7 @@ class PersonFragment : Fragment() {
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fetchPopularPersons()
         lifecycleScope.launch {
             personViewModel
                 .searchPerson(personNameEditText.getQueryChangeStateFlow())
@@ -71,6 +72,16 @@ class PersonFragment : Fragment() {
         loadingProgressBar = view.findViewById(R.id.fp_pb)
 
         initRecyclerView()
+    }
+
+    fun fetchPopularPersons(){
+        lifecycleScope.launchWhenStarted {
+            personViewModel
+                .getPopularPersons()
+                .collectLatest {
+                    personAdapter.submitData(it)
+                }
+        }
     }
 
     private fun initRecyclerView() {

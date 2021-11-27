@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
 import com.avelycure.moviefan.domain.interactors.GetPerson
 import com.avelycure.moviefan.domain.interactors.GetPersonInfo
+import com.avelycure.moviefan.domain.interactors.GetPopularPersons
 import com.avelycure.moviefan.domain.models.Person
 import com.avelycure.moviefan.domain.models.PersonInfo
 import com.avelycure.moviefan.domain.state.DataState
@@ -21,7 +22,8 @@ import javax.inject.Inject
 class PersonViewModel
 @Inject constructor(
     private val getPerson: GetPerson,
-    private val getPersonInfo: GetPersonInfo
+    private val getPersonInfo: GetPersonInfo,
+    private val getPopularPersons: GetPopularPersons
 ) : ViewModel() {
     private val _state = MutableStateFlow(PersonState())
     val state = _state.asStateFlow()
@@ -57,7 +59,7 @@ class PersonViewModel
             }
     }
 
-    fun getPersonInfo(id: Int): Flow<DataState<PersonInfo>> = getPersonInfo.execute(id)
+    fun getPopularPersons() = getPopularPersons.execute()
 
     private fun appendToMessageQueue(uiComponent: UIComponent) {
         val queue: Queue<UIComponent> = Queue(mutableListOf())

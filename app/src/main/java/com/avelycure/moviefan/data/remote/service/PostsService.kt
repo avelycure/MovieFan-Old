@@ -128,10 +128,10 @@ class PostsService(
         }
     }
 
-    override suspend fun getPopularPerson(): ResponsePersonInfo {
+    override suspend fun getPopularPerson(page: Int): ResponseSearchPerson {
         return try {
             client.get {
-                url("${Constants.BASE_URL}/person/popular${Constants.API_KEY}&${Constants.PERSON_IMAGES}")
+                url("${Constants.BASE_URL}/person/popular${Constants.API_KEY}&${Constants.PERSON_IMAGES}&page=${page}")
             }
         } catch (e: RedirectResponseException) {
             throw Exception("Further action needs to be taken in order to complete the request")
