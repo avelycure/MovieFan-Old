@@ -12,6 +12,7 @@ import androidx.paging.LoadState
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.adapters.PersonAdapter
@@ -33,6 +34,7 @@ class PersonFragment : Fragment() {
     private val personViewModel: PersonViewModel by viewModels()
     private lateinit var personNameEditText: EditText
     private lateinit var rvPersons: RecyclerView
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     @Inject
     lateinit var personAdapter: PersonAdapter
@@ -72,6 +74,14 @@ class PersonFragment : Fragment() {
         rvPersons = view.findViewById(R.id.fp_rv)
         personNameEditText = view.findViewById(R.id.fp_edit_text)
         loadingProgressBar = view.findViewById(R.id.fp_pb)
+
+        swipeRefresh = view.findViewById(R.id.person_swipe_refresh)
+
+        swipeRefresh.setOnRefreshListener {
+            fetchPopularPersons()
+            personNameEditText.setText("")
+            swipeRefresh.isRefreshing = false
+        }
 
         initRecyclerView()
     }
