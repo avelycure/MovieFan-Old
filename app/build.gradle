@@ -100,4 +100,7 @@ dependencies {
 
     //Tips
     implementation prompts.material_tap_target_prompt
+
+    //Swipe refresh
+    implementation swipe_refresh.swipe_refresh
 }

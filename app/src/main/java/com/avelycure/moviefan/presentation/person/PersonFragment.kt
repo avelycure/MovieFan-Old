@@ -9,11 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.adapters.PersonAdapter
+import com.avelycure.moviefan.domain.models.Person
 import com.avelycure.moviefan.presentation.home.MovieLoadStateAdapter
 import com.avelycure.moviefan.utils.extensions.getQueryChangeStateFlow
 import com.avelycure.moviefan.utils.showError
@@ -31,6 +34,7 @@ class PersonFragment : Fragment() {
     private val personViewModel: PersonViewModel by viewModels()
     private lateinit var personNameEditText: EditText
     private lateinit var rvPersons: RecyclerView
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     @Inject
     lateinit var personAdapter: PersonAdapter
@@ -71,10 +75,18 @@ class PersonFragment : Fragment() {
         personNameEditText = view.findViewById(R.id.fp_edit_text)
         loadingProgressBar = view.findViewById(R.id.fp_pb)
 
+        swipeRefresh = view.findViewById(R.id.person_swipe_refresh)
+
+        swipeRefresh.setOnRefreshListener {
+            fetchPopularPersons()
+            personNameEditText.setText("")
+            swipeRefresh.isRefreshing = false
+        }
+
         initRecyclerView()
     }
 
-    fun fetchPopularPersons(){
+    private fun fetchPopularPersons(){
         lifecycleScope.launchWhenStarted {
             personViewModel
                 .getPopularPersons()
@@ -85,9 +97,7 @@ class PersonFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        rvPersons.layoutManager = LinearLayoutManager(requireContext())
-
-        personAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
+        rvPersons.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         personAdapter.scope = lifecycleScope
         personAdapter.onExpand = personViewModel::onExpand
@@ -97,11 +107,6 @@ class PersonFragment : Fragment() {
                 loadingProgressBar.visibility = View.VISIBLE
             else
                 loadingProgressBar.visibility = View.GONE
-
-            /*if (loadState.mediator?.refresh is LoadState.Error && personAdapter.itemCount == 0)
-                btnRetry.visibility = View.VISIBLE
-            else
-                btnRetry.visibility = View.GONE*/
 
             val errorState = when {
                 loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
