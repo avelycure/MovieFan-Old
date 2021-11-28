@@ -33,6 +33,13 @@
             app:layout_constraintStart_toEndOf="@+id/person_item_iv"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/pi_primary_info_guideline"
+                app:layout_constraintGuide_percent="0.35"/>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/pi_tv_name"
                 android:layout_width="match_parent"
@@ -58,7 +65,7 @@
                 android:id="@+id/pi_tv_tv"
                 style="@style/MovieInfoText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/pi_tv_tv_title"
+                app:layout_constraintStart_toEndOf="@+id/pi_primary_info_guideline"
                 app:layout_constraintTop_toTopOf="@+id/pi_tv_tv_title" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -75,7 +82,7 @@
                 android:id="@+id/pi_tv_movie"
                 style="@style/MovieInfoText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/pi_tv_tv"
+                app:layout_constraintStart_toEndOf="@+id/pi_primary_info_guideline"
                 app:layout_constraintTop_toTopOf="@+id/pi_tv_movie_title" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -92,7 +99,7 @@
                 android:id="@+id/pi_tv_department"
                 style="@style/MovieInfoText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/pi_tv_tv"
+                app:layout_constraintStart_toEndOf="@+id/pi_primary_info_guideline"
                 app:layout_constraintTop_toTopOf="@+id/pi_tv_department_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -121,6 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/person_item_rv"
+                android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/pi_photos_title"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -137,6 +145,13 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/person_item_rv" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/pi_secondary_info_guideline"
+                app:layout_constraintGuide_percent="0.35"/>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/person_birthday_title"
                 style="@style/MovieInfoTextSubtitle"
@@ -151,7 +166,7 @@
                 android:id="@+id/person_birthday"
                 style="@style/MovieInfoText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/person_place_of_birth_title"
+                app:layout_constraintStart_toEndOf="@+id/pi_secondary_info_guideline"
                 app:layout_constraintTop_toTopOf="@+id/person_birthday_title" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -167,7 +182,7 @@
                 android:id="@+id/person_place_of_birth"
                 style="@style/MovieInfoText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/person_place_of_birth_title"
+                app:layout_constraintStart_toEndOf="@+id/pi_secondary_info_guideline"
                 app:layout_constraintTop_toTopOf="@+id/person_place_of_birth_title" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -183,7 +198,7 @@
                 android:id="@+id/person_homepage"
                 style="@style/MovieInfoText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/person_place_of_birth_title"
+                app:layout_constraintStart_toEndOf="@+id/pi_secondary_info_guideline"
                 app:layout_constraintTop_toTopOf="@+id/person_homepage_title" />
 
             <androidx.appcompat.widget.AppCompatTextView
