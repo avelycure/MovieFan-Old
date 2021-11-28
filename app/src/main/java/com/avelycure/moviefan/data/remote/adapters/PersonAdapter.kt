@@ -2,6 +2,8 @@ package com.avelycure.moviefan.data.remote.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -16,9 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
-import coil.request.Parameters
 import coil.size.Scale
-import coil.transform.CircleCropTransformation
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.mappers.setProperties
@@ -105,6 +106,15 @@ class PersonAdapter
                     expLayout.visibility = View.VISIBLE
                 else
                     expLayout.visibility = View.GONE
+
+                tvHomepage.setOnClickListener {
+                    if (person.homepage?.isNotBlank() == true) {
+                        val uri = Uri.parse(person.homepage)
+                        val intent = Intent(Intent.ACTION_VIEW, uri)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(context, intent, null)
+                    }
+                }
 
                 layout.setOnClickListener {
                     val personImagesAdapter = PersonImagesAdapter(emptyList(), imageLoader, context)
