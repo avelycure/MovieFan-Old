@@ -6,14 +6,15 @@
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
     android:layout_marginBottom="8dp"
-    android:background="?attr/colorSurface"
     android:theme="@style/Theme.MovieFan"
     app:cardCornerRadius="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/pi_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorOnSurface"
+        android:padding="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/pi_primary_info"

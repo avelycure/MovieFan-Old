@@ -6,24 +6,23 @@
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
     android:layout_marginBottom="8dp"
-    app:cardCornerRadius="4dp"
-    android:theme="@style/Theme.MovieFan">
+    android:theme="@style/Theme.MovieFan"
+    app:cardCornerRadius="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorOnSurface"
-        android:padding="4dp"
-        android:orientation="vertical">
+        android:padding="4dp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/pm_item_iv"
             android:layout_width="176dp"
             android:layout_height="128dp"
             android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/pm_item_movie_title"
@@ -32,8 +31,8 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:fontFamily="sans-serif-black"
-            android:textColor="?attr/titleTextColor"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="?attr/titleTextColor"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/pm_item_iv"
@@ -55,9 +54,9 @@
             style="?android:ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:progressBackgroundTint="@color/dark_blue"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
+            android:progressBackgroundTint="@color/dark_blue"
             app:layout_constraintStart_toEndOf="@+id/pm_item_iv"
             app:layout_constraintTop_toBottomOf="@+id/pm_item_movie_original_title" />
 
