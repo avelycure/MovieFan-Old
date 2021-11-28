@@ -13,15 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorOnSurface"
+        android:padding="4dp"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/pm_item_iv"
-            android:layout_width="160dp"
+            android:layout_width="176dp"
             android:layout_height="128dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="4dp"
             android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

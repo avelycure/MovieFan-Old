@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
+import coil.request.Parameters
+import coil.size.Scale
+import coil.transform.CircleCropTransformation
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.mappers.setProperties
@@ -131,6 +134,7 @@ class PersonAdapter
                     ImageRequest.Builder(context)
                         .data(Constants.IMAGE + person.profilePath)
                         .target(ivPoster)
+                        .scale(Scale.FILL)
                         .build()
                 )
             }
