@@ -1,6 +1,8 @@
 package com.avelycure.moviefan.data.remote.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +19,9 @@ import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.mappers.setProperties
-import com.avelycure.moviefan.domain.models.Person
-import com.avelycure.moviefan.domain.models.PersonInfo
-import com.avelycure.moviefan.domain.models.getMovies
-import com.avelycure.moviefan.domain.models.getTvs
-import com.avelycure.moviefan.presentation.movie_info.adapters.MovieImagesAdapter
+import com.avelycure.moviefan.domain.models.*
 import com.avelycure.moviefan.presentation.person.PersonImagesAdapter
+import com.avelycure.moviefan.utils.ui.showIfNotBlank
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -61,42 +60,43 @@ class PersonAdapter
         private val tvsTitle: AppCompatTextView = view.findViewById(R.id.pi_tv_tv_title)
         private val movies: AppCompatTextView = view.findViewById(R.id.pi_tv_movie)
         private val moviesTitle: AppCompatTextView = view.findViewById(R.id.pi_tv_movie_title)
+        private val tvDeathday: AppCompatTextView = view.findViewById(R.id.person_deathday)
+        private val tvDeathdayTitle: AppCompatTextView =
+            view.findViewById(R.id.person_deathday_title)
+        private val tvAlsoKnownAs: AppCompatTextView =
+            view.findViewById(R.id.person_item_also_known_as)
+        private val tvAlsoKnownAsTitle: AppCompatTextView =
+            view.findViewById(R.id.person_item_also_known_as_title)
+        private val tvBiographyTitle: AppCompatTextView = view.findViewById(R.id.pi_biography_title)
 
         private val tvHomepage: AppCompatTextView = view.findViewById(R.id.person_homepage)
+        private val tvHomepageTitle: AppCompatTextView =
+            view.findViewById(R.id.person_homepage_title)
         private val tvPlaceOfBirth: AppCompatTextView =
             view.findViewById(R.id.person_place_of_birth)
+        private val tvPlaceOfBirthTitle: AppCompatTextView =
+            view.findViewById(R.id.person_place_of_birth_title)
         private val tvDateOfBirth: AppCompatTextView = view.findViewById(R.id.person_birthday)
+        private val tvDateOfBirthTitle: AppCompatTextView =
+            view.findViewById(R.id.person_birthday_title)
 
         private val rvPersonImages: RecyclerView = view.findViewById(R.id.person_item_rv)
-        private val tvDepartment:AppCompatTextView = view.findViewById(R.id.pi_tv_department)
+        private val tvDepartment: AppCompatTextView = view.findViewById(R.id.pi_tv_department)
 
+        @SuppressLint("NotifyDataSetChanged")
         fun bind(item: Person?, onExpand: (Int) -> Flow<PersonInfo>) {
             item?.let { person ->
                 tvName.text = person.name
-                tvBiography.text = person.biography
-                tvDateOfBirth.text = person.birthday
-                tvHomepage.text = person.homepage
-                tvPlaceOfBirth.text = person.placeOfBirth
-
-                if (person.getTvs().isBlank()) {
-                    tvs.visibility = View.GONE
-                    tvsTitle.visibility = View.GONE
-                } else {
-                    tvs.visibility = View.VISIBLE
-                    tvsTitle.visibility = View.VISIBLE
-                    tvs.text = person.getTvs()
-                }
-
-                if (person.getMovies().isBlank()) {
-                    movies.visibility = View.GONE
-                    moviesTitle.visibility = View.GONE
-                } else {
-                    moviesTitle.visibility = View.VISIBLE
-                    movies.visibility = View.VISIBLE
-                    movies.text = person.getMovies()
-                }
-
+                showIfNotBlank(tvs, tvsTitle, person.getTvs())
+                showIfNotBlank(movies, moviesTitle, person.getMovies())
                 tvDepartment.text = person.knownForDepartment
+
+                showIfNotBlank(tvDateOfBirth, tvDateOfBirthTitle, person.birthday)
+                showIfNotBlank(tvPlaceOfBirth, tvPlaceOfBirthTitle, person.placeOfBirth)
+                showIfNotBlank(tvDeathday, tvDeathdayTitle, person.deathDay)
+                showIfNotBlank(tvAlsoKnownAs, tvAlsoKnownAsTitle, person.getAlsoKnownAs())
+                showIfNotBlank(tvBiography, tvBiographyTitle, person.biography)
+                showIfNotBlank(tvHomepage, tvHomepageTitle, person.homepage)
 
                 if (person.expanded)
                     expLayout.visibility = View.VISIBLE
@@ -109,18 +109,22 @@ class PersonAdapter
                     rvPersonImages.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
+                    person.expanded = !person.expanded
+
                     scope.launch {
                         onExpand(person.id)
                             .collect { personInfo ->
-                                person.setProperties(personInfo)
-                                personImagesAdapter.personImages = person.profileImages
-                                personImagesAdapter.notifyDataSetChanged()
-                                notifyItemChanged(bindingAdapterPosition)
+                                val inputChanged = person.setProperties(personInfo)
+                                if (inputChanged) {
+                                    bind(person, onExpand)
+                                    if (person.profileImages.isNotEmpty()) {
+                                        personImagesAdapter.personImages = person.profileImages
+                                        personImagesAdapter.notifyDataSetChanged()
+                                    }
+                                }
                             }
                     }
-
-                    person.expanded = !person.expanded
-                    notifyItemChanged(bindingAdapterPosition)
+                    bind(person, onExpand)
                 }
 
                 imageLoader.enqueue(
@@ -135,7 +139,8 @@ class PersonAdapter
 
     object PersonComparator : DiffUtil.ItemCallback<Person>() {
         override fun areItemsTheSame(oldItem: Person, newItem: Person): Boolean {
-            return oldItem.id == newItem.id
+            Log.d("mytag", "old: ${oldItem.name}; new: ${newItem.name}")
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: Person, newItem: Person): Boolean {

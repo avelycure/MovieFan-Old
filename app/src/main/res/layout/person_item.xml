@@ -47,7 +47,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="4dp"
                 android:fontFamily="sans-serif-black"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textColor="?attr/titleTextColor"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -119,7 +119,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:text="Photos"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 android:textColor="?attr/titleTextColor"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -140,9 +140,10 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:text="More info"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 android:textColor="?attr/titleTextColor"
                 android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/person_item_rv" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -170,13 +171,29 @@
                 app:layout_constraintTop_toTopOf="@+id/person_birthday_title" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/person_deathday_title"
+                style="@style/MovieInfoTextSubtitle"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Deathday: "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/person_birthday" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/person_deathday"
+                style="@style/MovieInfoText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pi_secondary_info_guideline"
+                app:layout_constraintTop_toTopOf="@+id/person_deathday_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/person_place_of_birth_title"
                 style="@style/MovieInfoTextSubtitle"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Place of birth: "
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/person_birthday_title" />
+                app:layout_constraintTop_toBottomOf="@+id/person_deathday" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/person_place_of_birth"
@@ -186,13 +203,29 @@
                 app:layout_constraintTop_toTopOf="@+id/person_place_of_birth_title" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/person_item_also_known_as_title"
+                style="@style/MovieInfoTextSubtitle"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Also known as: "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/person_place_of_birth" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/person_item_also_known_as"
+                style="@style/MovieInfoText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pi_secondary_info_guideline"
+                app:layout_constraintTop_toTopOf="@+id/person_item_also_known_as_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/person_homepage_title"
                 style="@style/MovieInfoTextSubtitle"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="Homepage: "
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/person_place_of_birth" />
+                app:layout_constraintTop_toBottomOf="@+id/person_item_also_known_as" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/person_homepage"
@@ -209,9 +242,10 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:text="Biography"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 android:textColor="?attr/titleTextColor"
                 android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/person_homepage" />
 
             <androidx.appcompat.widget.AppCompatTextView
