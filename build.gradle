@@ -32,6 +32,7 @@ ext.versions = [
         junit        : "4.13.2",
         cardview     : "1.0.0",
         room         : "2.3.0",
+        swipe_refresh: "1.1.0",
         prompt       : "3.3.2"
 ]
 
@@ -79,4 +80,8 @@ ext.room = [
 
 ext.prompts = [
         material_tap_target_prompt: "uk.co.samuelwall:material-tap-target-prompt:$versions.prompt"
+]
+
+ext.swipe_refresh = [
+        swipe_refresh: "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swipe_refresh"
 ]
