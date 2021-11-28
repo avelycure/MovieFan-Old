@@ -108,11 +108,6 @@ class PersonFragment : Fragment() {
             else
                 loadingProgressBar.visibility = View.GONE
 
-            /*if (loadState.mediator?.refresh is LoadState.Error && personAdapter.itemCount == 0)
-                btnRetry.visibility = View.VISIBLE
-            else
-                btnRetry.visibility = View.GONE*/
-
             val errorState = when {
                 loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
                 loadState.append is LoadState.Error -> loadState.append as LoadState.Error

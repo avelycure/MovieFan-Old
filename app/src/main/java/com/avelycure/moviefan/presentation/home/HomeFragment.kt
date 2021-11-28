@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import android.util.TypedValue
 import android.util.DisplayMetrics
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.avelycure.moviefan.utils.ui.MoviePromptBuilder
 
 
@@ -45,7 +46,7 @@ class HomeFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var rvPopularMovie: RecyclerView
     private lateinit var loadingProgressBar: ProgressBar
-    private lateinit var btnRetry: Button
+    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +59,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRecyclerView(btnRetry)
+        initRecyclerView()
         fetchPopularMovies()
     }
 
@@ -100,8 +101,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun initRecyclerView(view: View) {
-        rvPopularMovie.layoutManager = LinearLayoutManager(view.context)
+    private fun initRecyclerView() {
+        rvPopularMovie.layoutManager = LinearLayoutManager(requireContext())
 
         movieAdapter.onClickedItem = { movie ->
             openMovieInfoFragment(movie)
@@ -115,11 +116,6 @@ class HomeFragment : Fragment() {
             else
                 loadingProgressBar.visibility = View.GONE
 
-            if (loadState.mediator?.refresh is LoadState.Error && movieAdapter.itemCount == 0)
-                btnRetry.visibility = View.VISIBLE
-            else
-                btnRetry.visibility = View.GONE
-
             val errorState = when {
                 loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
                 loadState.append is LoadState.Error -> loadState.append as LoadState.Error
@@ -129,7 +125,7 @@ class HomeFragment : Fragment() {
 
             errorState?.let {
                 showError(
-                    btnRetry,
+                    loadingProgressBar,
                     requireContext(),
                     Constants.NO_INTERNET_CONNECTION
                 )
@@ -149,10 +145,11 @@ class HomeFragment : Fragment() {
 
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
-        btnRetry = view.findViewById(R.id.main_btn_restart)
+        swipeRefresh = view.findViewById(R.id.movies_refresh_layout)
 
-        btnRetry.setOnClickListener {
+        swipeRefresh.setOnRefreshListener {
             fetchPopularMovies()
+            swipeRefresh.isRefreshing = false
         }
     }
 
@@ -198,16 +195,11 @@ class HomeFragment : Fragment() {
                 .lookForPopularMovies()
                 .collectLatest {
                     movieAdapter.submitData(it)
-
-                    /*(rvPopularMovie.layoutManager as LinearLayoutManager).onRestoreInstanceState(
-                        homeViewModel.state
-                    )*/
                 }
         }
     }
 
     private fun showTips() {
-
         val tv = TypedValue()
         var actionBarHeight = 30
         if (requireContext().theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
