@@ -2,7 +2,9 @@ package com.avelycure.moviefan.common
 
 import com.avelycure.moviefan.BuildConfig
 
-
+/**
+ * Constants for creating requests to tmdb
+ */
 object RequestConstants {
     const val BASE_URL = "https://api.themoviedb.org/3"
 

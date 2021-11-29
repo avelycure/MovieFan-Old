@@ -9,7 +9,7 @@ import coil.network.HttpException
 import com.avelycure.moviefan.data.local.AppDatabase
 import com.avelycure.moviefan.data.local.entities.EntityPopularPerson
 import com.avelycure.moviefan.data.local.entities.EntityRemoteKeysPopularPersons
-import com.avelycure.moviefan.data.remote.dto.search_person.toEntityPopularPerson
+import com.avelycure.moviefan.data.remote.mappers.*
 import com.avelycure.moviefan.data.remote.service.IPostsService
 import io.ktor.utils.io.errors.*
 
