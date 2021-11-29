@@ -2,9 +2,9 @@ package com.avelycure.moviefan.presentation.movie_info
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
+import com.avelycure.moviefan.common.ConstantsUi
 import com.avelycure.moviefan.common.RequestConstants
 import com.google.android.youtube.player.*
 
@@ -17,14 +17,13 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
 
     companion object {
         fun getInstance(videoPath: String) = YTFragment().apply {
-            arguments = bundleOf(RequestConstants.VIDEO_PATH_KEY to videoPath)
-            
+            arguments = bundleOf(ConstantsUi.YT_FRAGMENT_PARAMETER_VIDEO_PATH to videoPath)
         }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        arguments?.getString(RequestConstants.VIDEO_PATH_KEY)?.let {
+        arguments?.getString(ConstantsUi.YT_FRAGMENT_PARAMETER_VIDEO_PATH)?.let {
             videoPath = it
         }
     }
@@ -41,9 +40,7 @@ class YTFragment : YouTubePlayerSupportFragmentX(), YouTubePlayer.OnInitializedL
     override fun onInitializationFailure(
         provider: YouTubePlayer.Provider?,
         youTubeInitializationResult: YouTubeInitializationResult?
-    ) {
-        Log.d("mytag", "" + youTubeInitializationResult?.name)
-    }
+    ) {}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initialize(RequestConstants.YOUTUBE_API_KEY, this)
