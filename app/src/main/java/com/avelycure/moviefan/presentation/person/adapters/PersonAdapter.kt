@@ -50,7 +50,7 @@ class PersonAdapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
         return PersonViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.person_item, parent, false)
+                .inflate(R.layout.item_person, parent, false)
         )
     }
 

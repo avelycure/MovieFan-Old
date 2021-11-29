@@ -21,7 +21,7 @@ class SimilarMoviesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarMoviesViewHolder {
         return SimilarMoviesViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.similar_movie_item, parent, false)
+                .inflate(R.layout.item_similar_movie, parent, false)
         )
     }
 

@@ -26,7 +26,7 @@ class PersonLoadStateAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
         return LoadStateViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.fp_load_state_view, parent, false)
+                .inflate(R.layout.load_state_view_persons, parent, false)
         )
     }
 

@@ -12,7 +12,6 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.avelycure.moviefan.BuildConfig
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.ErrorCodes
 import com.avelycure.moviefan.common.TemporaryConstants
@@ -44,7 +43,7 @@ class PersonFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_person, container, false)
+        val view = inflater.inflate(R.layout.fragment_persons, container, false)
         initViewElements(view)
         return view
     }
