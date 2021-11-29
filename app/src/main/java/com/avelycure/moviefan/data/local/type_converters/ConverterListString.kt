@@ -1,22 +1,21 @@
 package com.avelycure.moviefan.data.local.type_converters
 
 import androidx.room.TypeConverter
-import com.avelycure.moviefan.data.remote.dto.details.SpokenLanguages
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class ConverterGenreIds {
+class ConverterListString {
     @TypeConverter
-    fun fromProductionCompanies(value: List<Int>): String {
+    fun fromProductionCompanies(value: List<String>): String {
         val gson = Gson()
-        val type = object : TypeToken<List<Int>>() {}.type
+        val type = object : TypeToken<List<String>>() {}.type
         return gson.toJson(value, type)
     }
 
     @TypeConverter
-    fun toProductionCompanies(value: String): List<Int> {
+    fun toProductionCompanies(value: String): List<String> {
         val gson = Gson()
-        val type = object : TypeToken<List<Int>>() {}.type
+        val type = object : TypeToken<List<String>>() {}.type
         return gson.fromJson(value, type)
     }
 }

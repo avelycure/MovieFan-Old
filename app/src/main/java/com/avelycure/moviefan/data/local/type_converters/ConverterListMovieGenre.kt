@@ -5,7 +5,7 @@ import com.avelycure.moviefan.data.remote.dto.details.MovieGenre
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class ConverterGenre {
+class ConverterListMovieGenre {
     @TypeConverter
     fun fromMovieGenre(value: List<MovieGenre>): String {
         val gson = Gson()

@@ -5,7 +5,7 @@ import com.avelycure.moviefan.data.remote.dto.details.SpokenLanguages
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class ConverterLanguages {
+class ConverterListSpokenLanguages {
     @TypeConverter
     fun fromProductionCompanies(value: List<SpokenLanguages>): String {
         val gson = Gson()

@@ -3,7 +3,7 @@ package com.avelycure.moviefan.data.local.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.avelycure.moviefan.data.local.type_converters.ConverterGenreIds
+import com.avelycure.moviefan.data.local.type_converters.ConverterListInt
 
 @Entity(tableName = "movies")
 data class EntityMovie(
@@ -12,7 +12,7 @@ data class EntityMovie(
     val title: String,
     val originalTitle: String,
     val posterPath: String?,
-    @TypeConverters(ConverterGenreIds::class)
+    @TypeConverters(ConverterListInt::class)
     val genreIds: List<Int>,
     val popularity: Float,
     val voteAverage: Float,

@@ -19,12 +19,12 @@ import com.avelycure.moviefan.data.local.type_converters.*
 )
 @TypeConverters(
     value = arrayOf(
-        ConverterProductionCompanies::class,
-        ConverterGenre::class,
+        ConverterListProductionCompanies::class,
+        ConverterListMovieGenre::class,
         ConverterProductionCountries::class,
-        ConverterLanguages::class,
-        ConverterCast::class,
-        ConverterGenreIds::class
+        ConverterListSpokenLanguages::class,
+        ConverterListString::class,
+        ConverterListInt::class
     )
 )
 abstract class AppDatabase : RoomDatabase() {
