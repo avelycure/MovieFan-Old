@@ -1,7 +1,7 @@
 package com.avelycure.moviefan.domain.interactors.home
 
 import com.avelycure.moviefan.common.ErrorCodes
-import com.avelycure.moviefan.data.remote.dto.video.mappers.toVideoInfo
+import com.avelycure.moviefan.data.remote.mappers.toVideoInfo
 import com.avelycure.moviefan.data.repository.MovieRepository
 import com.avelycure.moviefan.domain.models.VideoInfo
 import com.avelycure.moviefan.domain.state.DataState

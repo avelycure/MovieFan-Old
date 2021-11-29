@@ -1,7 +1,7 @@
 package com.avelycure.moviefan.domain.interactors.home
 
 import com.avelycure.moviefan.data.local.mappers.toMovieInfo
-import com.avelycure.moviefan.data.remote.dto.details.mappers.toMovieInfo
+import com.avelycure.moviefan.data.remote.mappers.toMovieInfo
 import com.avelycure.moviefan.data.repository.MovieRepository
 import com.avelycure.moviefan.domain.models.MovieInfo
 import com.avelycure.moviefan.domain.state.DataState
