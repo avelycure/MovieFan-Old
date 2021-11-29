@@ -24,6 +24,7 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.domain.mappers.setProperties
 import com.avelycure.moviefan.domain.models.*
+import com.avelycure.moviefan.domain.models.getters.*
 import com.avelycure.moviefan.utils.ui.showIfNotBlank
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow

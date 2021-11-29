@@ -1,7 +1,10 @@
 package com.avelycure.moviefan.di.modules
 
 import com.avelycure.moviefan.data.repository.MovieRepository
-import com.avelycure.moviefan.domain.interactors.*
+import com.avelycure.moviefan.domain.interactors.home.*
+import com.avelycure.moviefan.domain.interactors.person.GetPerson
+import com.avelycure.moviefan.domain.interactors.person.GetPersonInfo
+import com.avelycure.moviefan.domain.interactors.person.GetPopularPersons
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,8 +20,8 @@ object InteractorsModule {
     }
 
     @Provides
-    fun provideGetDetails(repository: MovieRepository): GetDetails {
-        return GetDetails(repository)
+    fun provideGetDetails(repository: MovieRepository): GetMovieInfo {
+        return GetMovieInfo(repository)
     }
 
     @Provides
@@ -27,13 +30,13 @@ object InteractorsModule {
     }
 
     @Provides
-    fun provideSearchMovie(repository: MovieRepository): SearchMovie {
-        return SearchMovie(repository)
+    fun provideSearchMovie(repository: MovieRepository): FindMovie {
+        return FindMovie(repository)
     }
 
     @Provides
-    fun provideSaveToCache(repository: MovieRepository): SaveToCache {
-        return SaveToCache(repository)
+    fun provideSaveToCache(repository: MovieRepository): SaveMovieInfoToCache {
+        return SaveMovieInfoToCache(repository)
     }
 
     @Provides

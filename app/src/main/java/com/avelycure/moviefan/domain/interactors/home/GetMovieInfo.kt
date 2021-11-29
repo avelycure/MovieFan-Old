@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.domain.interactors
+package com.avelycure.moviefan.domain.interactors.home
 
 import com.avelycure.moviefan.data.local.mappers.toMovieInfo
 import com.avelycure.moviefan.data.remote.dto.details.mappers.toMovieInfo
@@ -14,7 +14,7 @@ import io.ktor.utils.io.errors.*
 /**
  * Makes request to server and returns detailed information about movie
  */
-class GetDetails(
+class GetMovieInfo(
     private val repository: MovieRepository
 ) {
     fun execute(id: Int): Flow<DataState<MovieInfo>> = flow {

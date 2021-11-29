@@ -22,7 +22,9 @@ import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.common.ConstantsUi
 import com.avelycure.moviefan.common.ErrorCodes
 import com.avelycure.moviefan.common.TemporaryConstants
-import com.avelycure.moviefan.domain.models.*
+import com.avelycure.moviefan.domain.models.Movie
+import com.avelycure.moviefan.domain.models.MovieInfo
+import com.avelycure.moviefan.domain.models.getters.*
 import com.avelycure.moviefan.domain.state.ProgressBarState
 import com.avelycure.moviefan.domain.state.UIComponent
 import com.avelycure.moviefan.presentation.movie_info.adapters.MovieImagesAdapter

@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.domain.interactors
+package com.avelycure.moviefan.domain.interactors.home
 
 import androidx.paging.map
 import com.avelycure.moviefan.data.local.mappers.toMovie

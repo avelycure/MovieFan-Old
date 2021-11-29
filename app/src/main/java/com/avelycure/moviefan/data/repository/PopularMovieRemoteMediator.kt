@@ -11,13 +11,14 @@ import com.avelycure.moviefan.data.remote.mappers.toEntityPopularMovie
 import com.avelycure.moviefan.data.remote.service.IPostsService
 import io.ktor.utils.io.errors.*
 
-private const val TMDB_STARTING_PAGE_INDEX = 1
 
 @OptIn(ExperimentalPagingApi::class)
 class PopularMovieRemoteMediator(
     private val postsService: IPostsService,
     private val appDatabase: AppDatabase
 ) : RemoteMediator<Int, EntityPopularMovie>() {
+    private val TMDB_STARTING_PAGE_INDEX = 1
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, EntityPopularMovie>

@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.domain.interactors
+package com.avelycure.moviefan.domain.interactors.person
 
 import androidx.paging.map
 import com.avelycure.moviefan.data.remote.mappers.toPerson
