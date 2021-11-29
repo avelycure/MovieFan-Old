@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.domain.models.Movie
 
 class SimilarMoviesAdapter(
@@ -28,7 +28,7 @@ class SimilarMoviesAdapter(
     override fun onBindViewHolder(holder: SimilarMoviesViewHolder, position: Int) {
         imageLoader.enqueue(
             ImageRequest.Builder(context)
-                .data(Constants.IMAGE + similarMovies[position].posterPath)
+                .data(RequestConstants.IMAGE + similarMovies[position].posterPath)
                 .target(holder.image)
                 .build()
         )

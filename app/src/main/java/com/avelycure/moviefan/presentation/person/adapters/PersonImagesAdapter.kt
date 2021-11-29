@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.data.remote.dto.person.Profile
 
 class PersonImagesAdapter(
@@ -28,7 +28,7 @@ class PersonImagesAdapter(
     override fun onBindViewHolder(holder: PersonImagesViewHolder, position: Int) {
         imageLoader.enqueue(
             ImageRequest.Builder(context)
-                .data(Constants.IMAGE + personImages[position].file_path)
+                .data(RequestConstants.IMAGE + personImages[position].file_path)
                 .target(holder.image)
                 .build()
         )

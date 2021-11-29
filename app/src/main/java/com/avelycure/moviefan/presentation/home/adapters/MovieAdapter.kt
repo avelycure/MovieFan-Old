@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.common.RequestConstants
+import com.avelycure.moviefan.common.TemporaryConstants
 import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.utils.extensions.getOriginalTitleAndReleaseDate
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -61,11 +62,11 @@ class MovieAdapter
                 tvOriginalTitle.text = popularMovie.getOriginalTitleAndReleaseDate()
                 tvGenres.text = buildString {
                     for (genreId in popularMovie.genreIds)
-                        append(Constants.movieGenre[genreId] + " ")
+                        append(TemporaryConstants.movieGenre[genreId] + " ")
                 }
                 imageLoader.enqueue(
                     ImageRequest.Builder(context)
-                        .data(Constants.IMAGE + popularMovie.posterPath)
+                        .data(RequestConstants.IMAGE + popularMovie.posterPath)
                         .target(movieLogo)
                         .build()
                 )

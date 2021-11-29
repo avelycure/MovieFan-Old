@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.common.RequestConstants
 
 class MovieImagesAdapter(
     var imagesList: List<String>,
@@ -26,7 +26,7 @@ class MovieImagesAdapter(
     override fun onBindViewHolder(holder: MovieImagesViewHolder, position: Int) {
         imageLoader.enqueue(
             ImageRequest.Builder(context)
-                .data(Constants.IMAGE + imagesList[position])
+                .data(RequestConstants.IMAGE + imagesList[position])
                 .target(holder.image)
                 .build()
         )

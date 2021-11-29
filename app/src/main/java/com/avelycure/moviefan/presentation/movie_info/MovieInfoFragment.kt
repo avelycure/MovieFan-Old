@@ -18,7 +18,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.common.RequestConstants
+import com.avelycure.moviefan.common.ConstantsUi
+import com.avelycure.moviefan.common.ErrorCodes
+import com.avelycure.moviefan.common.TemporaryConstants
 import com.avelycure.moviefan.domain.models.*
 import com.avelycure.moviefan.domain.state.ProgressBarState
 import com.avelycure.moviefan.domain.state.UIComponent
@@ -41,7 +44,7 @@ class MovieInfoFragment : Fragment() {
     lateinit var similarMoviesAdapter: SimilarMoviesAdapter
 
     private val movieInfoViewModel: MovieInfoViewModel by viewModels()
-    private var movieId = Constants.NO_TRAILER_CODE
+    private var movieId = ErrorCodes.ERROR_NO_TRAILER_CODE
 
     private lateinit var pb: ProgressBar
     private lateinit var tvTitle: AppCompatTextView
@@ -71,7 +74,7 @@ class MovieInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
-        movieId = arguments?.getInt(Constants.ID_KEY) ?: Constants.NO_TRAILER_CODE
+        movieId = arguments?.getInt(ConstantsUi.FRAGMENT_PARAMETER_MOVIE_ID) ?: ErrorCodes.ERROR_NO_TRAILER_CODE
 
         if (savedInstanceState == null)
             movieInfoViewModel.onTrigger(MovieInfoEvents.OnOpenInfoFragment(movieId = movieId))
@@ -115,7 +118,7 @@ class MovieInfoFragment : Fragment() {
     private fun setUi(movieInfo: MovieInfo, images: List<String>, similar: List<Movie>) {
         imageLoader.enqueue(
             ImageRequest.Builder(requireContext())
-                .data(Constants.IMAGE + movieInfo.posterPath)
+                .data(RequestConstants.IMAGE + movieInfo.posterPath)
                 .target(ivPoster)
                 .build()
         )
@@ -148,7 +151,7 @@ class MovieInfoFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.title =
-            arguments?.getString(Constants.MOVIE_TITLE) ?: Constants.MOVIE_INFO_TITLE_DEFAULT
+            arguments?.getString(ConstantsUi.FRAGMENT_PARAMETER_MOVIE_TITLE) ?: TemporaryConstants.MOVIE_INFO_TITLE_DEFAULT
 
         pb = view.findViewById(R.id.mi_pb)
         tvTitle = view.findViewById(R.id.mi_title)

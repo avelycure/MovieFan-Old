@@ -1,6 +1,6 @@
 package com.avelycure.moviefan.domain.interactors
 
-import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.common.ErrorCodes
 import com.avelycure.moviefan.data.remote.dto.video.mappers.toVideoInfo
 import com.avelycure.moviefan.data.repository.MovieRepository
 import com.avelycure.moviefan.domain.models.VideoInfo
@@ -26,7 +26,7 @@ class GetTrailerCode(
             else
                 emit(DataState.Response<VideoInfo>(
                     uiComponent = UIComponent.Dialog(
-                        description = Constants.NO_TRAILER_AVAILABLE
+                        description = ErrorCodes.ERROR_NO_TRAILER_AVAILABLE
                     )
                 ))
         } catch (e: Exception) {

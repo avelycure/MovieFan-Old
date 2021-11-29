@@ -1,7 +1,6 @@
 package com.avelycure.moviefan.domain.models
 
-import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
+import com.avelycure.moviefan.common.TemporaryConstants
 import com.avelycure.moviefan.data.remote.dto.details.*
 
 /**
@@ -60,7 +59,7 @@ fun MovieInfo.getCountries(): String {
 fun MovieInfo.getGenres(): String {
     val genres = buildString {
         for (element in genres)
-            append(Constants.movieGenre[element.id] + ", ")
+            append(TemporaryConstants.movieGenre[element.id] + ", ")
     }
     return if (genres.isNotBlank() && genres.isNotEmpty())
         return genres.substring(0, genres.length - 2)

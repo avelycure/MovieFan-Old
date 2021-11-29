@@ -12,8 +12,10 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.avelycure.moviefan.BuildConfig
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.common.ErrorCodes
+import com.avelycure.moviefan.common.TemporaryConstants
 import com.avelycure.moviefan.presentation.home.adapters.MovieLoadStateAdapter
 import com.avelycure.moviefan.presentation.person.adapters.PersonAdapter
 import com.avelycure.moviefan.utils.extensions.getQueryChangeStateFlow
@@ -67,7 +69,7 @@ class PersonFragment : Fragment() {
 
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.fp_toolbar))
         (activity as AppCompatActivity).supportActionBar?.title =
-            Constants.PERSON_SEARCH_TITLE_DEFAULT
+            TemporaryConstants.PERSON_SEARCH_TITLE_DEFAULT
 
         rvPersons = view.findViewById(R.id.fp_rv)
         personNameEditText = view.findViewById(R.id.fp_edit_text)
@@ -117,7 +119,7 @@ class PersonFragment : Fragment() {
                 showError(
                     rvPersons,
                     requireContext(),
-                    Constants.NO_INTERNET_CONNECTION
+                    ErrorCodes.ERROR_NO_INTERNET_CONNECTION
                 )
             }
         }

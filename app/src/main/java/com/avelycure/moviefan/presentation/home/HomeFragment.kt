@@ -15,7 +15,6 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.presentation.home.adapters.MovieAdapter
 import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.presentation.app_info.AppInfo
@@ -29,6 +28,9 @@ import javax.inject.Inject
 import android.util.TypedValue
 import android.util.DisplayMetrics
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.avelycure.moviefan.common.ConstantsUi
+import com.avelycure.moviefan.common.ErrorCodes
+import com.avelycure.moviefan.common.TemporaryConstants
 import com.avelycure.moviefan.presentation.home.adapters.MovieLoadStateAdapter
 import com.avelycure.moviefan.utils.ui.MoviePromptBuilder
 
@@ -72,7 +74,7 @@ class HomeFragment : Fragment() {
     @ExperimentalCoroutinesApi
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        if ((activity as AppCompatActivity).supportActionBar?.title == Constants.POPULAR_MOVIE_TITLE_DEFAULT) {
+        if ((activity as AppCompatActivity).supportActionBar?.title == TemporaryConstants.POPULAR_MOVIE_TITLE_DEFAULT) {
             menu.clear()
             inflater.inflate(R.menu.toolbar_menu, menu)
             initSearchView(menu)
@@ -93,7 +95,7 @@ class HomeFragment : Fragment() {
         return if (item.itemId == R.id.action_info) {
             activity?.supportFragmentManager
                 ?.beginTransaction()
-                ?.addToBackStack(Constants.POPULAR_MOVIE_TAG)
+                ?.addToBackStack(ConstantsUi.POPULAR_MOVIE_TAG)
                 ?.add(R.id.fragment_container, AppInfo())
                 ?.commit()
             true
@@ -128,7 +130,7 @@ class HomeFragment : Fragment() {
                 showError(
                     loadingProgressBar,
                     requireContext(),
-                    Constants.NO_INTERNET_CONNECTION
+                    ErrorCodes.ERROR_NO_INTERNET_CONNECTION
                 )
             }
         }
@@ -142,7 +144,7 @@ class HomeFragment : Fragment() {
 
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.pm_toolbar))
         (activity as AppCompatActivity).supportActionBar?.title =
-            Constants.POPULAR_MOVIE_TITLE_DEFAULT
+            TemporaryConstants.POPULAR_MOVIE_TITLE_DEFAULT
 
         rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
         loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
@@ -180,12 +182,12 @@ class HomeFragment : Fragment() {
     private fun openMovieInfoFragment(movie: Movie) {
         val fragmentInfo = MovieInfoFragment()
         fragmentInfo.arguments = bundleOf(
-            Constants.ID_KEY to movie.movieId,
-            Constants.MOVIE_TITLE to movie.title
+            ConstantsUi.FRAGMENT_PARAMETER_MOVIE_ID to movie.movieId,
+            ConstantsUi.FRAGMENT_PARAMETER_MOVIE_TITLE to movie.title
         )
         activity?.supportFragmentManager
             ?.beginTransaction()
-            ?.addToBackStack(Constants.POPULAR_MOVIE_TAG)
+            ?.addToBackStack(ConstantsUi.POPULAR_MOVIE_TAG)
             ?.add(R.id.fragment_container, fragmentInfo)
             ?.commit()
     }
