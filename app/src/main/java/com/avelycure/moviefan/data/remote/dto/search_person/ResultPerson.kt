@@ -1,6 +1,5 @@
 package com.avelycure.moviefan.data.remote.dto.search_person
 
-import com.avelycure.moviefan.data.local.entities.EntityPopularPerson
 import kotlinx.serialization.Serializable
 
 @Serializable

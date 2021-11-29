@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.avelycure.moviefan.data.local.type_converters.ConverterGenreIds
 
-@Entity(tableName = "popular_movies")
-data class EntityPopularMovie(
+@Entity(tableName = "movies")
+data class EntityMovie(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val title: String,

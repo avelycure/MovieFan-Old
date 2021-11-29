@@ -9,7 +9,7 @@ import com.avelycure.moviefan.data.remote.dto.details.ProductionCompanies
 import com.avelycure.moviefan.data.remote.dto.details.ProductionCountries
 import com.avelycure.moviefan.data.remote.dto.details.SpokenLanguages
 
-@Entity(tableName = "movies")
+@Entity(tableName = "movies_info")
 data class EntityMovieInfo(
     @PrimaryKey(autoGenerate = true)
     val id: Int,

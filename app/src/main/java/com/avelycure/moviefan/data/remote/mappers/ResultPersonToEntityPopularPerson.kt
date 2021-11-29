@@ -1,11 +1,11 @@
 package com.avelycure.moviefan.data.remote.mappers
 
-import com.avelycure.moviefan.data.local.entities.EntityPopularPerson
+import com.avelycure.moviefan.data.local.entities.EntityPerson
 import com.avelycure.moviefan.data.remote.dto.search_person.KnownForMovie
 import com.avelycure.moviefan.data.remote.dto.search_person.KnownForTv
 import com.avelycure.moviefan.data.remote.dto.search_person.ResultPerson
 
-fun ResultPerson.toEntityPopularPerson(): EntityPopularPerson {
+fun ResultPerson.toEntityPopularPerson(): EntityPerson {
     val knownForMovie = mutableListOf<String>()
     val knownForTv = mutableListOf<String>()
 
@@ -16,7 +16,7 @@ fun ResultPerson.toEntityPopularPerson(): EntityPopularPerson {
             knownForTv.add(media.name)
     }
 
-    return EntityPopularPerson(
+    return EntityPerson(
         id = 0,
         adult = adult,
         gender = gender,

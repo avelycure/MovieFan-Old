@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.avelycure.moviefan.data.local.type_converters.ConverterCast
 
-@Entity(tableName = "popular_person")
-data class EntityPopularPerson(
+@Entity(tableName = "persons")
+data class EntityPerson(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val adult: Boolean,

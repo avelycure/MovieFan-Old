@@ -10,10 +10,10 @@ import com.avelycure.moviefan.data.local.type_converters.*
 @Database(
     entities = arrayOf(
         EntityMovieInfo::class,
-        EntityRemoteKeys::class,
-        EntityPopularMovie::class,
-        EntityPopularPerson::class,
-        EntityRemoteKeysPopularPersons::class
+        EntityRemoteKeysMovies::class,
+        EntityMovie::class,
+        EntityPerson::class,
+        EntityRemoteKeysPersons::class
     ),
     version = 1
 )
@@ -29,8 +29,8 @@ import com.avelycure.moviefan.data.local.type_converters.*
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun cacheMovieInfoDao(): CacheMovieInfoDao
-    abstract fun remoteKeysDao(): RemoteKeysDao
-    abstract fun cachePopularMovieDao(): CachePopularMovieDao
-    abstract fun cachePopularPersonsDao(): CachePopularPersonsDao
-    abstract fun remoteKeysPopularPersonsDao(): RemoteKeysPopularPersonsDao
+    abstract fun remoteKeysDao(): RemoteKeysMoviesDao
+    abstract fun cachePopularMovieDao(): CacheMovieDao
+    abstract fun cachePopularPersonsDao(): CachePersonsDao
+    abstract fun remoteKeysPopularPersonsDao(): RemoteKeysPersonsDao
 }
