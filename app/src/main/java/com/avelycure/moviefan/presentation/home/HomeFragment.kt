@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.data.remote.adapters.MovieAdapter
+import com.avelycure.moviefan.presentation.home.adapters.MovieAdapter
 import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
@@ -29,6 +29,7 @@ import javax.inject.Inject
 import android.util.TypedValue
 import android.util.DisplayMetrics
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.avelycure.moviefan.presentation.home.adapters.MovieLoadStateAdapter
 import com.avelycure.moviefan.utils.ui.MoviePromptBuilder
 
 

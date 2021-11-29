@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.data.remote.adapters
+package com.avelycure.moviefan.presentation.person.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -24,7 +24,6 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.domain.mappers.setProperties
 import com.avelycure.moviefan.domain.models.*
-import com.avelycure.moviefan.presentation.person.PersonImagesAdapter
 import com.avelycure.moviefan.utils.ui.showIfNotBlank
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow

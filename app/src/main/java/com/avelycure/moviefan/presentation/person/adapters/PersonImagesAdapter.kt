@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.presentation.person
+package com.avelycure.moviefan.presentation.person.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.Constants
 import com.avelycure.moviefan.data.remote.dto.person.Profile
-import com.avelycure.moviefan.domain.models.Movie
 
 class PersonImagesAdapter(
     var personImages: List<Profile>,

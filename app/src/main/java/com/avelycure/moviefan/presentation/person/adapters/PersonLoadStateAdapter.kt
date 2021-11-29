@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.presentation.home
+package com.avelycure.moviefan.presentation.person.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +15,9 @@ import com.avelycure.moviefan.R
 /**
  * Adapter for handling situation when user scrolls faster than we get responses from server
  */
-class MovieLoadStateAdapter(
+class PersonLoadStateAdapter(
     private val retry: () -> Unit
-) : LoadStateAdapter<MovieLoadStateAdapter.LoadStateViewHolder>() {
+) : LoadStateAdapter<PersonLoadStateAdapter.LoadStateViewHolder>() {
 
     override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {
         holder.bind(loadState, retry)
@@ -26,14 +26,14 @@ class MovieLoadStateAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
         return LoadStateViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.load_state_view, parent, false)
+                .inflate(R.layout.fp_load_state_view, parent, false)
         )
     }
 
     class LoadStateViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        private val progress = view.findViewById<ProgressBar>(R.id.load_state_progress)
-        private val btnRetry = view.findViewById<Button>(R.id.load_state_retry)
-        private val tvErrorMessage = view.findViewById<AppCompatTextView>(R.id.load_state_error_message)
+        private val progress = view.findViewById<ProgressBar>(R.id.fp_load_state_progress)
+        private val btnRetry = view.findViewById<Button>(R.id.fp_load_state_retry)
+        private val tvErrorMessage = view.findViewById<AppCompatTextView>(R.id.fp_load_state_error_message)
 
         fun bind(loadState: LoadState, retry: () -> Unit) {
 
