@@ -5,7 +5,7 @@ import com.avelycure.moviefan.data.remote.dto.details.ProductionCountries
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class ConverterProductionCountries {
+class ConverterListProductionCountries {
     @TypeConverter
     fun fromProductionCompanies(value: List<ProductionCountries>): String {
         val gson = Gson()

@@ -21,7 +21,7 @@ import com.avelycure.moviefan.data.local.type_converters.*
     value = arrayOf(
         ConverterListProductionCompanies::class,
         ConverterListMovieGenre::class,
-        ConverterProductionCountries::class,
+        ConverterListProductionCountries::class,
         ConverterListSpokenLanguages::class,
         ConverterListString::class,
         ConverterListInt::class

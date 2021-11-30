@@ -11,16 +11,18 @@ import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonInfo
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
-import com.avelycure.moviefan.data.remote.service.IPostsService
+import com.avelycure.moviefan.data.remote.service.ServiceFactory
+import com.avelycure.moviefan.data.remote.service.movies.IMoviesService
 import com.avelycure.moviefan.data.remote.sources.SearchPagingSource
 import com.avelycure.moviefan.data.remote.sources.SearchPersonPagingSource
 import com.avelycure.moviefan.domain.mappers.toEntityMovieInfo
 import com.avelycure.moviefan.domain.models.MovieInfo
 
 class MovieRepository(
-    private val postsService: IPostsService,
+    private val moviesService: IMoviesService,
     private val cacheMovieInfoDao: CacheMovieInfoDao,
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val serviceFactory: ServiceFactory
 ) {
     companion object {
         const val DEFAULT_PAGE_SIZE = 20
@@ -34,7 +36,7 @@ class MovieRepository(
         return Pager(
             config = pagingConfig,
             remoteMediator = PopularMovieRemoteMediator(
-                postsService = postsService,
+                moviesService = moviesService,
                 appDatabase = database
             ),
             pagingSourceFactory = pagingSourceFactory
@@ -47,7 +49,7 @@ class MovieRepository(
             config = pagingConfig,
             pagingSourceFactory = {
                 SearchPagingSource(
-                    postsService = postsService,
+                    moviesService = moviesService,
                     query = query
                 )
             }
@@ -68,19 +70,19 @@ class MovieRepository(
     }
 
     suspend fun getTrailerCode(id: Int): VideosResponse {
-        return postsService.getVideos(id)
+        return moviesService.getVideos(id)
     }
 
     suspend fun getDetails(id: Int): DetailResponse {
-        return postsService.getMovieDetail(id)
+        return moviesService.getMovieDetail(id)
     }
 
     suspend fun getPersonInfo(id: Int): ResponsePersonInfo {
-        return postsService.getPersonInfo(id)
+        return serviceFactory.personInfoService.getPersonInfo(id)
     }
 
     suspend fun getPersonImages(id: Int): ResponsePersonImages {
-        return postsService.getPersonImages(id)
+        return serviceFactory.personImagesService.getPersonImages(id)
     }
 
     fun getSearchPersonPager(query: String, pagingConfig: PagingConfig = getDefaultPageConfig()) =
@@ -88,7 +90,7 @@ class MovieRepository(
             config = pagingConfig,
             pagingSourceFactory = {
                 SearchPersonPagingSource(
-                    postsService = postsService,
+                    personsService = serviceFactory.searchPersonsService,
                     query = query
                 )
             }
@@ -101,7 +103,7 @@ class MovieRepository(
         return Pager(
             config = pagingConfig,
             remoteMediator = PopularPersonRemoteMediator(
-                postsService = postsService,
+                popularPersonsService = serviceFactory.popularPersonsService,
                 appDatabase = database
             ),
             pagingSourceFactory = pagingSourceFactory

@@ -3,17 +3,18 @@ package com.avelycure.moviefan.data.remote.sources
 import android.util.Log
 import androidx.paging.PagingSource
 import com.avelycure.moviefan.data.remote.dto.search_person.ResultPerson
-import com.avelycure.moviefan.data.remote.service.IPostsService
+import com.avelycure.moviefan.data.remote.service.movies.IMoviesService
+import com.avelycure.moviefan.data.remote.service.persons.search.ISearchPersonsService
 
 class SearchPersonPagingSource(
-    val postsService: IPostsService,
+    val personsService: ISearchPersonsService,
     val query: String
 ) : PagingSource<Int, ResultPerson>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultPerson> {
         try {
             val page = params.key ?: 1
-            val response = postsService
-                .getPersons(query, page)
+            val response = personsService
+                .getPersonsByName(query, page)
                 .results
 
             return LoadResult.Page(

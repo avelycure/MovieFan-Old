@@ -24,7 +24,7 @@ data class EntityMovieInfo(
     val genres: List<MovieGenre> = emptyList(),
     @TypeConverters(ConverterListProductionCompanies::class)
     val productionCompanies: List<ProductionCompanies> = emptyList(),
-    @TypeConverters(ConverterProductionCountries::class)
+    @TypeConverters(ConverterListProductionCountries::class)
     val productionCountries: List<ProductionCountries> = emptyList(),
     val releaseDate: String = "",
     @TypeConverters(ConverterListSpokenLanguages::class)

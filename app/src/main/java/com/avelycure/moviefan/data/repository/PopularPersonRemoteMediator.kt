@@ -10,13 +10,15 @@ import com.avelycure.moviefan.data.local.AppDatabase
 import com.avelycure.moviefan.data.local.entities.EntityPerson
 import com.avelycure.moviefan.data.local.entities.EntityRemoteKeysPersons
 import com.avelycure.moviefan.data.remote.mappers.*
-import com.avelycure.moviefan.data.remote.service.IPostsService
+import com.avelycure.moviefan.data.remote.service.movies.IMoviesService
+import com.avelycure.moviefan.data.remote.service.persons.popular.IPopularPersonsService
+import com.avelycure.moviefan.data.remote.service.persons.popular.PopularPersonsService
 import io.ktor.utils.io.errors.*
 
 
 @OptIn(ExperimentalPagingApi::class)
 class PopularPersonRemoteMediator(
-    private val postsService: IPostsService,
+    private val popularPersonsService: IPopularPersonsService,
     private val appDatabase: AppDatabase
 ) : RemoteMediator<Int, EntityPerson>() {
     private val TMDB_STARTING_PAGE_INDEX = 1
@@ -49,7 +51,7 @@ class PopularPersonRemoteMediator(
         }
 
         try {
-            val apiResponse = postsService.getPopularPerson(page)
+            val apiResponse = popularPersonsService.getPopularPerson(page)
 
             val persons = apiResponse.results
             val endOfPaginationReached = persons.isEmpty()
