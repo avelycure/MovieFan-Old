@@ -1,31 +1,32 @@
-package com.avelycure.moviefan.data.repository
+package com.avelycure.moviefan.data.mediators
 
-import android.util.Log
-import androidx.paging.*
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadType
+import androidx.paging.PagingState
+import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import coil.network.HttpException
 import com.avelycure.moviefan.data.local.AppDatabase
-import com.avelycure.moviefan.data.local.entities.EntityMovie
-import com.avelycure.moviefan.data.local.entities.EntityRemoteKeysMovies
-import com.avelycure.moviefan.data.remote.mappers.toEntityPopularMovie
-import com.avelycure.moviefan.data.remote.service.movies.popular.IPopularMoviesService
+import com.avelycure.moviefan.data.local.entities.EntityPerson
+import com.avelycure.moviefan.data.local.entities.EntityRemoteKeysPersons
+import com.avelycure.moviefan.data.remote.mappers.*
+import com.avelycure.moviefan.data.remote.service.persons.popular.IPopularPersonsService
 import io.ktor.utils.io.errors.*
 
 
 @OptIn(ExperimentalPagingApi::class)
-class PopularMovieRemoteMediator(
-    private val popularMoviesService: IPopularMoviesService,
+class PopularPersonRemoteMediator(
+    private val popularPersonsService: IPopularPersonsService,
     private val appDatabase: AppDatabase
-) : RemoteMediator<Int, EntityMovie>() {
+) : RemoteMediator<Int, EntityPerson>() {
     private val TMDB_STARTING_PAGE_INDEX = 1
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, EntityMovie>
+        state: PagingState<Int, EntityPerson>
     ): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> {
-                Log.d("mytag", "Refresh")
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                 remoteKeys?.nextKey?.minus(1) ?: TMDB_STARTING_PAGE_INDEX
             }
@@ -38,7 +39,6 @@ class PopularMovieRemoteMediator(
                 prevKey
             }
             LoadType.APPEND -> {
-                Log.d("mytag", "Prepend")
                 val remoteKeys = getRemoteKeyForLastItem(state)
                 val nextKey = remoteKeys?.nextKey
                 if (nextKey == null) {
@@ -49,24 +49,28 @@ class PopularMovieRemoteMediator(
         }
 
         try {
-            val apiResponse = popularMoviesService.getPopularMovies(page)
+            val apiResponse = popularPersonsService.getPopularPerson(page)
 
-            val movies = apiResponse.results
-            val endOfPaginationReached = movies.isEmpty()
+            val persons = apiResponse.results
+            val endOfPaginationReached = persons.isEmpty()
 
             appDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    appDatabase.remoteKeysDao().clearRemoteKeys()
-                    appDatabase.cachePopularMovieDao().clearMovies()
+                    appDatabase.remoteKeysPopularPersonsDao().clearRemoteKeys()
+                    appDatabase.cachePopularPersonsDao().clearPersons()
                 }
                 val prevKey = if (page == TMDB_STARTING_PAGE_INDEX) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
-                val keys = movies.map {
-                    EntityRemoteKeysMovies(movieId = it.id, prevKey = prevKey, nextKey = nextKey)
+                val keys = persons.map {
+                    EntityRemoteKeysPersons(
+                        movieId = it.id,
+                        prevKey = prevKey,
+                        nextKey = nextKey
+                    )
                 }
-                appDatabase.remoteKeysDao().insertAll(keys)
-                appDatabase.cachePopularMovieDao().insertMovies(movies.map {
-                    it.toEntityPopularMovie()
+                appDatabase.remoteKeysPopularPersonsDao().insertAll(keys)
+                appDatabase.cachePopularPersonsDao().insertPersons(persons.map {
+                    it.toEntityPopularPerson()
                 })
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
@@ -79,26 +83,26 @@ class PopularMovieRemoteMediator(
         }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, EntityMovie>): EntityRemoteKeysMovies? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, EntityPerson>): EntityRemoteKeysPersons? {
         return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { movie ->
-                appDatabase.remoteKeysDao().remoteKeysMovieId(movie.movieId)
+                appDatabase.remoteKeysPopularPersonsDao().remoteKeysPersonsId(movie.personId)
             }
     }
 
-    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, EntityMovie>): EntityRemoteKeysMovies? {
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, EntityPerson>): EntityRemoteKeysPersons? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { movie ->
-                appDatabase.remoteKeysDao().remoteKeysMovieId(movie.movieId)
+                appDatabase.remoteKeysPopularPersonsDao().remoteKeysPersonsId(movie.personId)
             }
     }
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(
-        state: PagingState<Int, EntityMovie>
-    ): EntityRemoteKeysMovies? {
+        state: PagingState<Int, EntityPerson>
+    ): EntityRemoteKeysPersons? {
         return state.anchorPosition?.let { position ->
-            state.closestItemToPosition(position)?.movieId?.let { movieId ->
-                appDatabase.remoteKeysDao().remoteKeysMovieId(movieId)
+            state.closestItemToPosition(position)?.personId?.let { movieId ->
+                appDatabase.remoteKeysPopularPersonsDao().remoteKeysPersonsId(movieId)
             }
         }
     }

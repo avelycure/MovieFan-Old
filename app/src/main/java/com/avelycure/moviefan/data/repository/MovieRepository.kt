@@ -7,6 +7,8 @@ import com.avelycure.moviefan.data.local.dao.CacheMovieInfoDao
 import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
 import com.avelycure.moviefan.data.local.entities.EntityMovie
 import com.avelycure.moviefan.data.local.entities.EntityPerson
+import com.avelycure.moviefan.data.mediators.PopularMovieRemoteMediator
+import com.avelycure.moviefan.data.mediators.PopularPersonRemoteMediator
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonInfo
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages

@@ -27,6 +27,6 @@ object CacheModule {
     @Provides
     @Singleton
     fun provideAppDatabase(app: Application) = Room.databaseBuilder(
-        app, AppDatabase::class.java, "database"
+        app, AppDatabase::class.java, "com.avelycure.moviefan.movies.db"
     ).build()
 }
