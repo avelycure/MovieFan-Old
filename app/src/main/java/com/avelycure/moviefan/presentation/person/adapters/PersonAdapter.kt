@@ -33,6 +33,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * This adapter handles recycler view on PersonFragment
+ */
 @Singleton
 class PersonAdapter
 @Inject constructor(

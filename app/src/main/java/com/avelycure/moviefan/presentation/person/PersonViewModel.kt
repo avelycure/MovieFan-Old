@@ -17,6 +17,9 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
+/**
+ * ViewModel for PersonFragment
+ */
 @HiltViewModel
 class PersonViewModel
 @Inject constructor(

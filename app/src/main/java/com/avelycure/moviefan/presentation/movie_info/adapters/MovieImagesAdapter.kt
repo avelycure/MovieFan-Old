@@ -11,6 +11,9 @@ import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.RequestConstants
 
+/**
+ * This adapter manage recycler view with images of the movie
+ */
 class MovieImagesAdapter(
     var imagesList: List<String>,
     private val imageLoader: ImageLoader,

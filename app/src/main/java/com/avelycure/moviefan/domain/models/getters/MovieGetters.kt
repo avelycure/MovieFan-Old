@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.utils.extensions
+package com.avelycure.moviefan.domain.models.getters
 
 import com.avelycure.moviefan.domain.models.Movie
 

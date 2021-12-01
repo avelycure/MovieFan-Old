@@ -12,6 +12,9 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.data.remote.dto.person.Profile
 
+/**
+ * This adapter handles recyclerView with person images(when parent recyclerView expands)
+ */
 class PersonImagesAdapter(
     var personImages: List<Profile>,
     private val imageLoader: ImageLoader,

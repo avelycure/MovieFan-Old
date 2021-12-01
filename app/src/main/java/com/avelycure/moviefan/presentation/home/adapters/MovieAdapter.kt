@@ -16,7 +16,7 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.common.TemporaryConstants
 import com.avelycure.moviefan.domain.models.Movie
-import com.avelycure.moviefan.utils.extensions.getOriginalTitleAndReleaseDate
+import com.avelycure.moviefan.domain.models.getters.getOriginalTitleAndReleaseDate
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton

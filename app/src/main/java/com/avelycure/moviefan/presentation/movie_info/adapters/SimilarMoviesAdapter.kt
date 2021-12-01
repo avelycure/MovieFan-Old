@@ -12,6 +12,9 @@ import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.domain.models.Movie
 
+/**
+ * This adapter handles recycler view with posters of similar movies
+ */
 class SimilarMoviesAdapter(
     var similarMovies: List<Movie>,
     private val imageLoader: ImageLoader,

@@ -19,8 +19,8 @@ import com.avelycure.moviefan.presentation.home.adapters.MovieAdapter
 import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.presentation.app_info.AppInfo
 import com.avelycure.moviefan.presentation.movie_info.MovieInfoFragment
-import com.avelycure.moviefan.utils.getQueryChangeStateFlow
-import com.avelycure.moviefan.utils.showError
+import com.avelycure.moviefan.utils.extensions.getQueryChangeStateFlow
+import com.avelycure.moviefan.utils.ui.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
