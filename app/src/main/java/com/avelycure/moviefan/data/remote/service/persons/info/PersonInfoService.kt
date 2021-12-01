@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.data.remote.service.persons.person_info
+package com.avelycure.moviefan.data.remote.service.persons.info
 
 import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonInfo
@@ -7,9 +7,9 @@ import io.ktor.client.features.*
 import io.ktor.client.request.*
 import io.ktor.utils.io.errors.*
 
-class PersonsInfoService(
+class PersonInfoService(
     private val client: HttpClient
-) : IPersonsInfoService {
+) : IPersonInfoService {
     override suspend fun getPersonInfo(id: Int): ResponsePersonInfo {
         return try {
             client.get {

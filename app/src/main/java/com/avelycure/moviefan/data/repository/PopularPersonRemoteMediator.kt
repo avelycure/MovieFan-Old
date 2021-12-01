@@ -10,9 +10,7 @@ import com.avelycure.moviefan.data.local.AppDatabase
 import com.avelycure.moviefan.data.local.entities.EntityPerson
 import com.avelycure.moviefan.data.local.entities.EntityRemoteKeysPersons
 import com.avelycure.moviefan.data.remote.mappers.*
-import com.avelycure.moviefan.data.remote.service.movies.IMoviesService
 import com.avelycure.moviefan.data.remote.service.persons.popular.IPopularPersonsService
-import com.avelycure.moviefan.data.remote.service.persons.popular.PopularPersonsService
 import io.ktor.utils.io.errors.*
 
 

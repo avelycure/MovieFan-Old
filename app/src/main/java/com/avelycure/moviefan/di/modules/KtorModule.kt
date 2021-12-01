@@ -4,12 +4,18 @@ import com.avelycure.moviefan.data.local.AppDatabase
 import com.avelycure.moviefan.data.local.dao.CacheMovieInfoDao
 import com.avelycure.moviefan.data.remote.service.ServiceFactory
 import com.avelycure.moviefan.data.repository.MovieRepository
-import com.avelycure.moviefan.data.remote.service.movies.IMoviesService
-import com.avelycure.moviefan.data.remote.service.movies.MoviesService
+import com.avelycure.moviefan.data.remote.service.movies.info.MovieInfoService
+import com.avelycure.moviefan.data.remote.service.movies.info.IMovieInfoService
+import com.avelycure.moviefan.data.remote.service.movies.popular.PopularMoviesService
+import com.avelycure.moviefan.data.remote.service.movies.popular.IPopularMoviesService
+import com.avelycure.moviefan.data.remote.service.movies.search.ISearchMoviesService
+import com.avelycure.moviefan.data.remote.service.movies.search.SearchMoviesService
+import com.avelycure.moviefan.data.remote.service.movies.videos.VideosService
+import com.avelycure.moviefan.data.remote.service.movies.videos.IVideosService
 import com.avelycure.moviefan.data.remote.service.persons.images.IPersonImagesService
 import com.avelycure.moviefan.data.remote.service.persons.images.PersonImagesService
-import com.avelycure.moviefan.data.remote.service.persons.person_info.IPersonsInfoService
-import com.avelycure.moviefan.data.remote.service.persons.person_info.PersonsInfoService
+import com.avelycure.moviefan.data.remote.service.persons.info.IPersonInfoService
+import com.avelycure.moviefan.data.remote.service.persons.info.PersonInfoService
 import com.avelycure.moviefan.data.remote.service.persons.popular.IPopularPersonsService
 import com.avelycure.moviefan.data.remote.service.persons.popular.PopularPersonsService
 import com.avelycure.moviefan.data.remote.service.persons.search.ISearchPersonsService
@@ -30,8 +36,53 @@ import javax.inject.Singleton
 object KtorModule {
     @Provides
     @Singleton
-    fun provideMoviesInstance(): IMoviesService {
-        return MoviesService(
+    fun provideGetMovieInfoInstance(): IMovieInfoService {
+        return MovieInfoService(
+            HttpClient(Android) {
+                install(Logging) {
+                    level = LogLevel.ALL
+                }
+                install(JsonFeature) {
+                    serializer = KotlinxSerializer()
+                }
+            }
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun providePopularMoviesInstance(): IPopularMoviesService {
+        return PopularMoviesService(
+            HttpClient(Android) {
+                install(Logging) {
+                    level = LogLevel.ALL
+                }
+                install(JsonFeature) {
+                    serializer = KotlinxSerializer()
+                }
+            }
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchMoviesInstance(): ISearchMoviesService {
+        return SearchMoviesService(
+            HttpClient(Android) {
+                install(Logging) {
+                    level = LogLevel.ALL
+                }
+                install(JsonFeature) {
+                    serializer = KotlinxSerializer()
+                }
+            }
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetVideosInstance(): IVideosService {
+        return VideosService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
@@ -60,8 +111,8 @@ object KtorModule {
 
     @Provides
     @Singleton
-    fun providePersonInfoInstance(): IPersonsInfoService {
-        return PersonsInfoService(
+    fun providePersonInfoInstance(): IPersonInfoService {
+        return PersonInfoService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
@@ -107,29 +158,34 @@ object KtorModule {
     @Singleton
     fun provideServiceFactory(
         personImagesService: IPersonImagesService,
-        personInfoService: IPersonsInfoService,
+        personInfoService: IPersonInfoService,
         popularPersonsService: IPopularPersonsService,
         searchPersonsService: ISearchPersonsService,
 
-        moviesService: IMoviesService
+        movieInfoService: IMovieInfoService,
+        popularMoviesService: IPopularMoviesService,
+        searchMoviesService: ISearchMoviesService,
+        videosService: IVideosService
     ): ServiceFactory {
         return ServiceFactory(
             personImagesService,
             personInfoService,
             popularPersonsService,
             searchPersonsService,
-            moviesService
+            movieInfoService,
+            popularMoviesService,
+            searchMoviesService,
+            videosService
         )
     }
 
     @Provides
     @Singleton
     fun provideMovieRepository(
-        moviesService: IMoviesService,
         cacheMovieInfoDao: CacheMovieInfoDao,
         appDatabase: AppDatabase,
         serviceFactory: ServiceFactory
     ): MovieRepository {
-        return MovieRepository(moviesService, cacheMovieInfoDao, appDatabase, serviceFactory)
+        return MovieRepository(cacheMovieInfoDao, appDatabase, serviceFactory)
     }
 }

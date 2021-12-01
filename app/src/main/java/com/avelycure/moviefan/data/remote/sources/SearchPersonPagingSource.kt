@@ -3,7 +3,6 @@ package com.avelycure.moviefan.data.remote.sources
 import android.util.Log
 import androidx.paging.PagingSource
 import com.avelycure.moviefan.data.remote.dto.search_person.ResultPerson
-import com.avelycure.moviefan.data.remote.service.movies.IMoviesService
 import com.avelycure.moviefan.data.remote.service.persons.search.ISearchPersonsService
 
 class SearchPersonPagingSource(

@@ -12,14 +12,12 @@ import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonInfo
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import com.avelycure.moviefan.data.remote.service.ServiceFactory
-import com.avelycure.moviefan.data.remote.service.movies.IMoviesService
 import com.avelycure.moviefan.data.remote.sources.SearchPagingSource
 import com.avelycure.moviefan.data.remote.sources.SearchPersonPagingSource
 import com.avelycure.moviefan.domain.mappers.toEntityMovieInfo
 import com.avelycure.moviefan.domain.models.MovieInfo
 
 class MovieRepository(
-    private val moviesService: IMoviesService,
     private val cacheMovieInfoDao: CacheMovieInfoDao,
     private val database: AppDatabase,
     private val serviceFactory: ServiceFactory
@@ -36,7 +34,7 @@ class MovieRepository(
         return Pager(
             config = pagingConfig,
             remoteMediator = PopularMovieRemoteMediator(
-                moviesService = moviesService,
+                popularMoviesService = serviceFactory.popularMoviesService,
                 appDatabase = database
             ),
             pagingSourceFactory = pagingSourceFactory
@@ -49,7 +47,7 @@ class MovieRepository(
             config = pagingConfig,
             pagingSourceFactory = {
                 SearchPagingSource(
-                    moviesService = moviesService,
+                    searchMoviesService = serviceFactory.searchMoviesService,
                     query = query
                 )
             }
@@ -70,11 +68,11 @@ class MovieRepository(
     }
 
     suspend fun getTrailerCode(id: Int): VideosResponse {
-        return moviesService.getVideos(id)
+        return serviceFactory.videosService.getVideos(id)
     }
 
     suspend fun getDetails(id: Int): DetailResponse {
-        return moviesService.getMovieDetail(id)
+        return serviceFactory.movieInfoService.getMovieDetail(id)
     }
 
     suspend fun getPersonInfo(id: Int): ResponsePersonInfo {
