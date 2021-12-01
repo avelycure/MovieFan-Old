@@ -12,7 +12,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object InteractorsModule {
+object MovieInteractorsModule {
 
     @Provides
     fun provideGetPopularMovies(repository: MovieRepository): GetPopularMovies {
@@ -37,20 +37,5 @@ object InteractorsModule {
     @Provides
     fun provideSaveToCache(repository: MovieRepository): SaveMovieInfoToCache {
         return SaveMovieInfoToCache(repository)
-    }
-
-    @Provides
-    fun provideGetPerson(repository: MovieRepository): GetPerson {
-        return GetPerson(repository)
-    }
-
-    @Provides
-    fun provideGetPersonInfo(repository: MovieRepository): GetPersonInfo {
-        return GetPersonInfo(repository)
-    }
-
-    @Provides
-    fun provideGetPopularPersons(repository: MovieRepository): GetPopularPersons {
-        return GetPopularPersons(repository)
     }
 }
