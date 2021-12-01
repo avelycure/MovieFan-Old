@@ -2,18 +2,18 @@ package com.avelycure.moviefan.data.remote.sources
 
 import androidx.paging.PagingSource
 import com.avelycure.moviefan.data.remote.dto.movie.MovieListResult
-import com.avelycure.moviefan.data.remote.service.IPostsService
+import com.avelycure.moviefan.data.remote.service.movies.search.ISearchMoviesService
 
 class SearchPagingSource (
-    val postsService: IPostsService,
+    val searchMoviesService: ISearchMoviesService,
     val query: String
 ) : PagingSource<Int, MovieListResult>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieListResult> {
         try {
             val page = params.key ?: 1
-            val response = postsService
-                .getMovies(query, page)
+            val response = searchMoviesService
+                .getMoviesByName(query, page)
                 .results
 
             return LoadResult.Page(

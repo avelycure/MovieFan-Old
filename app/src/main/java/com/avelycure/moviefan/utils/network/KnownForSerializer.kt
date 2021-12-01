@@ -9,6 +9,9 @@ import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
+/**
+ * Custom serializer for KnowFor sealed class
+ */
 object KnownForSerializer : JsonContentPolymorphicSerializer<KnownFor>(KnownFor::class) {
     override fun selectDeserializer(element: JsonElement): DeserializationStrategy<out KnownFor> {
         return when (element.jsonObject["media_type"]?.jsonPrimitive?.content) {

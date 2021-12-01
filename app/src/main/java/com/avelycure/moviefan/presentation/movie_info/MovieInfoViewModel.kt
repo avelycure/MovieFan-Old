@@ -3,9 +3,9 @@ package com.avelycure.moviefan.presentation.movie_info
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.avelycure.moviefan.domain.interactors.GetDetails
-import com.avelycure.moviefan.domain.interactors.GetTrailerCode
-import com.avelycure.moviefan.domain.interactors.SaveToCache
+import com.avelycure.moviefan.domain.interactors.home.GetMovieInfo
+import com.avelycure.moviefan.domain.interactors.home.GetTrailerCode
+import com.avelycure.moviefan.domain.interactors.home.SaveMovieInfoToCache
 import com.avelycure.moviefan.domain.models.MovieInfo
 import com.avelycure.moviefan.domain.models.VideoInfo
 import com.avelycure.moviefan.domain.state.DataState
@@ -22,9 +22,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MovieInfoViewModel
 @Inject constructor(
-    private val getDetails: GetDetails,
+    private val getMovieInfo: GetMovieInfo,
     private val getTrailerCode: GetTrailerCode,
-    private val saveToCache: SaveToCache
+    private val saveMovieInfoToCache: SaveMovieInfoToCache
 ) : ViewModel() {
     private val _state = MutableStateFlow(MovieInfoState())
     val state = _state.asStateFlow()
@@ -65,13 +65,13 @@ class MovieInfoViewModel
 
     private fun getDetails(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            getDetails
+            getMovieInfo
                 .execute(id)
                 .collectLatest { dataState ->
                     when (dataState) {
                         is DataState.Data -> {
                             viewModelScope.launch(Dispatchers.IO) {
-                                saveToCache.execute(movieInfo = dataState.data!!)
+                                saveMovieInfoToCache.execute(movieInfo = dataState.data!!)
                             }
                             _state.value =
                                 _state.value.copy(

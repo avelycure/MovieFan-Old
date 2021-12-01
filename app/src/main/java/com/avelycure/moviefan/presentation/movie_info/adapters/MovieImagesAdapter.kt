@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.common.RequestConstants
 
+/**
+ * This adapter manage recycler view with images of the movie
+ */
 class MovieImagesAdapter(
     var imagesList: List<String>,
     private val imageLoader: ImageLoader,
@@ -19,14 +22,14 @@ class MovieImagesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieImagesViewHolder {
         return MovieImagesViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.movie_image_item, parent, false)
+                .inflate(R.layout.item_movie_image, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: MovieImagesViewHolder, position: Int) {
         imageLoader.enqueue(
             ImageRequest.Builder(context)
-                .data(Constants.IMAGE + imagesList[position])
+                .data(RequestConstants.IMAGE + imagesList[position])
                 .target(holder.image)
                 .build()
         )

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/movie_item_image"
-    android:layout_width="256dp"
-    android:layout_height="180dp"
-    android:layout_marginStart="8dp"
-    android:scaleType="centerCrop" />

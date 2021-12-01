@@ -9,7 +9,7 @@ import com.avelycure.moviefan.data.remote.dto.details.ProductionCompanies
 import com.avelycure.moviefan.data.remote.dto.details.ProductionCountries
 import com.avelycure.moviefan.data.remote.dto.details.SpokenLanguages
 
-@Entity(tableName = "movies")
+@Entity(tableName = "movies_info")
 data class EntityMovieInfo(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
@@ -20,14 +20,14 @@ data class EntityMovieInfo(
     val originalTitle: String = "",
     val overview: String = "",
     val popularity: Float = 0F,
-    @TypeConverters(ConverterGenre::class)
+    @TypeConverters(ConverterListMovieGenre::class)
     val genres: List<MovieGenre> = emptyList(),
-    @TypeConverters(ConverterProductionCompanies::class)
+    @TypeConverters(ConverterListProductionCompanies::class)
     val productionCompanies: List<ProductionCompanies> = emptyList(),
-    @TypeConverters(ConverterProductionCountries::class)
+    @TypeConverters(ConverterListProductionCountries::class)
     val productionCountries: List<ProductionCountries> = emptyList(),
     val releaseDate: String = "",
-    @TypeConverters(ConverterLanguages::class)
+    @TypeConverters(ConverterListSpokenLanguages::class)
     val spokenLanguages: List<SpokenLanguages> = emptyList(),
     val status: String = "",
     val revenue: Int = 0,
@@ -36,11 +36,11 @@ data class EntityMovieInfo(
     val voteAverage: Float = 0F,
     val voteCount: Int = 0,
     val posterPath: String? = "",
-    @TypeConverters(ConverterCast::class)
+    @TypeConverters(ConverterListString::class)
     val cast: List<String> = emptyList(),
     val movieId: Int,
-    @TypeConverters(ConverterCast::class)
+    @TypeConverters(ConverterListString::class)
     val imagesBackdrop: List<String> = emptyList(),
-    @TypeConverters(ConverterCast::class)
+    @TypeConverters(ConverterListString::class)
     val imagesPosters: List<String> = emptyList()
 )

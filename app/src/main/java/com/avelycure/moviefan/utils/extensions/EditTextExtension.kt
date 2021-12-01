@@ -5,6 +5,9 @@ import androidx.core.widget.doOnTextChanged
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
+/**
+ * Function to make flow from edit text
+ */
 fun EditText.getQueryChangeStateFlow(): StateFlow<String> {
     val query = MutableStateFlow("")
     doOnTextChanged { text, start, before, count ->

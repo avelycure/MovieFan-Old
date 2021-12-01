@@ -6,6 +6,9 @@ import uk.co.samuelwall.materialtaptargetprompt.ResourceFinder
 import uk.co.samuelwall.materialtaptargetprompt.extras.PromptOptions
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 
+/**
+ * Class for showing prompts only on first launch
+ */
 class MoviePromptBuilder (resourceFinder: ResourceFinder) :
     PromptOptions<MoviePromptBuilder>(resourceFinder) {
 

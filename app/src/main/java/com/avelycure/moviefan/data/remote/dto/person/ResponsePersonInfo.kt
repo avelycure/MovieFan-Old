@@ -20,8 +20,3 @@ data class ResponsePersonInfo(
     val homepage: String?,
     val images: Images?,
 )
-
-@Serializable
-data class Images(
-    val profiles: List<Profile>?
-)

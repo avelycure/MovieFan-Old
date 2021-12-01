@@ -1,10 +1,9 @@
 package com.avelycure.moviefan.presentation.home
 
-import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagingData
-import com.avelycure.moviefan.domain.interactors.GetPopularMovies
-import com.avelycure.moviefan.domain.interactors.SearchMovie
+import com.avelycure.moviefan.domain.interactors.home.GetPopularMovies
+import com.avelycure.moviefan.domain.interactors.home.FindMovie
 import com.avelycure.moviefan.domain.models.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,7 +15,7 @@ import javax.inject.Inject
 class HomeViewModel
 @Inject constructor(
     private val getPopularMovies: GetPopularMovies,
-    private val searchMovie: SearchMovie
+    private val findMovie: FindMovie
 ) : ViewModel() {
     private var mPagingData: Flow<PagingData<Movie>>? = null
 
@@ -33,7 +32,7 @@ class HomeViewModel
             }
             .distinctUntilChanged()
             .flatMapLatest { query ->
-                searchMovie.execute(query)
+                findMovie.execute(query)
             }
     }
 

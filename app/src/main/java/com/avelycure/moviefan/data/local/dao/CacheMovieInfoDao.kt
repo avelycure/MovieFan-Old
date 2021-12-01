@@ -10,6 +10,6 @@ interface CacheMovieInfoDao {
     @Insert
     suspend fun insertMovie(movieInfo: EntityMovieInfo)
 
-    @Query("SELECT * FROM movies WHERE movieId = :movieId")
+    @Query("SELECT * FROM movies_info WHERE movieId = :movieId")
     suspend fun getMovieInfo(movieId: Int):EntityMovieInfo
 }

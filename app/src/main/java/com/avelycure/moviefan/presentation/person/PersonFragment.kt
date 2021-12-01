@@ -9,17 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
-import com.avelycure.moviefan.data.remote.adapters.PersonAdapter
-import com.avelycure.moviefan.domain.models.Person
-import com.avelycure.moviefan.presentation.home.MovieLoadStateAdapter
+import com.avelycure.moviefan.common.ErrorCodes
+import com.avelycure.moviefan.common.TemporaryConstants
+import com.avelycure.moviefan.presentation.home.adapters.MovieLoadStateAdapter
+import com.avelycure.moviefan.presentation.person.adapters.PersonAdapter
+import com.avelycure.moviefan.presentation.person.adapters.PersonLoadStateAdapter
 import com.avelycure.moviefan.utils.extensions.getQueryChangeStateFlow
-import com.avelycure.moviefan.utils.showError
+import com.avelycure.moviefan.utils.ui.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,6 +28,9 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * This fragment shows popular persons and persons that were searched with query
+ */
 @AndroidEntryPoint
 class PersonFragment : Fragment() {
 
@@ -44,7 +47,7 @@ class PersonFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_person, container, false)
+        val view = inflater.inflate(R.layout.fragment_persons, container, false)
         initViewElements(view)
         return view
     }
@@ -69,7 +72,7 @@ class PersonFragment : Fragment() {
 
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.fp_toolbar))
         (activity as AppCompatActivity).supportActionBar?.title =
-            Constants.PERSON_SEARCH_TITLE_DEFAULT
+            TemporaryConstants.PERSON_SEARCH_TITLE_DEFAULT
 
         rvPersons = view.findViewById(R.id.fp_rv)
         personNameEditText = view.findViewById(R.id.fp_edit_text)
@@ -119,12 +122,12 @@ class PersonFragment : Fragment() {
                 showError(
                     rvPersons,
                     requireContext(),
-                    Constants.NO_INTERNET_CONNECTION
+                    ErrorCodes.ERROR_NO_INTERNET_CONNECTION
                 )
             }
         }
         rvPersons.adapter = personAdapter.withLoadStateFooter(
-            footer = MovieLoadStateAdapter { personAdapter.retry() }
+            footer = PersonLoadStateAdapter { personAdapter.retry() }
         )
     }
 }

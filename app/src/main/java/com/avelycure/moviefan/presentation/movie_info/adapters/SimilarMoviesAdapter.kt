@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
 import com.avelycure.moviefan.R
-import com.avelycure.moviefan.common.Constants
+import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.domain.models.Movie
 
+/**
+ * This adapter handles recycler view with posters of similar movies
+ */
 class SimilarMoviesAdapter(
     var similarMovies: List<Movie>,
     private val imageLoader: ImageLoader,
@@ -21,14 +24,14 @@ class SimilarMoviesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarMoviesViewHolder {
         return SimilarMoviesViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.similar_movie_item, parent, false)
+                .inflate(R.layout.item_similar_movie, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: SimilarMoviesViewHolder, position: Int) {
         imageLoader.enqueue(
             ImageRequest.Builder(context)
-                .data(Constants.IMAGE + similarMovies[position].posterPath)
+                .data(RequestConstants.IMAGE + similarMovies[position].posterPath)
                 .target(holder.image)
                 .build()
         )

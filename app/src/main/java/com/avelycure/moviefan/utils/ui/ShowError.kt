@@ -1,4 +1,4 @@
-package com.avelycure.moviefan.utils
+package com.avelycure.moviefan.utils.ui
 
 import android.content.Context
 import android.graphics.Color

@@ -5,22 +5,24 @@ import androidx.paging.PagingConfig
 import com.avelycure.moviefan.data.local.AppDatabase
 import com.avelycure.moviefan.data.local.dao.CacheMovieInfoDao
 import com.avelycure.moviefan.data.local.entities.EntityMovieInfo
-import com.avelycure.moviefan.data.local.entities.EntityPopularMovie
-import com.avelycure.moviefan.data.local.entities.EntityPopularPerson
+import com.avelycure.moviefan.data.local.entities.EntityMovie
+import com.avelycure.moviefan.data.local.entities.EntityPerson
+import com.avelycure.moviefan.data.mediators.PopularMovieRemoteMediator
+import com.avelycure.moviefan.data.mediators.PopularPersonRemoteMediator
 import com.avelycure.moviefan.data.remote.dto.details.DetailResponse
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonInfo
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
-import com.avelycure.moviefan.data.remote.service.IPostsService
+import com.avelycure.moviefan.data.remote.service.ServiceFactory
 import com.avelycure.moviefan.data.remote.sources.SearchPagingSource
 import com.avelycure.moviefan.data.remote.sources.SearchPersonPagingSource
 import com.avelycure.moviefan.domain.mappers.toEntityMovieInfo
 import com.avelycure.moviefan.domain.models.MovieInfo
 
 class MovieRepository(
-    private val postsService: IPostsService,
     private val cacheMovieInfoDao: CacheMovieInfoDao,
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val serviceFactory: ServiceFactory
 ) {
     companion object {
         const val DEFAULT_PAGE_SIZE = 20
@@ -29,12 +31,12 @@ class MovieRepository(
     // Returns Pager for fetching popular movies
     fun getPagerWithRemoteMediator(
         pagingConfig: PagingConfig = getDefaultPageConfig()
-    ): Pager<Int, EntityPopularMovie> {
-        val pagingSourceFactory = { database.cachePopularMovieDao().getPopularMovies() }
+    ): Pager<Int, EntityMovie> {
+        val pagingSourceFactory = { database.cachePopularMovieDao().getMovies() }
         return Pager(
             config = pagingConfig,
             remoteMediator = PopularMovieRemoteMediator(
-                postsService = postsService,
+                popularMoviesService = serviceFactory.popularMoviesService,
                 appDatabase = database
             ),
             pagingSourceFactory = pagingSourceFactory
@@ -47,7 +49,7 @@ class MovieRepository(
             config = pagingConfig,
             pagingSourceFactory = {
                 SearchPagingSource(
-                    postsService = postsService,
+                    searchMoviesService = serviceFactory.searchMoviesService,
                     query = query
                 )
             }
@@ -68,19 +70,19 @@ class MovieRepository(
     }
 
     suspend fun getTrailerCode(id: Int): VideosResponse {
-        return postsService.getVideos(id)
+        return serviceFactory.videosService.getVideos(id)
     }
 
     suspend fun getDetails(id: Int): DetailResponse {
-        return postsService.getMovieDetail(id)
+        return serviceFactory.movieInfoService.getMovieDetail(id)
     }
 
     suspend fun getPersonInfo(id: Int): ResponsePersonInfo {
-        return postsService.getPersonInfo(id)
+        return serviceFactory.personInfoService.getPersonInfo(id)
     }
 
     suspend fun getPersonImages(id: Int): ResponsePersonImages {
-        return postsService.getPersonImages(id)
+        return serviceFactory.personImagesService.getPersonImages(id)
     }
 
     fun getSearchPersonPager(query: String, pagingConfig: PagingConfig = getDefaultPageConfig()) =
@@ -88,7 +90,7 @@ class MovieRepository(
             config = pagingConfig,
             pagingSourceFactory = {
                 SearchPersonPagingSource(
-                    postsService = postsService,
+                    personsService = serviceFactory.searchPersonsService,
                     query = query
                 )
             }
@@ -96,12 +98,12 @@ class MovieRepository(
 
     fun getPagerWithRemoteMediatorForPopularPersons(
         pagingConfig: PagingConfig = getDefaultPageConfig()
-    ): Pager<Int, EntityPopularPerson> {
-        val pagingSourceFactory = { database.cachePopularPersonsDao().getPopularPersons() }
+    ): Pager<Int, EntityPerson> {
+        val pagingSourceFactory = { database.cachePopularPersonsDao().getPersons() }
         return Pager(
             config = pagingConfig,
             remoteMediator = PopularPersonRemoteMediator(
-                postsService = postsService,
+                popularPersonsService = serviceFactory.popularPersonsService,
                 appDatabase = database
             ),
             pagingSourceFactory = pagingSourceFactory
