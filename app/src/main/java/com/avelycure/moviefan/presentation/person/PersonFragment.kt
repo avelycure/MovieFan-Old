@@ -17,8 +17,9 @@ import com.avelycure.moviefan.common.ErrorCodes
 import com.avelycure.moviefan.common.TemporaryConstants
 import com.avelycure.moviefan.presentation.home.adapters.MovieLoadStateAdapter
 import com.avelycure.moviefan.presentation.person.adapters.PersonAdapter
+import com.avelycure.moviefan.presentation.person.adapters.PersonLoadStateAdapter
 import com.avelycure.moviefan.utils.extensions.getQueryChangeStateFlow
-import com.avelycure.moviefan.utils.showError
+import com.avelycure.moviefan.utils.ui.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,6 +28,9 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * This fragment shows popular persons and persons that were searched with query
+ */
 @AndroidEntryPoint
 class PersonFragment : Fragment() {
 
@@ -123,7 +127,7 @@ class PersonFragment : Fragment() {
             }
         }
         rvPersons.adapter = personAdapter.withLoadStateFooter(
-            footer = MovieLoadStateAdapter { personAdapter.retry() }
+            footer = PersonLoadStateAdapter { personAdapter.retry() }
         )
     }
 }
