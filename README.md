@@ -13,7 +13,7 @@ Application for getting information about films from The Movie Database:
 * Clean Architecture(MVVM and use cases)
 * Ktor for making requests to server
 * ViewModel, StateFlow, Lifecycle
-* Coil
+* [Coil](https://coil-kt.github.io/coil/)
 * Dependency injection with Hilt
 * Paging 3
 * Firebase: Crashlytics
