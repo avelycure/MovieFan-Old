@@ -9,7 +9,7 @@ Application for getting information about films from The Movie Database:
 
 ## Project features
 * Kotlin
-* Kotlin Coroutines with Flow
+* [Kotlin Coroutines with Flow](https://developer.android.com/kotlin/coroutines)
 * Clean Architecture(MVVM and use cases)
 * Ktor for making requests to server
 * ViewModel, StateFlow, Lifecycle
