@@ -14,7 +14,7 @@ Application for getting information about films from The Movie Database:
 * [Ktor](https://ktor.io/docs/http-client-multiplatform.html) for making requests to server
 * ViewModel, StateFlow, Lifecycle
 * [Coil](https://coil-kt.github.io/coil/)
-* Dependency injection with Hilt
+* Dependency injection with [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 * Paging 3
 * Firebase: Crashlytics
 * [Material Prompts](https://github.com/sjwall/MaterialTapTargetPrompt) for better UX
