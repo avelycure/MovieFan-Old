@@ -11,7 +11,7 @@ Application for getting information about films from The Movie Database:
 * Kotlin
 * [Kotlin Coroutines with Flow](https://developer.android.com/kotlin/coroutines)
 * Clean Architecture(MVVM and use cases)
-* Ktor for making requests to server
+* [Ktor](https://ktor.io/docs/http-client-multiplatform.html) for making requests to server
 * ViewModel, StateFlow, Lifecycle
 * [Coil](https://coil-kt.github.io/coil/)
 * Dependency injection with Hilt
