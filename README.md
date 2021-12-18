@@ -15,7 +15,7 @@ Application for getting information about films from The Movie Database:
 * ViewModel, StateFlow, Lifecycle
 * [Coil](https://coil-kt.github.io/coil/)
 * Dependency injection with [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
-* Paging 3
+* [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
 * Firebase: Crashlytics
 * [Material Prompts](https://github.com/sjwall/MaterialTapTargetPrompt) for better UX
 
