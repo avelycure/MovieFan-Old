@@ -68,7 +68,8 @@ ext.coil = [
 ext.testing = [
         junit_ext    : "androidx.test.ext:junit:$versions.junit_ext",
         junit        : "junit:junit:$versions.junit",
-        espresso_core: "androidx.test.espresso:espresso-core:$versions.espresso_core"
+        espresso_core: "androidx.test.espresso:espresso-core:$versions.espresso_core",
+        mock_ktor    : "io.ktor:ktor-client-mock:$versions.ktor"
 ]
 
 ext.dagger_hilt = [
