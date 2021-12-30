@@ -93,4 +93,30 @@ class SerializationTest {
             assertEquals("The Lord of the Rings: The Two Towers", searchMoviesService.getMoviesByName("lord+of+the+rings",1).results[0].title)
         }
     }
+
+    @Test
+    fun getVideosShouldReturnTitle(){
+        runBlocking{
+            val mockEngine = MockEngine{request ->
+                respond(
+                    content = "{\"id\":100,\"results\":[{\"iso_639_1\":\"en\",\"iso_3166_1\":\"US\",\"name\":\"Lock, Stock and Two Smoking Barrels - International Digital Trailer\",\"key\":\"124564828\",\"site\":\"Vimeo\",\"size\":720,\"type\":\"Trailer\",\"official\":false,\"published_at\":\"2015-04-09T21:10:28.000Z\",\"id\":\"5ff13d71d2f5b5003d2cc40b\"},{\"iso_639_1\":\"en\",\"iso_3166_1\":\"US\",\"name\":\"Lock Stock and two smoking barrels - Trailer\",\"key\":\"h6hZkvrFIj0\",\"published_at\":\"2009-01-10T20:55:15.000Z\",\"site\":\"YouTube\",\"size\":360,\"type\":\"Trailer\",\"official\":false,\"id\":\"533ec652c3a36854480000c3\"}]}",
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(HttpHeaders.ContentType, "application/json")
+                )
+            }
+
+            val videosService = VideosService(
+                HttpClient(mockEngine) {
+                    install(Logging) {
+                        level = LogLevel.ALL
+                    }
+                    install(JsonFeature) {
+                        serializer = KotlinxSerializer()
+                    }
+                }
+            )
+
+            assertEquals("Lock, Stock and Two Smoking Barrels - International Digital Trailer", videosService.getVideos(100).results[0].name)
+        }
+    }
 }
