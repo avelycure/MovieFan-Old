@@ -15,8 +15,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoader
-import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.common.ConstantsUi
@@ -29,18 +27,16 @@ import com.avelycure.moviefan.domain.state.ProgressBarState
 import com.avelycure.moviefan.domain.state.UIComponent
 import com.avelycure.moviefan.presentation.movie_info.adapters.MovieImagesAdapter
 import com.avelycure.moviefan.presentation.movie_info.adapters.SimilarMoviesAdapter
+import com.avelycure.moviefan.utils.ui.loadImage
 import com.avelycure.moviefan.utils.ui.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import javax.inject.Inject
 
 /**
  * Fragment which shows detail information about movies
  */
 @AndroidEntryPoint
 class MovieInfoFragment : Fragment() {
-    @Inject
-    lateinit var imageLoader: ImageLoader
 
     lateinit var movieImagesAdapter: MovieImagesAdapter
     lateinit var similarMoviesAdapter: SimilarMoviesAdapter
@@ -76,7 +72,8 @@ class MovieInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
-        movieId = arguments?.getInt(ConstantsUi.FRAGMENT_PARAMETER_MOVIE_ID) ?: ErrorCodes.ERROR_NO_TRAILER_CODE
+        movieId = arguments?.getInt(ConstantsUi.FRAGMENT_PARAMETER_MOVIE_ID)
+            ?: ErrorCodes.ERROR_NO_TRAILER_CODE
 
         if (savedInstanceState == null)
             movieInfoViewModel.onTrigger(MovieInfoEvents.OnOpenInfoFragment(movieId = movieId))
@@ -118,12 +115,11 @@ class MovieInfoFragment : Fragment() {
     }
 
     private fun setUi(movieInfo: MovieInfo, images: List<String>, similar: List<Movie>) {
-        imageLoader.enqueue(
-            ImageRequest.Builder(requireContext())
-                .data(RequestConstants.IMAGE + movieInfo.posterPath)
-                .target(ivPoster)
-                .build()
+        loadImage(
+            RequestConstants.IMAGE + movieInfo.posterPath,
+            ivPoster
         )
+
         tvTitle.text = movieInfo.title
         tvTagline.text = movieInfo.tagline
         ratingBar.rating = movieInfo.voteAverage
@@ -153,7 +149,8 @@ class MovieInfoFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as AppCompatActivity).supportActionBar?.title =
-            arguments?.getString(ConstantsUi.FRAGMENT_PARAMETER_MOVIE_TITLE) ?: TemporaryConstants.MOVIE_INFO_TITLE_DEFAULT
+            arguments?.getString(ConstantsUi.FRAGMENT_PARAMETER_MOVIE_TITLE)
+                ?: TemporaryConstants.MOVIE_INFO_TITLE_DEFAULT
 
         pb = view.findViewById(R.id.mi_pb)
         tvTitle = view.findViewById(R.id.mi_title)
@@ -179,12 +176,12 @@ class MovieInfoFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        movieImagesAdapter = MovieImagesAdapter(emptyList(), imageLoader, requireContext())
+        movieImagesAdapter = MovieImagesAdapter(emptyList())
         rvMovieImages.adapter = movieImagesAdapter
         rvMovieImages.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        similarMoviesAdapter = SimilarMoviesAdapter(emptyList(), imageLoader, requireContext())
+        similarMoviesAdapter = SimilarMoviesAdapter(emptyList())
         rvSimilarMovies.adapter = similarMoviesAdapter
         rvSimilarMovies.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

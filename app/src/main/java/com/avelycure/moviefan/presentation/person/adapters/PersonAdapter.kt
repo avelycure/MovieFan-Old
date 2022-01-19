@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,14 +16,12 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoader
-import coil.request.ImageRequest
-import coil.size.Scale
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.domain.mappers.setProperties
 import com.avelycure.moviefan.domain.models.*
 import com.avelycure.moviefan.domain.models.getters.*
+import com.avelycure.moviefan.utils.ui.loadImage
 import com.avelycure.moviefan.utils.ui.showIfNotBlank
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -39,7 +36,6 @@ import javax.inject.Singleton
 @Singleton
 class PersonAdapter
 @Inject constructor(
-    val imageLoader: ImageLoader,
     @ApplicationContext val context: Context
 ) :
     PagingDataAdapter<Person, PersonAdapter.PersonViewHolder>(PersonComparator) {
@@ -120,7 +116,7 @@ class PersonAdapter
                 }
 
                 layout.setOnClickListener {
-                    val personImagesAdapter = PersonImagesAdapter(emptyList(), imageLoader, context)
+                    val personImagesAdapter = PersonImagesAdapter(emptyList())
                     rvPersonImages.adapter = personImagesAdapter
                     rvPersonImages.layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -143,12 +139,9 @@ class PersonAdapter
                     bind(person, onExpand)
                 }
 
-                imageLoader.enqueue(
-                    ImageRequest.Builder(context)
-                        .data(RequestConstants.IMAGE + person.profilePath)
-                        .target(ivPoster)
-                        .scale(Scale.FILL)
-                        .build()
+                loadImage(
+                    RequestConstants.IMAGE + person.profilePath,
+                    ivPoster
                 )
             }
         }
@@ -156,7 +149,6 @@ class PersonAdapter
 
     object PersonComparator : DiffUtil.ItemCallback<Person>() {
         override fun areItemsTheSame(oldItem: Person, newItem: Person): Boolean {
-            Log.d("mytag", "old: ${oldItem.name}; new: ${newItem.name}")
             return oldItem == newItem
         }
 

@@ -1,24 +1,20 @@
 package com.avelycure.moviefan.presentation.person.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoader
-import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.data.remote.dto.person.Profile
+import com.avelycure.moviefan.utils.ui.loadImage
 
 /**
  * This adapter handles recyclerView with person images(when parent recyclerView expands)
  */
 class PersonImagesAdapter(
-    var personImages: List<Profile>,
-    private val imageLoader: ImageLoader,
-    private val context: Context
+    var personImages: List<Profile>
 ) : RecyclerView.Adapter<PersonImagesAdapter.PersonImagesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonImagesViewHolder {
@@ -29,11 +25,9 @@ class PersonImagesAdapter(
     }
 
     override fun onBindViewHolder(holder: PersonImagesViewHolder, position: Int) {
-        imageLoader.enqueue(
-            ImageRequest.Builder(context)
-                .data(RequestConstants.IMAGE + personImages[position].file_path)
-                .target(holder.image)
-                .build()
+        loadImage(
+            RequestConstants.IMAGE + personImages[position].file_path,
+            holder.image
         )
     }
 

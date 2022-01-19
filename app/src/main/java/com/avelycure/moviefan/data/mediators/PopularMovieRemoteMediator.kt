@@ -3,7 +3,6 @@ package com.avelycure.moviefan.data.mediators
 import android.util.Log
 import androidx.paging.*
 import androidx.room.withTransaction
-import coil.network.HttpException
 import com.avelycure.moviefan.data.local.AppDatabase
 import com.avelycure.moviefan.data.local.entities.EntityMovie
 import com.avelycure.moviefan.data.local.entities.EntityRemoteKeysMovies
@@ -71,8 +70,6 @@ class PopularMovieRemoteMediator(
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: IOException) {
-            return MediatorResult.Error(exception)
-        } catch (exception: HttpException) {
             return MediatorResult.Error(exception)
         } catch (exception: Exception) {
             return MediatorResult.Error(exception)
