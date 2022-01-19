@@ -5,7 +5,6 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import coil.network.HttpException
 import com.avelycure.moviefan.data.local.AppDatabase
 import com.avelycure.moviefan.data.local.entities.EntityPerson
 import com.avelycure.moviefan.data.local.entities.EntityRemoteKeysPersons
@@ -75,8 +74,6 @@ class PopularPersonRemoteMediator(
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: IOException) {
-            return MediatorResult.Error(exception)
-        } catch (exception: HttpException) {
             return MediatorResult.Error(exception)
         } catch (exception: Exception) {
             return MediatorResult.Error(exception)

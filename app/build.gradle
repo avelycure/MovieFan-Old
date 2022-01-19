@@ -87,8 +87,8 @@ dependencies {
 
     implementation paging3.paging_runtime
 
-    //Coil
-    implementation coil.coil
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     //CardView
     implementation cardview.cardview

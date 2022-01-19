@@ -8,6 +8,7 @@ import com.avelycure.moviefan.data.remote.service.movies.search.ISearchMoviesSer
 import com.avelycure.moviefan.data.remote.service.movies.search.SearchMoviesService
 import com.avelycure.moviefan.data.remote.service.movies.videos.IVideosService
 import com.avelycure.moviefan.data.remote.service.movies.videos.VideosService
+import com.avelycure.moviefan.presentation.home.adapters.MovieAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -80,5 +81,11 @@ object MoviesModule {
                 }
             }
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieAdapter(): MovieAdapter{
+        return MovieAdapter()
     }
 }

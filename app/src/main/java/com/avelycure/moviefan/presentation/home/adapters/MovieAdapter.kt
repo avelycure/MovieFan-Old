@@ -1,6 +1,5 @@
 package com.avelycure.moviefan.presentation.home.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,12 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoader
-import coil.request.ImageRequest
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.RequestConstants
 import com.avelycure.moviefan.common.TemporaryConstants
 import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.domain.models.getters.getOriginalTitleAndReleaseDate
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.avelycure.moviefan.utils.ui.loadImage
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,12 +22,7 @@ import javax.inject.Singleton
  * Adapter of the recycler view in home fragment. It is used to show popular movies and
  * movies that were found when user began searching
  */
-@Singleton
-class MovieAdapter
-@Inject constructor(
-    val imageLoader: ImageLoader,
-    @ApplicationContext val context: Context
-) :
+class MovieAdapter:
     PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieComparator) {
     var onClickedItem: (Movie) -> Unit = {}
 
@@ -64,11 +56,10 @@ class MovieAdapter
                     for (genreId in popularMovie.genreIds)
                         append(TemporaryConstants.movieGenre[genreId] + " ")
                 }
-                imageLoader.enqueue(
-                    ImageRequest.Builder(context)
-                        .data(RequestConstants.IMAGE + popularMovie.posterPath)
-                        .target(movieLogo)
-                        .build()
+
+                loadImage(
+                    RequestConstants.IMAGE + popularMovie.posterPath,
+                    movieLogo
                 )
             }
 
