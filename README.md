@@ -13,7 +13,7 @@ Application for getting information about films from The Movie Database:
 * Clean Architecture(MVVM and use cases)
 * [Ktor](https://ktor.io/docs/http-client-multiplatform.html) for making requests to server
 * ViewModel, StateFlow, Lifecycle
-* [Coil](https://coil-kt.github.io/coil/)
+* Picasso for loading images
 * Dependency injection with [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 * [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
 * Firebase: [Crashlytics](https://firebase.google.com/docs/crashlytics)
