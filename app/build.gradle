@@ -79,12 +79,14 @@ dependencies {
     implementation dagger_hilt.hilt_android
     kapt dagger_hilt.hilt_compiler
 
+    //Ktor
     implementation ktor.core
     implementation ktor.android
     implementation ktor.serialization
     implementation ktor.logging
     implementation ktor.logback
 
+    //Paging3
     implementation paging3.paging_runtime
 
     //Picasso
