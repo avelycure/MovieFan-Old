@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo_background_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MovieFan">
+        android:theme="@style/splashScreenTheme">
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
