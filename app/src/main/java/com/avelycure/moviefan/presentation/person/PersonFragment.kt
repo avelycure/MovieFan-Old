@@ -1,6 +1,7 @@
 package com.avelycure.moviefan.presentation.person
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -56,7 +57,6 @@ class PersonFragment : Fragment() {
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fetchPopularPersons()
         lifecycleScope.launch {
             personViewModel
                 .searchPerson(personNameEditText.getQueryChangeStateFlow())
@@ -65,6 +65,7 @@ class PersonFragment : Fragment() {
                     personAdapter.submitData(it)
                 }
         }
+        fetchPopularPersons()
     }
 
     private fun initViewElements(view: View) {
@@ -118,12 +119,16 @@ class PersonFragment : Fragment() {
                 else -> null
             }
 
+
             errorState?.let {
-                showError(
-                    rvPersons,
-                    requireContext(),
-                    ErrorCodes.ERROR_NO_INTERNET_CONNECTION
-                )
+            Log.d("mytag",errorState.error.message ?: "No message for error")
+                view?.let{
+                    showError(
+                        it,
+                        requireContext(),
+                        ErrorCodes.ERROR_NO_INTERNET_CONNECTION
+                    )
+                }
             }
         }
         rvPersons.adapter = personAdapter.withLoadStateFooter(

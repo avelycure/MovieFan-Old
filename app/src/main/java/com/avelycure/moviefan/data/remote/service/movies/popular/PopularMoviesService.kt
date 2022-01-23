@@ -26,6 +26,8 @@ class PopularMoviesService(
             throw Exception("The server failed to fulfil an apparently valid request")
         } catch (e: IOException) {
             throw Exception("No internet connection")
+        } catch (e: Exception) {
+            throw Exception(" Unknown error occurred")
         }
     }
 }

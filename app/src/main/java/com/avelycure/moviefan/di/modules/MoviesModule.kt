@@ -25,14 +25,14 @@ import javax.inject.Singleton
 object MoviesModule {
     @Provides
     @Singleton
-    fun provideGetMovieInfoInstance(): IMovieInfoService {
+    fun provideGetMovieInfoInstance(customSerializer: KotlinxSerializer): IMovieInfoService {
         return MovieInfoService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
                 }
                 install(JsonFeature) {
-                    serializer = KotlinxSerializer()
+                    serializer = customSerializer
                 }
             }
         )
@@ -40,14 +40,14 @@ object MoviesModule {
 
     @Provides
     @Singleton
-    fun providePopularMoviesInstance(): IPopularMoviesService {
+    fun providePopularMoviesInstance(customSerializer: KotlinxSerializer): IPopularMoviesService {
         return PopularMoviesService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
                 }
                 install(JsonFeature) {
-                    serializer = KotlinxSerializer()
+                    serializer = customSerializer
                 }
             }
         )
@@ -55,14 +55,14 @@ object MoviesModule {
 
     @Provides
     @Singleton
-    fun provideSearchMoviesInstance(): ISearchMoviesService {
+    fun provideSearchMoviesInstance(customSerializer: KotlinxSerializer): ISearchMoviesService {
         return SearchMoviesService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
                 }
                 install(JsonFeature) {
-                    serializer = KotlinxSerializer()
+                    serializer = customSerializer
                 }
             }
         )
@@ -70,14 +70,14 @@ object MoviesModule {
 
     @Provides
     @Singleton
-    fun provideGetVideosInstance(): IVideosService {
+    fun provideGetVideosInstance(customSerializer: KotlinxSerializer): IVideosService {
         return VideosService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
                 }
                 install(JsonFeature) {
-                    serializer = KotlinxSerializer()
+                    serializer = customSerializer
                 }
             }
         )

@@ -24,14 +24,14 @@ import javax.inject.Singleton
 object PersonsModule {
     @Provides
     @Singleton
-    fun providePersonImagesInstance(): IPersonImagesService {
+    fun providePersonImagesInstance(customSerializer: KotlinxSerializer): IPersonImagesService {
         return PersonImagesService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
                 }
                 install(JsonFeature) {
-                    serializer = KotlinxSerializer()
+                    serializer = customSerializer
                 }
             }
         )
@@ -39,14 +39,14 @@ object PersonsModule {
 
     @Provides
     @Singleton
-    fun providePersonInfoInstance(): IPersonInfoService {
+    fun providePersonInfoInstance(customSerializer: KotlinxSerializer): IPersonInfoService {
         return PersonInfoService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
                 }
                 install(JsonFeature) {
-                    serializer = KotlinxSerializer()
+                    serializer = customSerializer
                 }
             }
         )
@@ -54,14 +54,14 @@ object PersonsModule {
 
     @Provides
     @Singleton
-    fun providePopularPersonsInstance(): IPopularPersonsService {
+    fun providePopularPersonsInstance(customSerializer: KotlinxSerializer): IPopularPersonsService {
         return PopularPersonsService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
                 }
                 install(JsonFeature) {
-                    serializer = KotlinxSerializer()
+                    serializer = customSerializer
                 }
             }
         )
@@ -69,14 +69,14 @@ object PersonsModule {
 
     @Provides
     @Singleton
-    fun provideSearchPersonsInstance(): ISearchPersonsService {
+    fun provideSearchPersonsInstance(customSerializer: KotlinxSerializer): ISearchPersonsService {
         return SearchPersonsService(
             HttpClient(Android) {
                 install(Logging) {
                     level = LogLevel.ALL
                 }
                 install(JsonFeature) {
-                    serializer = KotlinxSerializer()
+                    serializer = customSerializer
                 }
             }
         )
