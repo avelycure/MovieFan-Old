@@ -27,6 +27,8 @@
         <entry key="app/src/main/res/layout/person_image_in_item.xml" value="0.10597826086956522" />
         <entry key="app/src/main/res/layout/person_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/persons_load_state_view.xml" value="0.10410334346504559" />
+        <entry key="app/src/main/res/layout/persons_rv_item.xml" value="0.10410334346504559" />
+        <entry key="app/src/main/res/layout/persons_rv_person_image_item.xml" value="0.10410334346504559" />
         <entry key="app/src/main/res/layout/popular_movie_item.xml" value="0.2" />
         <entry key="app/src/main/res/layout/similar_movie_item.xml" value="0.3633720930232558" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.12681159420289856" />

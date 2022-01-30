@@ -54,37 +54,37 @@ class PersonAdapter
     }
 
     inner class PersonViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val tvName: AppCompatTextView = view.findViewById(R.id.pi_tv_name)
-        private val ivPoster: AppCompatImageView = view.findViewById(R.id.person_item_iv)
-        private val tvBiography: AppCompatTextView = view.findViewById(R.id.pi_biography)
-        private val expLayout: ConstraintLayout = view.findViewById(R.id.pi_expandable_layout)
+        private val tvName: AppCompatTextView = view.findViewById(R.id.pi_primary_person_name)
+        private val ivPoster: AppCompatImageView = view.findViewById(R.id.pi_primary_iv)
+        private val tvBiography: AppCompatTextView = view.findViewById(R.id.pia_biography)
+        private val expLayout: ConstraintLayout = view.findViewById(R.id.pi_additional_layout)
         private val layout: ConstraintLayout = view.findViewById(R.id.pi_layout)
-        private val tvs: AppCompatTextView = view.findViewById(R.id.pi_tv_tv)
-        private val tvsTitle: AppCompatTextView = view.findViewById(R.id.pi_tv_tv_title)
-        private val movies: AppCompatTextView = view.findViewById(R.id.pi_tv_movie)
-        private val moviesTitle: AppCompatTextView = view.findViewById(R.id.pi_tv_movie_title)
-        private val tvDeathday: AppCompatTextView = view.findViewById(R.id.person_deathday)
+        private val tvs: AppCompatTextView = view.findViewById(R.id.pi_primary_tvlist)
+        private val tvsTitle: AppCompatTextView = view.findViewById(R.id.pi_primary_tv_title)
+        private val movies: AppCompatTextView = view.findViewById(R.id.pi_primary_movieslist)
+        private val moviesTitle: AppCompatTextView = view.findViewById(R.id.pi_primary_movies_titles)
+        private val tvDeathday: AppCompatTextView = view.findViewById(R.id.pia_deathday)
         private val tvDeathdayTitle: AppCompatTextView =
-            view.findViewById(R.id.person_deathday_title)
+            view.findViewById(R.id.pia_deathday_title)
         private val tvAlsoKnownAs: AppCompatTextView =
-            view.findViewById(R.id.person_item_also_known_as)
+            view.findViewById(R.id.pia_also_known_as)
         private val tvAlsoKnownAsTitle: AppCompatTextView =
-            view.findViewById(R.id.person_item_also_known_as_title)
-        private val tvBiographyTitle: AppCompatTextView = view.findViewById(R.id.pi_biography_title)
+            view.findViewById(R.id.pia_also_known_as_title)
+        private val tvBiographyTitle: AppCompatTextView = view.findViewById(R.id.pia_biography_title)
 
-        private val tvHomepage: AppCompatTextView = view.findViewById(R.id.person_homepage)
+        private val tvHomepage: AppCompatTextView = view.findViewById(R.id.pia_homepage)
         private val tvHomepageTitle: AppCompatTextView =
-            view.findViewById(R.id.person_homepage_title)
+            view.findViewById(R.id.pia_homepage_title)
         private val tvPlaceOfBirth: AppCompatTextView =
-            view.findViewById(R.id.person_place_of_birth)
+            view.findViewById(R.id.pia_place_of_birth)
         private val tvPlaceOfBirthTitle: AppCompatTextView =
-            view.findViewById(R.id.person_place_of_birth_title)
-        private val tvDateOfBirth: AppCompatTextView = view.findViewById(R.id.person_birthday)
+            view.findViewById(R.id.pia_place_of_birth_title)
+        private val tvDateOfBirth: AppCompatTextView = view.findViewById(R.id.pia_birthday)
         private val tvDateOfBirthTitle: AppCompatTextView =
-            view.findViewById(R.id.person_birthday_title)
+            view.findViewById(R.id.pia_birthday_title)
 
-        private val rvPersonImages: RecyclerView = view.findViewById(R.id.person_item_rv)
-        private val tvDepartment: AppCompatTextView = view.findViewById(R.id.pi_tv_department)
+        private val rvPersonImages: RecyclerView = view.findViewById(R.id.pia_rv_photos)
+        private val tvDepartment: AppCompatTextView = view.findViewById(R.id.pi_primary_department)
 
         @SuppressLint("NotifyDataSetChanged")
         fun bind(item: Person?, onExpand: (Int) -> Flow<PersonInfo>) {

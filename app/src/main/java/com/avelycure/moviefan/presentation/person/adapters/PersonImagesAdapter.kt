@@ -34,6 +34,6 @@ class PersonImagesAdapter(
     override fun getItemCount() = personImages.size
 
     class PersonImagesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: AppCompatImageView = itemView.findViewById(R.id.person_image_in_item_image)
+        val image: AppCompatImageView = itemView.findViewById(R.id.persons_iv)
     }
 }
