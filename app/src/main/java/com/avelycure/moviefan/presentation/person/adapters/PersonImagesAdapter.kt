@@ -20,7 +20,7 @@ class PersonImagesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonImagesViewHolder {
         return PersonImagesViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_person_image, parent, false)
+                .inflate(R.layout.persons_rv_person_image_item, parent, false)
         )
     }
 
@@ -34,6 +34,6 @@ class PersonImagesAdapter(
     override fun getItemCount() = personImages.size
 
     class PersonImagesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: AppCompatImageView = itemView.findViewById(R.id.person_image_in_item_image)
+        val image: AppCompatImageView = itemView.findViewById(R.id.persons_iv)
     }
 }

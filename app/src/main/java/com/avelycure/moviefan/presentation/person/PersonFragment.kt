@@ -16,7 +16,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.avelycure.moviefan.R
 import com.avelycure.moviefan.common.ErrorCodes
 import com.avelycure.moviefan.common.TemporaryConstants
-import com.avelycure.moviefan.presentation.home.adapters.MovieLoadStateAdapter
 import com.avelycure.moviefan.presentation.person.adapters.PersonAdapter
 import com.avelycure.moviefan.presentation.person.adapters.PersonLoadStateAdapter
 import com.avelycure.moviefan.utils.extensions.getQueryChangeStateFlow
@@ -48,7 +47,7 @@ class PersonFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_persons, container, false)
+        val view = inflater.inflate(R.layout.persons_fragment, container, false)
         initViewElements(view)
         return view
     }
@@ -71,15 +70,15 @@ class PersonFragment : Fragment() {
     private fun initViewElements(view: View) {
         setHasOptionsMenu(true)
 
-        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.fp_toolbar))
+        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.p_toolbar))
         (activity as AppCompatActivity).supportActionBar?.title =
             TemporaryConstants.PERSON_SEARCH_TITLE_DEFAULT
 
-        rvPersons = view.findViewById(R.id.fp_rv)
+        rvPersons = view.findViewById(R.id.p_rv)
         personNameEditText = view.findViewById(R.id.fp_edit_text)
-        loadingProgressBar = view.findViewById(R.id.fp_pb)
+        loadingProgressBar = view.findViewById(R.id.p_pb)
 
-        swipeRefresh = view.findViewById(R.id.person_swipe_refresh)
+        swipeRefresh = view.findViewById(R.id.persons_refresh_layout)
 
         swipeRefresh.setOnRefreshListener {
             fetchPopularPersons()

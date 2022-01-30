@@ -7,7 +7,7 @@
     android:theme="@style/Theme.MovieFan">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/info_app_bar"
+        android:id="@+id/ai_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,14 +21,14 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/info_iv"
+        android:id="@+id/ai_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/logo_background_foreground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/info_app_bar"
+        app:layout_constraintTop_toTopOf="@+id/ai_app_bar"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -40,6 +40,6 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/ai_iv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

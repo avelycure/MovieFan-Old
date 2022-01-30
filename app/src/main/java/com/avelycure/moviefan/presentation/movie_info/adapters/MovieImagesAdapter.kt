@@ -18,7 +18,7 @@ class MovieImagesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieImagesViewHolder {
         return MovieImagesViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_movie_image, parent, false)
+                .inflate(R.layout.movie_info_rv_images_item, parent, false)
         )
     }
 

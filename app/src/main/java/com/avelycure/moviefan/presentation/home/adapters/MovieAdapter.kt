@@ -15,8 +15,6 @@ import com.avelycure.moviefan.common.TemporaryConstants
 import com.avelycure.moviefan.domain.models.Movie
 import com.avelycure.moviefan.domain.models.getters.getOriginalTitleAndReleaseDate
 import com.avelycure.moviefan.utils.ui.loadImage
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Adapter of the recycler view in home fragment. It is used to show popular movies and
@@ -33,18 +31,18 @@ class MovieAdapter:
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_movie, parent, false)
+                .inflate(R.layout.home_rv_item, parent, false)
         )
     }
 
     inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val tvTitle = view.findViewById<AppCompatTextView>(R.id.pm_item_movie_title)
-        private val movieLogo = view.findViewById<AppCompatImageView>(R.id.pm_item_iv)
-        private val tvReviews = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_reviews)
-        private val ratingBar = view.findViewById<AppCompatRatingBar>(R.id.pm_item_rating_bar)
-        private val tvGenres = view.findViewById<AppCompatTextView>(R.id.pm_item_tv_genres)
+        private val tvTitle = view.findViewById<AppCompatTextView>(R.id.pmi_title)
+        private val movieLogo = view.findViewById<AppCompatImageView>(R.id.pmi_iv)
+        private val tvReviews = view.findViewById<AppCompatTextView>(R.id.pmi_tv_reviews)
+        private val ratingBar = view.findViewById<AppCompatRatingBar>(R.id.pmi_rating_bar)
+        private val tvGenres = view.findViewById<AppCompatTextView>(R.id.pmi_tv_genres)
         private val tvOriginalTitle =
-            view.findViewById<AppCompatTextView>(R.id.pm_item_movie_original_title)
+            view.findViewById<AppCompatTextView>(R.id.pmi_original_title)
 
         fun bind(item: Movie?, onClicked: (Movie) -> Unit) {
             item?.let { popularMovie ->

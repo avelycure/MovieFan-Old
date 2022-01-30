@@ -5,4 +5,19 @@
     <string name="btn_retry">Retry</string>
     <string name="info">Info</string>
     <string name="more"><u>more about cast</u></string>
+    <string name="mi_overview">Overview</string>
+    <string name="mi_images">Images</string>
+    <string name="mi_similar_movies">Similar movies</string>
+    <string name="p_input_person_name">Input person name</string>
+    <string name="p_tv_shows">Tv shows:</string>
+    <string name="pi_department">Department:</string>
+    <string name="pi_movie">Movie:</string>
+    <string name="pi_photos">Photos</string>
+    <string name="pi_more_info">More info</string>
+    <string name="pi_birthday">Birthday:</string>
+    <string name="pi_deathday">Deathday:</string>
+    <string name="pi_place_of_birth">Place of birth:</string>
+    <string name="pi_also_known_as">Also known as:</string>
+    <string name="pi_homepage">Homepage:</string>
+    <string name="pi_biography">Biography</string>
 </resources>

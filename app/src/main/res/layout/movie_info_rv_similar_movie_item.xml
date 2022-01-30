@@ -4,6 +4,4 @@
     android:layout_width="180dp"
     android:layout_height="320dp"
     android:layout_marginStart="8dp"
-    android:scaleType="fitXY">
-
-</androidx.appcompat.widget.AppCompatImageView>
+    android:scaleType="fitXY"/>

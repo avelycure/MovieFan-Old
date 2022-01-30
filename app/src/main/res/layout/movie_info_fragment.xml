@@ -184,12 +184,13 @@
                 android:text="@string/more"
                 android:textStyle="italic"
                 android:layout_marginEnd="8dp"
+                android:visibility="invisible"
                 app:layout_constraintTop_toBottomOf="@id/mi_cast"
                 app:layout_constraintEnd_toEndOf="@+id/mi_cast"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_title_overview"
-                android:text="Overview"
+                android:text="@string/mi_overview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -212,7 +213,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_title_images"
-                android:text="Images"
+                android:text="@string/mi_images"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -234,7 +235,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/mi_title_similar_movies"
-                android:text="Similar movies"
+                android:text="@string/mi_similar_movies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
