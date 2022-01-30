@@ -5,4 +5,8 @@
     <string name="btn_retry">Retry</string>
     <string name="info">Info</string>
     <string name="more"><u>more about cast</u></string>
+    <string name="mi_overview">Overview</string>
+    <string name="mi_images">Images</string>
+    <string name="mi_similar_movies">Similar movies</string>
+    <string name="p_input_person_name">Input person name</string>
 </resources>

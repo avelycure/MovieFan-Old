@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.home_fragment, container, false)
         initViewElements(view)
         return view
     }
@@ -142,13 +142,13 @@ class HomeFragment : Fragment() {
     private fun initViewElements(view: View) {
         setHasOptionsMenu(true)
 
-        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.pm_toolbar))
+        (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.home_toolbar))
         (activity as AppCompatActivity).supportActionBar?.title =
             TemporaryConstants.POPULAR_MOVIE_TITLE_DEFAULT
 
-        rvPopularMovie = view.findViewById(R.id.rv_popular_movies)
-        loadingProgressBar = view.findViewById(R.id.fragment_pm_pb)
-        swipeRefresh = view.findViewById(R.id.movies_refresh_layout)
+        rvPopularMovie = view.findViewById(R.id.home_rv)
+        loadingProgressBar = view.findViewById(R.id.home_pb)
+        swipeRefresh = view.findViewById(R.id.home_refresh_layout)
 
         swipeRefresh.setOnRefreshListener {
             fetchPopularMovies()

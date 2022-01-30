@@ -20,7 +20,7 @@ class PersonImagesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonImagesViewHolder {
         return PersonImagesViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_person_image, parent, false)
+                .inflate(R.layout.persons_rv_person_image_item, parent, false)
         )
     }
 

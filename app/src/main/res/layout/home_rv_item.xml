@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- pmi is abbreviation of popular movies item-->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -16,7 +17,7 @@
         android:padding="4dp">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/pm_item_iv"
+            android:id="@+id/pmi_iv"
             android:layout_width="176dp"
             android:layout_height="128dp"
             android:scaleType="centerCrop"
@@ -25,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pm_item_movie_title"
+            android:id="@+id/pmi_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -35,49 +36,49 @@
             android:textColor="?attr/titleTextColor"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pm_item_iv"
+            app:layout_constraintStart_toEndOf="@+id/pmi_iv"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pm_item_movie_original_title"
+            android:id="@+id/pmi_original_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pm_item_iv"
-            app:layout_constraintTop_toBottomOf="@+id/pm_item_movie_title" />
+            app:layout_constraintStart_toEndOf="@+id/pmi_iv"
+            app:layout_constraintTop_toBottomOf="@+id/pmi_title" />
 
         <androidx.appcompat.widget.AppCompatRatingBar
-            android:id="@+id/pm_item_rating_bar"
+            android:id="@+id/pmi_rating_bar"
             style="?android:ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:progressBackgroundTint="@color/dark_blue"
-            app:layout_constraintStart_toEndOf="@+id/pm_item_iv"
-            app:layout_constraintTop_toBottomOf="@+id/pm_item_movie_original_title" />
+            app:layout_constraintStart_toEndOf="@+id/pmi_iv"
+            app:layout_constraintTop_toBottomOf="@+id/pmi_original_title" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pm_item_tv_reviews"
+            android:id="@+id/pmi_tv_reviews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            app:layout_constraintStart_toEndOf="@+id/pm_item_rating_bar"
-            app:layout_constraintTop_toTopOf="@+id/pm_item_rating_bar" />
+            app:layout_constraintStart_toEndOf="@+id/pmi_rating_bar"
+            app:layout_constraintTop_toTopOf="@+id/pmi_rating_bar" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pm_item_tv_genres"
+            android:id="@+id/pmi_tv_genres"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/pm_item_movie_title"
-            app:layout_constraintTop_toBottomOf="@id/pm_item_tv_reviews" />
+            app:layout_constraintStart_toStartOf="@id/pmi_title"
+            app:layout_constraintTop_toBottomOf="@id/pmi_tv_reviews" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

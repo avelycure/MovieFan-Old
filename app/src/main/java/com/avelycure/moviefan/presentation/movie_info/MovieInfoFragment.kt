@@ -71,7 +71,7 @@ class MovieInfoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_movie_info, container, false)
+        val view = inflater.inflate(R.layout.movie_info_fragment, container, false)
         movieId = arguments?.getInt(ConstantsUi.FRAGMENT_PARAMETER_MOVIE_ID)
             ?: ErrorCodes.ERROR_NO_TRAILER_CODE
 

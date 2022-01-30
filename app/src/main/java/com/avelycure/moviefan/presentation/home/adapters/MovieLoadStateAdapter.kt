@@ -26,14 +26,14 @@ class MovieLoadStateAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder {
         return LoadStateViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.load_state_view_movies, parent, false)
+                .inflate(R.layout.home_load_state_view, parent, false)
         )
     }
 
     class LoadStateViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        private val progress = view.findViewById<ProgressBar>(R.id.load_state_progress)
-        private val btnRetry = view.findViewById<Button>(R.id.load_state_retry)
-        private val tvErrorMessage = view.findViewById<AppCompatTextView>(R.id.load_state_error_message)
+        private val progress = view.findViewById<ProgressBar>(R.id.hlsv_pb)
+        private val btnRetry = view.findViewById<Button>(R.id.hlsv_retry)
+        private val tvErrorMessage = view.findViewById<AppCompatTextView>(R.id.hlsv_error_message)
 
         fun bind(loadState: LoadState, retry: () -> Unit) {
 
