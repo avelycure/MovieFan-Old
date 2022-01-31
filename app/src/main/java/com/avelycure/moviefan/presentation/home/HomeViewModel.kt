@@ -19,8 +19,7 @@ class HomeViewModel
 ) : ViewModel() {
     private var mPagingData: Flow<PagingData<Movie>>? = null
 
-    fun getPopularMovies() = getPopularMovies
-        .execute()
+    fun getPopularMovies() = getPopularMovies.execute()
 
     @FlowPreview
     @ExperimentalCoroutinesApi
@@ -36,11 +35,10 @@ class HomeViewModel
             }
     }
 
-    fun lookForPopularMovies(): Flow<PagingData<Movie>> {
-        if (mPagingData != null) return mPagingData as Flow<PagingData<Movie>>
+    fun lookForPopularMovies(): Flow<PagingData<Movie>> =
+        if (mPagingData != null) mPagingData as Flow<PagingData<Movie>>
         else {
             mPagingData = getPopularMovies.execute()
-            return mPagingData as Flow<PagingData<Movie>>
+            mPagingData as Flow<PagingData<Movie>>
         }
-    }
 }

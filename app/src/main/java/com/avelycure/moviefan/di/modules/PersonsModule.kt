@@ -13,10 +13,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.*
-import io.ktor.client.engine.android.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.features.logging.*
 import javax.inject.Singleton
 
 @Module
@@ -24,61 +20,33 @@ import javax.inject.Singleton
 object PersonsModule {
     @Provides
     @Singleton
-    fun providePersonImagesInstance(customSerializer: KotlinxSerializer): IPersonImagesService {
+    fun providePersonImagesInstance(customClient: HttpClient): IPersonImagesService {
         return PersonImagesService(
-            HttpClient(Android) {
-                install(Logging) {
-                    level = LogLevel.ALL
-                }
-                install(JsonFeature) {
-                    serializer = customSerializer
-                }
-            }
+            client = customClient
         )
     }
 
     @Provides
     @Singleton
-    fun providePersonInfoInstance(customSerializer: KotlinxSerializer): IPersonInfoService {
+    fun providePersonInfoInstance(customClient: HttpClient): IPersonInfoService {
         return PersonInfoService(
-            HttpClient(Android) {
-                install(Logging) {
-                    level = LogLevel.ALL
-                }
-                install(JsonFeature) {
-                    serializer = customSerializer
-                }
-            }
+            client = customClient
         )
     }
 
     @Provides
     @Singleton
-    fun providePopularPersonsInstance(customSerializer: KotlinxSerializer): IPopularPersonsService {
+    fun providePopularPersonsInstance(customClient: HttpClient): IPopularPersonsService {
         return PopularPersonsService(
-            HttpClient(Android) {
-                install(Logging) {
-                    level = LogLevel.ALL
-                }
-                install(JsonFeature) {
-                    serializer = customSerializer
-                }
-            }
+            client = customClient
         )
     }
 
     @Provides
     @Singleton
-    fun provideSearchPersonsInstance(customSerializer: KotlinxSerializer): ISearchPersonsService {
+    fun provideSearchPersonsInstance(customClient: HttpClient): ISearchPersonsService {
         return SearchPersonsService(
-            HttpClient(Android) {
-                install(Logging) {
-                    level = LogLevel.ALL
-                }
-                install(JsonFeature) {
-                    serializer = customSerializer
-                }
-            }
+            client = customClient
         )
     }
 }

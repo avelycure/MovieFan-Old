@@ -25,67 +25,39 @@ import javax.inject.Singleton
 object MoviesModule {
     @Provides
     @Singleton
-    fun provideGetMovieInfoInstance(customSerializer: KotlinxSerializer): IMovieInfoService {
+    fun provideGetMovieInfoInstance(customClient: HttpClient): IMovieInfoService {
         return MovieInfoService(
-            HttpClient(Android) {
-                install(Logging) {
-                    level = LogLevel.ALL
-                }
-                install(JsonFeature) {
-                    serializer = customSerializer
-                }
-            }
+            client = customClient
         )
     }
 
     @Provides
     @Singleton
-    fun providePopularMoviesInstance(customSerializer: KotlinxSerializer): IPopularMoviesService {
+    fun providePopularMoviesInstance(customClient: HttpClient): IPopularMoviesService {
         return PopularMoviesService(
-            HttpClient(Android) {
-                install(Logging) {
-                    level = LogLevel.ALL
-                }
-                install(JsonFeature) {
-                    serializer = customSerializer
-                }
-            }
+            client = customClient
         )
     }
 
     @Provides
     @Singleton
-    fun provideSearchMoviesInstance(customSerializer: KotlinxSerializer): ISearchMoviesService {
+    fun provideSearchMoviesInstance(customClient: HttpClient): ISearchMoviesService {
         return SearchMoviesService(
-            HttpClient(Android) {
-                install(Logging) {
-                    level = LogLevel.ALL
-                }
-                install(JsonFeature) {
-                    serializer = customSerializer
-                }
-            }
+            client = customClient
         )
     }
 
     @Provides
     @Singleton
-    fun provideGetVideosInstance(customSerializer: KotlinxSerializer): IVideosService {
+    fun provideGetVideosInstance(customClient: HttpClient): IVideosService {
         return VideosService(
-            HttpClient(Android) {
-                install(Logging) {
-                    level = LogLevel.ALL
-                }
-                install(JsonFeature) {
-                    serializer = customSerializer
-                }
-            }
+            client = customClient
         )
     }
 
     @Provides
     @Singleton
-    fun provideMovieAdapter(): MovieAdapter{
+    fun provideMovieAdapter(): MovieAdapter {
         return MovieAdapter()
     }
 }
