@@ -95,46 +95,42 @@ dependencies {
     implementation paging3.paging_runtime
 
     //Picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation picasso.picasso
 
     //CardView
     implementation cardview.cardview
 
     //Room
+    kapt room.room_compiler
     implementation room.room_runtime
     implementation room.room_coroutines
-    kapt room.room_compiler
 
     //Firebase
-    implementation firebase.crashlytics
     implementation firebase.analytics
+    implementation firebase.crashlytics
 
     //Gson
     implementation gson.gson
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+    implementation coroutines.core
+    implementation coroutines.android
 
     // Coroutine Lifecycle Scopes
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+    implementation coroutine_lifecycle_scopes.viewmodel_ktx
+    implementation coroutine_lifecycle_scopes.runtime_ktx
 
     //Testing
+    androidTestImplementation truth.truth
+    androidTestImplementation turbine.turbine
     androidTestImplementation testing.junit_ext
+    androidTestImplementation coroutines_test.test
     androidTestImplementation testing.espresso_core
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
-    androidTestImplementation "app.cash.turbine:turbine:0.7.0"
-    androidTestImplementation "com.google.truth:truth:1.0.1"
-    // For instrumented tests.
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.38.1")
-    // ...with Kotlin.
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.38.1")
 
     testImplementation testing.junit
     testImplementation testing.mock_ktor
-    testImplementation "com.google.truth:truth:1.0.1"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
+    testImplementation truth.truth
+    testImplementation coroutines_test.test
 
     //Tips
     implementation prompts.material_tap_target_prompt

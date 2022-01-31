@@ -5,7 +5,6 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.avelycure.moviefan.data.local.AppDatabase
-import com.avelycure.moviefan.data.local.entities.EntityMovie
 import com.avelycure.moviefan.data.local.entities.EntityPerson
 import com.google.common.truth.Truth
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -103,5 +102,4 @@ class PersonsPagingSourceTest {
             Truth.assertThat(result).isEqualTo(expectedResult)
         }
     }
-
 }
