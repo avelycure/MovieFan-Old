@@ -14,8 +14,8 @@ import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonInfo
 import com.avelycure.moviefan.data.remote.dto.person.ResponsePersonImages
 import com.avelycure.moviefan.data.remote.dto.video.VideosResponse
 import com.avelycure.moviefan.data.remote.service.ServiceFactory
-import com.avelycure.moviefan.data.remote.sources.SearchPagingSource
-import com.avelycure.moviefan.data.remote.sources.SearchPersonPagingSource
+import com.avelycure.moviefan.data.remote.sources.SearchMoviesPagingSource
+import com.avelycure.moviefan.data.remote.sources.SearchPersonsPagingSource
 import com.avelycure.moviefan.domain.mappers.toEntityMovieInfo
 import com.avelycure.moviefan.domain.models.MovieInfo
 
@@ -48,7 +48,7 @@ class MovieRepository(
         Pager(
             config = pagingConfig,
             pagingSourceFactory = {
-                SearchPagingSource(
+                SearchMoviesPagingSource(
                     searchMoviesService = serviceFactory.searchMoviesService,
                     query = query
                 )
@@ -89,7 +89,7 @@ class MovieRepository(
         Pager(
             config = pagingConfig,
             pagingSourceFactory = {
-                SearchPersonPagingSource(
+                SearchPersonsPagingSource(
                     personsService = serviceFactory.searchPersonsService,
                     query = query
                 )

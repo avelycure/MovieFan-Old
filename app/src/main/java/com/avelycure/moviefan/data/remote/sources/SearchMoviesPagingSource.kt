@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import com.avelycure.moviefan.data.remote.dto.movie.MovieListResult
 import com.avelycure.moviefan.data.remote.service.movies.search.ISearchMoviesService
 
-class SearchPagingSource (
+class SearchMoviesPagingSource (
     val searchMoviesService: ISearchMoviesService,
     val query: String
 ) : PagingSource<Int, MovieListResult>() {

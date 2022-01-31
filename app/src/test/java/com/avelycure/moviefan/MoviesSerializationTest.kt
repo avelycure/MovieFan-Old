@@ -18,7 +18,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-class SerializationTest {
+class MoviesSerializationTest {
     @Test
     fun movieInfoShouldReturnTitle() {
         runBlocking {
