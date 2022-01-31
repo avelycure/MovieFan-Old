@@ -10,7 +10,7 @@ import com.avelycure.moviefan.data.local.entities.EntityPerson
 @Dao
 interface CachePersonsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPersons(movies: List<EntityPerson>)
+    suspend fun insertPersons(persons: List<EntityPerson>)
 
     @Query("SELECT * FROM persons")
     fun getPersons(): PagingSource<Int, EntityPerson>
