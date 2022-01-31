@@ -5,7 +5,7 @@ import androidx.paging.PagingSource
 import com.avelycure.moviefan.data.remote.dto.search_person.ResultPerson
 import com.avelycure.moviefan.data.remote.service.persons.search.ISearchPersonsService
 
-class SearchPersonPagingSource(
+class SearchPersonsPagingSource(
     val personsService: ISearchPersonsService,
     val query: String
 ) : PagingSource<Int, ResultPerson>() {

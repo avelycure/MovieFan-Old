@@ -18,7 +18,7 @@ import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-class CacheMovieDaoTest {
+class MoviePagingSourceTest {
 
     private lateinit var database: AppDatabase
     private lateinit var dao: CacheMovieDao
@@ -38,8 +38,7 @@ class CacheMovieDaoTest {
     }
 
     @Test
-    fun insertMovies() {
-        runBlocking {
+    fun insertMovies() = runBlocking {
             withContext(TestCoroutineDispatcher()) {
                 val movies = listOf(
                     EntityMovie(
@@ -76,6 +75,30 @@ class CacheMovieDaoTest {
 
                 assertThat(result).isEqualTo(expectedResult)
             }
+        }
+
+
+    @Test
+    fun clearMoviesDatabase() = runBlocking {
+        withContext(TestCoroutineDispatcher()){
+            dao.clearMovies()
+            val pagingSourceFactory = dao.getMovies()
+
+            val expectedResult = PagingSource.LoadResult.Page(
+                data = emptyList(),
+                prevKey = null,
+                nextKey = null,
+                itemsBefore = 0,
+                itemsAfter = 0
+            )
+
+            val result = pagingSourceFactory.load(PagingSource.LoadParams.Refresh(
+                key = 0,
+                loadSize = 3,
+                placeholdersEnabled = false
+            ))
+
+            assertThat(result).isEqualTo(expectedResult)
         }
     }
 }
