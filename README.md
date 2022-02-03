@@ -25,11 +25,13 @@ Application for getting information about films from The Movie Database:
 First of all, the user goes to the main page of the application, which contains a list of popular films
 
 <p>
-  <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/main.jpg" width="256" />
+  <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/main_movies.jpg" width="256" />
+  <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/main_persons.jpg" width="256" />
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/movie_info1.jpg" width="256" />
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/movie_info2.jpg" width="256" />
-  <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/search.jpg" width="256" />
-  <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/info.jpg" width="256" />
+  <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/person_info1.jpg" width="256" />
+  <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/person_info2.jpg" width="256" />
+  <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/person_info3.jpg" width="256" />
 </p>
 
 The user can quickly scroll through the list and quickly receive images thanks to Coil and Paging Library, while in the event of an Internet problem, the downloaded elements will not be lost. With LoadStateManager it is easy to show progress bar while loading images and show error messages if there are problems with internet connection.
