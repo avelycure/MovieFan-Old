@@ -29,8 +29,8 @@ First of all, the user goes to the main page of the application, which contains 
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/main_persons.jpg" width="256" />
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/movie_info__1.jpg" width="256" />
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/movie_info2.jpg" width="256" />
+    <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/movie_info3.jpg" width="256" />
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/person_info1.jpg" width="256" />
-  <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/person_info2.jpg" width="256" />
   <img src="https://github.com/avelycure/avelycure/blob/master/assets/movieFan/person_info3.jpg" width="256" />
 </p>
 
