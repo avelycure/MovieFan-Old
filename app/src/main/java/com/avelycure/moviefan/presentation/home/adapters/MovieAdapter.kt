@@ -3,6 +3,7 @@ package com.avelycure.moviefan.presentation.home.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.appcompat.widget.AppCompatTextView
@@ -26,6 +27,12 @@ class MovieAdapter:
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.bind(item = getItem(position), onClicked = onClickedItem)
+        holder.itemView.startAnimation(
+            AnimationUtils.loadAnimation(
+                holder.itemView.context,
+                R.anim.rv_animation
+            )
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
